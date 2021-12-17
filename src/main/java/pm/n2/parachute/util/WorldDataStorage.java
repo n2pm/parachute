@@ -13,6 +13,7 @@ public class WorldDataStorage {
     }
 
     private BlockPos[] worldEditPos = {null,null};
+    private String worldEditSelectionMode;
 
 
     public void reset(boolean isLogout) {
@@ -21,7 +22,7 @@ public class WorldDataStorage {
 
     public void registerWorldEditCUIChannel() {
         Parachute.LOGGER.info("WorldDataStorage#registerWorldeditCUIChannel()");
-        WorldEditCUINetworkHandler.registerReciever();
+        WorldEditCUINetworkHandler.registerReceiver();
     }
 
     public void onWorldJoin() {
@@ -33,11 +34,19 @@ public class WorldDataStorage {
     }
 
     public void resetWorldEditPos() {
-        worldEditPos[0] = null;
-        worldEditPos[1] = null;
+        this.worldEditPos[0] = null;
+        this.worldEditPos[1] = null;
     }
 
     public BlockPos[] getWorldEditPos() {
         return worldEditPos;
+    }
+
+    public String getWorldEditSelectionMode() {
+        return this.worldEditSelectionMode;
+    }
+
+    public void setWorldEditSelectionMode(String mode) {
+        this.worldEditSelectionMode = mode;
     }
 }

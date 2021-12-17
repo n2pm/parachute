@@ -19,12 +19,12 @@ public class WorldEditCUINetworkHandler {
     private static final Identifier CHANNEL = new Identifier("worldedit:cui");
     private static final int PROTOCOL_VERSION = 4;
 
-    public static void registerReciever() {
+    public static void registerReceiver() {
         ClientPlayNetworking.registerReceiver(CHANNEL, WorldEditCUINetworkHandler::onPacket);
         handshake();
     }
 
-    public static void unregisterReciever() {
+    public static void unregisterReceiver() {
         ClientPlayNetworking.unregisterReceiver(CHANNEL);
     }
 
@@ -39,13 +39,16 @@ public class WorldEditCUINetworkHandler {
             Parachute.LOGGER.debug("WorldEditCUINetworkHandler#onPacket(): Received CUI packet (" + type + ") with args: " + Joiner.on(", ").join(args));
             if (type.equals("p")) {
                 try {
-                    WorldDataStorage.getInstance().setWorldEditPos(Integer.parseInt(args[0]), new BlockPos(Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3])));
+                    if (WorldDataStorage.getInstance().getWorldEditSelectionMode().equals("cuboid")) {
+                        WorldDataStorage.getInstance().setWorldEditPos(Integer.parseInt(args[0]), new BlockPos(Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3])));
+                    }
                 } catch (NumberFormatException e) {
                     Parachute.LOGGER.warn("WorldEditCUINetworkHandler#onPacket(): Failed int parsing of position");
                     e.printStackTrace();
                 }
             }
             if (type.equals("s")) {
+                WorldDataStorage.getInstance().setWorldEditSelectionMode(args[0]);
                 WorldDataStorage.getInstance().resetWorldEditPos();
             }
         } else {

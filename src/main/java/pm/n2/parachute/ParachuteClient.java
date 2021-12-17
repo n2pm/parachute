@@ -2,7 +2,6 @@ package pm.n2.parachute;
 
 import fi.dy.masa.malilib.event.InitializationHandler;
 import net.fabricmc.api.ClientModInitializer;
-import net.minecraft.util.math.BlockPos;
 
 public class ParachuteClient implements ClientModInitializer {
 

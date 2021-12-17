@@ -8,7 +8,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import pm.n2.parachute.Parachute;
 import pm.n2.parachute.config.GenericConfigs;
 import pm.n2.parachute.config.TweakConfigs;
 
@@ -43,7 +42,6 @@ public class MixinYggdrasilMinecraftSessionService_authlib {
 
             if (GenericConfigs.SKIN_SIDELOADING_NON_MOJANG_DOMAINS.getBooleanValue()) {
                 cir.setReturnValue(true);
-                Parachute.LOGGER.info("Loading skin from {}", url);
             } else {
                 cir.setReturnValue(isDomainOnList(domain, ALLOWED_DOMAINS));
             }

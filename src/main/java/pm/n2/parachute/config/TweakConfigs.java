@@ -18,7 +18,6 @@ public class TweakConfigs {
     public static final ConfigBooleanHotkeyed TWEAK_SKIN_SIDELOADING = new ConfigBooleanHotkeyed("tweakSkinSideloading", false, "", "Disable skin domain checks in authlib and skin size checks", "Skin sideloading");
     public static final ConfigBooleanHotkeyed TWEAK_BYPASS_SERVER_BLOCKIST = new ConfigBooleanHotkeyed("tweakNoMojangServerBlocklist", false, "", "Probably don't do this", "Bypass Mojang's server blocklist");
     public static final ConfigBooleanHotkeyed TWEAK_STEP_ASSIST = new ConfigBooleanHotkeyed("tweakStepAssist", false, "", "Sets block step height to 1 block", "Step assist");
-    public static final ConfigBooleanHotkeyed TWEAK_DEBUG_CUSTOM_CHANNELS = new ConfigBooleanHotkeyed("tweakDebugCustomChannels", false, "", "Debug custom network channels", "Debug custom channels");
     public static final ConfigBooleanHotkeyed TWEAK_BRIGADIER_STRING_ESCAPES = new ConfigBooleanHotkeyed("tweakBrigadierStringEscapes", false, "", "A backport of brigadier#90. Makes stringified NBTs support more JSON-like string escapes. by Mstrodl\nRequires a compatible server if using on multiplayer", "Brigardier better string escapes");
 
     public static final ImmutableList<IHotkeyTogglable> OPTIONS = ImmutableList.of(
@@ -35,7 +34,6 @@ public class TweakConfigs {
             TWEAK_SKIN_SIDELOADING,
             TWEAK_BYPASS_SERVER_BLOCKIST,
             TWEAK_STEP_ASSIST,
-            TWEAK_DEBUG_CUSTOM_CHANNELS,
             TWEAK_BRIGADIER_STRING_ESCAPES
     );
 }

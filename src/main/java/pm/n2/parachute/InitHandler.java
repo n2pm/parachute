@@ -1,7 +1,6 @@
 package pm.n2.parachute;
 
 import fi.dy.masa.malilib.event.RenderEventHandler;
-import fi.dy.masa.malilib.interfaces.IRenderer;
 import pm.n2.parachute.events.InputHandler;
 import pm.n2.parachute.events.KeyCallbacks;
 import pm.n2.parachute.events.RenderHandler;

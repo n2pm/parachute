@@ -16,10 +16,8 @@ public class KeyCallbacks {
     }
 
     private static class KeyCallbackHotkeysGeneric implements IHotkeyCallback {
-        private final MinecraftClient client;
 
         public KeyCallbackHotkeysGeneric(MinecraftClient client) {
-            this.client = client;
         }
 
         @Override

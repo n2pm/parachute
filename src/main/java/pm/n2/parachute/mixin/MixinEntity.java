@@ -1,5 +1,6 @@
 package pm.n2.parachute.mixin;
 
+import pm.n2.parachute.config.GenericConfigs;
 import pm.n2.parachute.config.TweakConfigs;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
@@ -15,7 +16,7 @@ public class MixinEntity {
         Entity entity = (Entity) (Object) this;
         if (entity.isPlayer()) {
             // 0.6F defined in constructor of LivingEntity.java
-            entity.stepHeight = TweakConfigs.TWEAK_STEP_ASSIST.getBooleanValue() ? 1.6F : 0.6F;
+            entity.stepHeight = TweakConfigs.TWEAK_STEP_ASSIST.getBooleanValue() ? (float) GenericConfigs.STEP_ASSIST_HEIGHT.getDoubleValue() : 0.6F;
         }
     }
 }
