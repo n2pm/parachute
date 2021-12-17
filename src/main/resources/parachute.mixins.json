@@ -1,0 +1,33 @@
+{
+  "required": true,
+  "minVersion": "0.08",
+  "package": "pm.n2.parachute.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "MixinAllowedAddressResolver",
+    "MixinYggdrasilMinecraftSessionService_authlib",
+    "MixinBookEditScreen",
+    "MixinBossBarHud",
+    "MixinCamera",
+    "IMixinClickableWidget",
+    "MixinClientConnection",
+    "MixinClientPlayNetworkHandler",
+    "MixinDisconnectedScreen",
+    "MixinGameRenderer",
+    "MixinInGameHud",
+    "MixinInGameOverlayRenderer",
+    "MixinKeyboard",
+    "MixinMinecraftClient",
+    "MixinPlayerListHud",
+    "MixinPlayerSkinTexture",
+    "MixinTeam",
+    "MixinBackgroundRenderer",
+    "MixinEntity",
+    "MixinLightmapTextureManager",
+    "MixinStringReader_brigadier",
+    "MixinYggdrasilUserApiService_authlib"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parachute.hotkeys.category": "Parachute",
+  "parachute.gui.config.title": "Parachute Config",
+  "parachute.gui.config.generic": "General",
+  "parachute.gui.config.tweaks": "Tweaks",
+  "parachute.gui.config.tweaksHotkeys": "Tweaks Keybinds",
+  "parachute.gui.config.render": "Render",
+  "parachute.gui.config.renderHotkeys": "Render Keybinds"
+}
