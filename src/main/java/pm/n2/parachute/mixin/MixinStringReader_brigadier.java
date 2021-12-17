@@ -64,6 +64,7 @@ public class MixinStringReader_brigadier {
                     escaped = true;
                 } else if (c == terminator) {
                     cir.setReturnValue(result.toString());
+                    return;
                 } else {
                     result.append(c);
                 }
