@@ -9,6 +9,6 @@ public class ParachuteClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         InitializationHandler.getInstance().registerInitializationHandler(new InitHandler());
-        Parachute.LOGGER.info("Hello from parachute <3 ! Minecraft's block pos code is still {} blocks off.", BlockPos.ORIGIN.getSquaredDistance(BlockPos.ORIGIN));
+        Parachute.LOGGER.info("Hello from parachute <3!");
     }
 }

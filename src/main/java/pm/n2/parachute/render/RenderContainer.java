@@ -21,7 +21,7 @@ public class RenderContainer {
     protected int countActive;
 
     private RenderContainer() {
-        this.addRenderer(new OverlayRendererWorldeditCUI());
+        this.addRenderer(new OverlayRendererWorldEditCUI());
     }
 
     private void addRenderer(OverlayRendererBase renderer) {

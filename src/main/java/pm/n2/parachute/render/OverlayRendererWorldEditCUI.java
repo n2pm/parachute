@@ -11,7 +11,7 @@ import net.minecraft.util.math.Vec3d;
 import pm.n2.parachute.config.TweakConfigs;
 import pm.n2.parachute.util.WorldDataStorage;
 
-public class OverlayRendererWorldeditCUI extends OverlayRendererBase {
+public class OverlayRendererWorldEditCUI extends OverlayRendererBase {
     protected static boolean needsUpdate = true;
 
     private final Color4f white = new Color4f(1f, 1f, 1f, 0.25f);

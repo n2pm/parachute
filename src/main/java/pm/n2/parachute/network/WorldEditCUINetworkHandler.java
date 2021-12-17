@@ -15,12 +15,12 @@ import pm.n2.parachute.util.WorldDataStorage;
 
 import java.nio.charset.StandardCharsets;
 
-public class WorldeditCUINetworkHandler {
+public class WorldEditCUINetworkHandler {
     private static final Identifier CHANNEL = new Identifier("worldedit:cui");
     private static final int PROTOCOL_VERSION = 4;
 
     public static void registerReciever() {
-        ClientPlayNetworking.registerReceiver(CHANNEL, WorldeditCUINetworkHandler::onPacket);
+        ClientPlayNetworking.registerReceiver(CHANNEL, WorldEditCUINetworkHandler::onPacket);
         handshake();
     }
 
@@ -36,12 +36,12 @@ public class WorldeditCUINetworkHandler {
             boolean multi = split[0].startsWith("+");
             String type = split[0].substring(multi ? 1 : 0);
             String[] args = message.substring(type.length() + (multi ? 2 : 1)).split("\\|", -1);
-            Parachute.LOGGER.info("WorldeditCUINetworkHandler#onPacket(): Received CUI packet (" + type + ") with args: " + Joiner.on(", ").join(args));
+            Parachute.LOGGER.debug("WorldEditCUINetworkHandler#onPacket(): Received CUI packet (" + type + ") with args: " + Joiner.on(", ").join(args));
             if (type.equals("p")) {
                 try {
                     WorldDataStorage.getInstance().setWorldEditPos(Integer.parseInt(args[0]), new BlockPos(Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3])));
                 } catch (NumberFormatException e) {
-                    Parachute.LOGGER.warn("WorldeditCUINetworkHandler#onPacket(): Failed int parsing of position");
+                    Parachute.LOGGER.warn("WorldEditCUINetworkHandler#onPacket(): Failed int parsing of position");
                     e.printStackTrace();
                 }
             }
@@ -49,7 +49,7 @@ public class WorldeditCUINetworkHandler {
                 WorldDataStorage.getInstance().resetWorldEditPos();
             }
         } else {
-            Parachute.LOGGER.warn("WorldeditCUINetworkHandler#onPacket(): Received CUI packet of length zero");
+            Parachute.LOGGER.warn("WorldEditCUINetworkHandler#onPacket(): Received CUI packet of length zero");
         }
     }
 

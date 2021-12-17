@@ -1,10 +1,8 @@
 package pm.n2.parachute.util;
 
-import net.minecraft.block.Block;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import pm.n2.parachute.Parachute;
-import pm.n2.parachute.network.WorldeditCUINetworkHandler;
+import pm.n2.parachute.network.WorldEditCUINetworkHandler;
 
 public class WorldDataStorage {
     private static final WorldDataStorage INSTANCE = new WorldDataStorage();
@@ -21,13 +19,13 @@ public class WorldDataStorage {
         this.resetWorldEditPos();
     }
 
-    public void registerWorldeditCUIChannel() {
+    public void registerWorldEditCUIChannel() {
         Parachute.LOGGER.info("WorldDataStorage#registerWorldeditCUIChannel()");
-        WorldeditCUINetworkHandler.registerReciever();
+        WorldEditCUINetworkHandler.registerReciever();
     }
 
     public void onWorldJoin() {
-        this.registerWorldeditCUIChannel();
+        this.registerWorldEditCUIChannel();
     }
 
     public void setWorldEditPos(int pos, BlockPos blockPos) {
