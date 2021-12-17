@@ -6,7 +6,8 @@
   "description": "A soft landing for a hard fall.",
   "authors": ["NotNite", "adryd"],
   "contact": {
-    "homepage": "https://gitlab.com/jules/parachute"
+    "homepage": "https://gitlab.com/notnet/parachute",
+    "source": "https://gitlab.com/notnet/parachute"
   },
   "icon": "assets/parachute/icon.png",
   "environment": "client",
