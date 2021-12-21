@@ -8,12 +8,20 @@ targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = project.archives_base_name + "-" + project.minecraft_version
 
-mod_version = project.mod_version
-if (!project.hasProperty("dist")) {
-	mod_version = mod_version + "+" + new Date().format('yyyyMMdd.HHmmss') + "-SNAPSHOT"
+def build_release = System.getenv("BUILD_RELEASE") == "true"
+def build_ci_commit = System.getenv("CI_COMMIT_SHORT_SHA")
+
+version = project.mod_version + ""
+
+if (!build_release) {
+    version = project.mod_version + "+" + new Date().format('yyyyMMdd.HHmmss') + "-SNAPSHOT"
 }
 
-version = mod_version
+if (build_ci_commit != null) {
+    version = project.mod_version + "+${build_ci_commit}"
+}
+
+
 group = project.maven_group
 
 repositories {
