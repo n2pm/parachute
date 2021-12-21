@@ -19,6 +19,7 @@ public class TweakConfigs {
     public static final ConfigBooleanHotkeyed TWEAK_BYPASS_SERVER_BLOCKIST = new ConfigBooleanHotkeyed("tweakNoMojangServerBlocklist", false, "", "Probably don't do this", "Bypass Mojang's server blocklist");
     public static final ConfigBooleanHotkeyed TWEAK_STEP_ASSIST = new ConfigBooleanHotkeyed("tweakStepAssist", false, "", "Sets block step height to 1 block", "Step assist");
     public static final ConfigBooleanHotkeyed TWEAK_BRIGADIER_STRING_ESCAPES = new ConfigBooleanHotkeyed("tweakBrigadierStringEscapes", false, "", "A backport of brigadier#90. Makes stringified NBTs support more JSON-like string escapes. by Mstrodl\nRequires a compatible server if using on multiplayer", "Brigardier better string escapes");
+    public static final ConfigBooleanHotkeyed TWEAK_CONFIGURABLE_CHAT_LENGTH = new ConfigBooleanHotkeyed("tweakConfigurableChatLength", false, "", "Configure the length in GenericConfigs chatLength", "Overwrite chat length");
 
     public static final ImmutableList<IHotkeyTogglable> OPTIONS = ImmutableList.of(
             TWEAK_WORLDEDIT_CUI,
@@ -34,6 +35,7 @@ public class TweakConfigs {
             TWEAK_SKIN_SIDELOADING,
             TWEAK_BYPASS_SERVER_BLOCKIST,
             TWEAK_STEP_ASSIST,
-            TWEAK_BRIGADIER_STRING_ESCAPES
+            TWEAK_BRIGADIER_STRING_ESCAPES,
+            TWEAK_CONFIGURABLE_CHAT_LENGTH
     );
 }
