@@ -11,8 +11,6 @@ import net.minecraft.client.MinecraftClient;
 import pm.n2.parachute.mixin.IMixinMinecraftClient;
 
 public class KeyCallbacks {
-    private MinecraftClient client;
-
     public static void init(MinecraftClient client) {
         IHotkeyCallback callbackGeneric = new KeyCallbackHotkeysGeneric(client);
 

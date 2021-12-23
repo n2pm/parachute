@@ -3,6 +3,7 @@ package pm.n2.parachute;
 import com.google.common.collect.Maps;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
@@ -10,20 +11,17 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.CommandNode;
 import com.mojang.brigadier.tree.RootCommandNode;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.suggestion.SuggestionProviders;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import pm.n2.parachute.command.ExampleCommand;
 import pm.n2.parachute.command.HelpCommand;
+import pm.n2.parachute.util.FakeCommandSource;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 // I wish fabric client commands api was like this, then it'd actually be useful
 public class ParachuteCommands {
@@ -35,15 +33,21 @@ public class ParachuteCommands {
     }
 
     private final CommandDispatcher<FakeCommandSource> dispatcher = new CommandDispatcher<>();
+    private MinecraftClient client;
 
     public ParachuteCommands() {
+        this.client = MinecraftClient.getInstance();
         ExampleCommand.register(this.dispatcher);
         HelpCommand.register(this.dispatcher);
         this.dispatcher.findAmbiguities((parent, child, sibling, inputs) -> Parachute.LOGGER.warn("Ambiguity between arguments {} and {} with inputs: {}", this.dispatcher.getPath(child), this.dispatcher.getPath(sibling), inputs));
     }
 
-    public static LiteralArgumentBuilder<ServerCommandSource> literal(String literal) {
+    public static LiteralArgumentBuilder<FakeCommandSource> literal(String literal) {
         return LiteralArgumentBuilder.literal(literal);
+    }
+
+    public static <T> RequiredArgumentBuilder<FakeCommandSource, T> argument(String name, ArgumentType<T> type) {
+        return RequiredArgumentBuilder.argument(name, type);
     }
 
     public void execute(String command, FakeCommandSource source) {
@@ -76,7 +80,7 @@ public class ParachuteCommands {
 
     public boolean executeCommand(String message) {
         if (message.charAt(0) == COMMAND_PREFIX) {
-            execute(message, new FakeCommandSource(MinecraftClient.getInstance()));
+            execute(message, new FakeCommandSource(this.client));
             return false;
         }
         return true;
@@ -86,7 +90,7 @@ public class ParachuteCommands {
         HashMap<CommandNode<FakeCommandSource>, CommandNode<CommandSource>> map = Maps.newHashMap();
         RootCommandNode<CommandSource> rootCommandNode = new RootCommandNode<>();
         map.put(this.dispatcher.getRoot(), rootCommandNode);
-        this.createCommandTree(this.dispatcher.getRoot(), rootCommandNode, new FakeCommandSource(MinecraftClient.getInstance()), map);
+        this.createCommandTree(this.dispatcher.getRoot(), rootCommandNode, new FakeCommandSource(this.client), map);
         return rootCommandNode;
     }
 
@@ -118,37 +122,6 @@ public class ParachuteCommands {
                     this.createCommandTree(commandNode, requiredArgumentBuilder, source, resultNodes);
                 }
             }
-        }
-    }
-
-    public CommandDispatcher<FakeCommandSource> getDispatcher() {
-        return this.dispatcher;
-    }
-
-    public static class FakeCommandSource extends ServerCommandSource {
-        private final MinecraftClient client;
-        private final ChatHud chatHud;
-
-        public FakeCommandSource(MinecraftClient client) {
-            super(client.player, client.player.getPos(), client.player.getRotationClient(), null, 0, client.player.getEntityName(), client.player.getName(), null, client.player);
-            this.client = MinecraftClient.getInstance();
-            this.chatHud = this.client.inGameHud.getChatHud();
-        }
-
-        public Collection<String> getPlayerNames() {
-            return client.getNetworkHandler().getPlayerList().stream().map(e -> e.getProfile().getName()).collect(Collectors.toList());
-        }
-
-        public void sendFeedback(Text message) {
-            this.chatHud.addMessage(message);
-        }
-
-        public void sendFeedback(Text message, Boolean broadcastToOps) {
-            this.chatHud.addMessage(message);
-        }
-
-        public void sendError(Text message) {
-            this.chatHud.addMessage(new LiteralText("").append(message).formatted(Formatting.RED));
         }
     }
 }

@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import pm.n2.parachute.ParachuteCommands;
+import pm.n2.parachute.util.FakeCommandSource;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -50,7 +51,7 @@ public abstract class MixinCommandSuggestor {
             stringReader.setCursor(stringReader.getCursor() + 1);
             CommandDispatcher<CommandSource> dispatcher = new CommandDispatcher<>(ParachuteCommands.getInstance().getCommandTree());
             if (this.parse == null) {
-                this.parse = dispatcher.parse(stringReader, new ParachuteCommands.FakeCommandSource(this.client));
+                this.parse = dispatcher.parse(stringReader, new FakeCommandSource(this.client));
             }
             if (textField.getCursor() >= 1 && (this.window == null || !this.completingSuggestions)) {
                 this.pendingSuggestions = dispatcher.getCompletionSuggestions(this.parse, textField.getCursor());
