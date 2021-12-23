@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "IMixinClickableWidget",
+    "IMixinMinecraftClient",
     "MixinAllowedAddressResolver",
     "MixinBackgroundRenderer",
     "MixinBookEditScreen",
@@ -12,7 +13,9 @@
     "MixinCamera",
     "MixinChatHud",
     "MixinClientConnection",
+    "MixinClientPlayerEntity",
     "MixinClientPlayNetworkHandler",
+    "MixinCommandSuggestor",
     "MixinDisconnectedScreen",
     "MixinEntity",
     "MixinGameRenderer",

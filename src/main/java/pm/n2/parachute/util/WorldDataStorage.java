@@ -12,7 +12,7 @@ public class WorldDataStorage {
         return INSTANCE;
     }
 
-    private BlockPos[] worldEditPos = {null,null};
+    private final BlockPos[] worldEditPos = {null,null};
     private String worldEditSelectionMode;
 
 

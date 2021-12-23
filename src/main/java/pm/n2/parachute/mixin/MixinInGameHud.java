@@ -63,7 +63,7 @@ public abstract class MixinInGameHud {
     }
 
     @Inject(method = "renderVignetteOverlay", at = @At("HEAD"), cancellable = true)
-    private void hideVingette(Entity entity, CallbackInfo ci) {
+    private void hideVignette(Entity entity, CallbackInfo ci) {
         if (RenderConfigs.RENDER_HIDE_VIGNETTE.getBooleanValue()) {
             ci.cancel();
         }

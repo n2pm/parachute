@@ -29,7 +29,7 @@ public class MixinYggdrasilMinecraftSessionService_authlib {
     @Inject(method = "isAllowedTextureDomain", at = @At(value = "HEAD"), cancellable = true, remap = false)
     private static void ignoreTextureDomainCheck(String url, CallbackInfoReturnable<Boolean> cir) {
         if (TweakConfigs.TWEAK_SKIN_SIDELOADING.getBooleanValue()) {
-            // Copy vanilla code for getting the domain since Its Not In Scope
+            // Copy vanilla code for getting the domain since it's Not In Scope
             URI uri;
 
             try {
