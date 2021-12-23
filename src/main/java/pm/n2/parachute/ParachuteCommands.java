@@ -18,6 +18,7 @@ import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import pm.n2.parachute.command.ExampleCommand;
 import pm.n2.parachute.command.HelpCommand;
+import pm.n2.parachute.command.ModsCommand;
 import pm.n2.parachute.util.FakeCommandSource;
 
 import java.util.HashMap;
@@ -39,6 +40,7 @@ public class ParachuteCommands {
         this.client = MinecraftClient.getInstance();
         ExampleCommand.register(this.dispatcher);
         HelpCommand.register(this.dispatcher);
+        ModsCommand.register(this.dispatcher);
         this.dispatcher.findAmbiguities((parent, child, sibling, inputs) -> Parachute.LOGGER.warn("Ambiguity between arguments {} and {} with inputs: {}", this.dispatcher.getPath(child), this.dispatcher.getPath(sibling), inputs));
     }
 
@@ -86,6 +88,7 @@ public class ParachuteCommands {
         return true;
     }
 
+    // Copied from vanilla
     public RootCommandNode<CommandSource> getCommandTree() {
         HashMap<CommandNode<FakeCommandSource>, CommandNode<CommandSource>> map = Maps.newHashMap();
         RootCommandNode<CommandSource> rootCommandNode = new RootCommandNode<>();

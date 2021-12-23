@@ -16,7 +16,7 @@ import java.util.Map;
 public class HelpCommand {
     private static final SimpleCommandExceptionType FAILED_EXCEPTION = new SimpleCommandExceptionType(new TranslatableText("commands.help.failed"));
 
-    // Copied vanilla code
+    // Copied from vanilla
     public static void register(CommandDispatcher<FakeCommandSource> dispatcher) {
         dispatcher.register(ParachuteCommands
                 .literal("help")
