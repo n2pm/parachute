@@ -20,6 +20,7 @@ public class TweakConfigs {
     public static final ConfigBooleanHotkeyed TWEAK_STEP_ASSIST = new ConfigBooleanHotkeyed("tweakStepAssist", false, "", "Sets block step height to 1 block", "Step assist");
     public static final ConfigBooleanHotkeyed TWEAK_BRIGADIER_STRING_ESCAPES = new ConfigBooleanHotkeyed("tweakBrigadierStringEscapes", false, "", "A backport of brigadier#90. Makes stringified NBTs support more JSON-like string escapes. by Mstrodl\nRequires a compatible server if using on multiplayer", "Brigardier better string escapes");
     public static final ConfigBooleanHotkeyed TWEAK_CONFIGURABLE_CHAT_LENGTH = new ConfigBooleanHotkeyed("tweakConfigurableChatLength", false, "", "Configure the length in GenericConfigs chatLength", "Overwrite chat length");
+    public static final ConfigBooleanHotkeyed TWEAK_ALLOW_DISALLOWED_CHARS = new ConfigBooleanHotkeyed("tweakAllowDisallowedChars", false,"","Allow use of disallowed chars for command blocks or as of a way of kicking yourself from a multiplayer server","Allow use of disallowed chars");
 
     public static final ImmutableList<IHotkeyTogglable> OPTIONS = ImmutableList.of(
             TWEAK_WORLDEDIT_CUI,
@@ -36,6 +37,7 @@ public class TweakConfigs {
             TWEAK_BYPASS_SERVER_BLOCKIST,
             TWEAK_STEP_ASSIST,
             TWEAK_BRIGADIER_STRING_ESCAPES,
-            TWEAK_CONFIGURABLE_CHAT_LENGTH
+            TWEAK_CONFIGURABLE_CHAT_LENGTH,
+            TWEAK_ALLOW_DISALLOWED_CHARS
     );
 }

@@ -22,6 +22,7 @@ public class RenderConfigs {
     public static final ConfigBooleanHotkeyed RENDER_NO_NIGHT_VISION_FLASHING = new ConfigBooleanHotkeyed("renderNoNightVisionFlashing", false, "", "Disable flashing when night vision potion is ending", "Disable night vision flashing");
     public static final ConfigBooleanHotkeyed RENDER_NO_BLINDNESS = new ConfigBooleanHotkeyed("renderNoBlindnessFog", false, "", "Disables blindness fog");
     public static final ConfigBooleanHotkeyed RENDER_NO_TORCH_FLICKER = new ConfigBooleanHotkeyed("renderNoTorchFlicker", false, "", "Disables the subtle flicker from artificial light sources");
+    public static final ConfigBooleanHotkeyed RENDER_SCALE_DEBUG_PIE = new ConfigBooleanHotkeyed("renderScaleDebugPie",false,"","Scale's the debug pie to the gui scale of the game", "Scale debug pie");
 
     public static final ImmutableList<IHotkeyTogglable> OPTIONS = ImmutableList.of(
             RENDER_HIDE_SCOREBOARD_NUMBERS,
@@ -40,6 +41,7 @@ public class RenderConfigs {
             RENDER_NIGHT_VISION,
             RENDER_NO_NIGHT_VISION_FLASHING,
             RENDER_NO_BLINDNESS,
-            RENDER_NO_TORCH_FLICKER
+            RENDER_NO_TORCH_FLICKER,
+            RENDER_SCALE_DEBUG_PIE
     );
 }

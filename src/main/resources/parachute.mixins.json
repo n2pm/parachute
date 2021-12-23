@@ -23,6 +23,7 @@
     "MixinMinecraftClient",
     "MixinPlayerListHud",
     "MixinPlayerSkinTexture",
+    "MixinSharedConstants",
     "MixinStringReader_brigadier",
     "MixinTeam",
     "MixinYggdrasilMinecraftSessionService_authlib",
