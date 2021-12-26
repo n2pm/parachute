@@ -1,8 +1,7 @@
 package pm.n2.parachute.mixin;
 
 import pm.n2.parachute.Parachute;
-import pm.n2.parachute.config.GenericConfigs;
-import pm.n2.parachute.config.TweakConfigs;
+import pm.n2.parachute.config.Configs;
 import pm.n2.parachute.util.GlobalDataStorage;
 import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
@@ -28,7 +27,7 @@ public abstract class MixinDisconnectedScreen extends Screen {
     @Unique
     private ButtonWidget reconnectBtn;
     @Unique
-    private int time = GenericConfigs.AUTO_RECONNECT_TIME.getIntegerValue() * 20;
+    private int time = Configs.FeatureConfigs.AUTO_RECONNECT_TIME.getIntegerValue() * 20;
 
     protected MixinDisconnectedScreen(Text title) {
         super(title);
@@ -37,7 +36,7 @@ public abstract class MixinDisconnectedScreen extends Screen {
     @Inject(method = "init", at = @At("TAIL"))
     private void addReconnectButton(CallbackInfo info) {
         ServerInfo lastServerInfo = GlobalDataStorage.getInstance().getLastServer();
-        boolean tweakEnabled = TweakConfigs.TWEAK_RECONNECT_BUTTON.getBooleanValue();
+        boolean tweakEnabled = Configs.FeatureConfigs.RECONNECT_BUTTON.getBooleanValue();
 
         if (lastServerInfo != null && tweakEnabled) {
             int x = width / 2 - 100;
@@ -50,7 +49,7 @@ public abstract class MixinDisconnectedScreen extends Screen {
     @Override
     public void tick() {
         ServerInfo lastServerInfo = GlobalDataStorage.getInstance().getLastServer();
-        boolean tweakEnabled = TweakConfigs.TWEAK_AUTO_RECONNECT_ENABLED.getBooleanValue();
+        boolean tweakEnabled = Configs.FeatureConfigs.AUTO_RECONNECT_ENABLED.getBooleanValue();
 
         if (lastServerInfo != null && tweakEnabled) {
             if (time <= 0) {
@@ -74,7 +73,7 @@ public abstract class MixinDisconnectedScreen extends Screen {
         String reconnectText = "Reconnect";
         float timeLeft = (float) time / 20;
 
-        boolean autoReconnect = TweakConfigs.TWEAK_AUTO_RECONNECT_ENABLED.getBooleanValue();
+        boolean autoReconnect = Configs.FeatureConfigs.AUTO_RECONNECT_ENABLED.getBooleanValue();
         if (autoReconnect) reconnectText += " " + String.format("(%.1f)", timeLeft);
 
         return new LiteralText(reconnectText);

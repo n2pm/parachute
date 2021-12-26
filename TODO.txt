@@ -1,6 +1,5 @@
 Heya! here are some features we'd like to implement
 
- - Make configs for tweaks appear below the tweak in TweakConfigs to make it more apparent that they're linked
  - Figure out a way of getting MaLiLib to display pretty names in the config menu
  - Clear worldedit data on dimension change
  - Panorama command

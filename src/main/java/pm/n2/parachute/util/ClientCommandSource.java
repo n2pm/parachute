@@ -3,17 +3,14 @@ package pm.n2.parachute.util;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.command.CommandSource;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Position;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.RegistryKey;
@@ -25,12 +22,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class FakeCommandSource implements CommandSource {
+public class ClientCommandSource implements CommandSource {
     private final MinecraftClient client;
     private final ChatHud chatHud;
     private final ClientPlayerEntity player;
 
-    public FakeCommandSource(MinecraftClient client) {
+    public ClientCommandSource(MinecraftClient client) {
         this.client = client;
         this.player = this.client.player;
         this.chatHud = this.client.inGameHud.getChatHud();

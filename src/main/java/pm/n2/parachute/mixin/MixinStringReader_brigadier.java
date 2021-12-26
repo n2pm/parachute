@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import pm.n2.parachute.config.TweakConfigs;
+import pm.n2.parachute.config.Configs;
 
 @Mixin(value = StringReader.class, remap = false)
 public class MixinStringReader_brigadier {
@@ -18,7 +18,7 @@ public class MixinStringReader_brigadier {
      */
     @Inject(method = "readStringUntil", at=@At("HEAD"), cancellable = true, remap = false)
     public void readStringUntil(char terminator, CallbackInfoReturnable<String> cir) throws CommandSyntaxException {
-        if (TweakConfigs.TWEAK_BRIGADIER_STRING_ESCAPES.getBooleanValue()) {
+        if (Configs.TweakConfigs.BRIGADIER_STRING_ESCAPES.getBooleanValue()) {
             StringReader self = (StringReader) (Object) this;
             final StringBuilder result = new StringBuilder();
             boolean escaped = false;

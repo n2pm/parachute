@@ -1,7 +1,7 @@
 package pm.n2.parachute.events;
 
 import pm.n2.parachute.ParachuteCommands;
-import pm.n2.parachute.config.GenericConfigs;
+import pm.n2.parachute.config.Configs;
 import pm.n2.parachute.gui.ConfigGui;
 import fi.dy.masa.malilib.gui.GuiBase;
 import fi.dy.masa.malilib.hotkeys.IHotkeyCallback;
@@ -14,8 +14,8 @@ public class KeyCallbacks {
     public static void init(MinecraftClient client) {
         IHotkeyCallback callbackGeneric = new KeyCallbackHotkeysGeneric(client);
 
-        GenericConfigs.OPEN_CONFIG_GUI.getKeybind().setCallback(callbackGeneric);
-        GenericConfigs.OPEN_CLIENT_COMMANDS.getKeybind().setCallback(callbackGeneric);
+        Configs.GeneralConfigs.OPEN_CONFIG_GUI.getKeybind().setCallback(callbackGeneric);
+        Configs.GeneralConfigs.OPEN_CLIENT_COMMANDS.getKeybind().setCallback(callbackGeneric);
     }
 
     private static class KeyCallbackHotkeysGeneric implements IHotkeyCallback {
@@ -26,11 +26,11 @@ public class KeyCallbacks {
 
         @Override
         public boolean onKeyAction(KeyAction action, IKeybind key) {
-            if (key == GenericConfigs.OPEN_CONFIG_GUI.getKeybind()) {
+            if (key == Configs.GeneralConfigs.OPEN_CONFIG_GUI.getKeybind()) {
                 GuiBase.openGui(new ConfigGui());
                 return true;
             }
-            if (key == GenericConfigs.OPEN_CLIENT_COMMANDS.getKeybind()) {
+            if (key == Configs.GeneralConfigs.OPEN_CLIENT_COMMANDS.getKeybind()) {
                 ((IMixinMinecraftClient) client).pubOpenChatScreen(Character.toString(ParachuteCommands.COMMAND_PREFIX));
                 return true;
             }

@@ -1,12 +1,14 @@
 plugins {
 	id 'fabric-loom' version '0.10-SNAPSHOT'
+	id "io.github.juuxel.loom-quiltflower-mini" version "1.1.0"
 	id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_16
-targetCompatibility = JavaVersion.VERSION_16
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name + "-" + project.minecraft_version
+group = project.maven_group
 
 def build_release = System.getenv("BUILD_RELEASE") == "true"
 def build_ci_commit = System.getenv("CI_COMMIT_SHORT_SHA")
@@ -21,18 +23,26 @@ if (build_ci_commit != null) {
     version = project.mod_version + "+${build_ci_commit}"
 }
 
-
-group = project.maven_group
-
 repositories {
 	maven { url "https://masa.dy.fi/maven" }
-	maven { url 'https://maven.terraformersmc.com/releases/' }
+	maven { url "https://maven.terraformersmc.com/releases/" }
+	maven { url "https://maven.gegy.dev/" }
+	mavenCentral()
+}
+
+quiltflower {
+	addToRuntimeClasspath.set(true)
 }
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
+
+	modRuntimeOnly ("supercoder79:databreaker:0.2.8") {
+		exclude module: "fabric-loader"
+	}
+	implementation 'com.github.bbottema:jetbrains-runtime-annotations:1.0.0'
 
 	// probably a bad idea to jij this lol
 	modApi include("fi.dy.masa.malilib:malilib-fabric-1.18.0:${project.malilib_version}")
@@ -51,7 +61,7 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = "UTF-8"
-	it.options.release = 16
+	it.options.release = 17
 }
 
 java {
@@ -68,16 +78,9 @@ jar {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			// add all the jars that should be included when publishing to maven
-			artifact(remapJar) {
-				builtBy remapJar
-			}
-			artifact(sourcesJar) {
-				builtBy remapSourcesJar
-			}
+			from components.java
 		}
 	}
-
 	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
 	repositories {
 		// Add repositories to publish to here.

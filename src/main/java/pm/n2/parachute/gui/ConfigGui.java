@@ -1,10 +1,5 @@
 package pm.n2.parachute.gui;
 
-import com.google.common.collect.ImmutableList;
-import pm.n2.parachute.Parachute;
-import pm.n2.parachute.config.GenericConfigs;
-import pm.n2.parachute.config.RenderConfigs;
-import pm.n2.parachute.config.TweakConfigs;
 import fi.dy.masa.malilib.config.ConfigType;
 import fi.dy.masa.malilib.config.ConfigUtils;
 import fi.dy.masa.malilib.config.IConfigBase;
@@ -13,6 +8,8 @@ import fi.dy.masa.malilib.gui.button.ButtonBase;
 import fi.dy.masa.malilib.gui.button.ButtonGeneric;
 import fi.dy.masa.malilib.gui.button.IButtonActionListener;
 import fi.dy.masa.malilib.util.StringUtils;
+import pm.n2.parachute.Parachute;
+import pm.n2.parachute.config.Configs;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +17,6 @@ import java.util.Objects;
 
 public class ConfigGui extends GuiConfigsBase {
     private static GuiTabs tab = GuiTabs.TWEAKS;
-    private static GuiTabs lastTab;
 
     public ConfigGui() {
         super(10, 50, Parachute.MOD_ID, null, "parachute.gui.config.title");
@@ -33,9 +29,26 @@ public class ConfigGui extends GuiConfigsBase {
 
         int x = 10;
         int y = 26;
+        int rows = 1;
 
         for (GuiTabs tab : GuiTabs.values()) {
-            x += this.createButton(x, y, -1, tab);
+            int width = this.getStringWidth(tab.getDisplayName()) + 10;
+
+            if (x >= this.width - width - 10) {
+                x = 10;
+                y += 22;
+                rows++;
+            }
+
+            x += this.createButton(x, y, width, tab);
+        }
+
+        if (rows > 1) {
+            int scrollbarPosition = this.getListWidget().getScrollbar().getValue();
+            this.setListPosition(this.getListX(), 50 + (rows - 1) * 22);
+            this.reCreateListWidget();
+            this.getListWidget().getScrollbar().setValue(scrollbarPosition);
+            this.getListWidget().refreshEntries();
         }
     }
 
@@ -49,25 +62,45 @@ public class ConfigGui extends GuiConfigsBase {
 
 
     @Override
+    protected boolean useKeybindSearch() {
+        return ConfigGui.tab == GuiTabs.TWEAKS_HOTKEYS || ConfigGui.tab == GuiTabs.RENDER_HOTKEYS;
+    }
+
+    @Override
+    protected int getConfigWidth() {
+        GuiTabs tab = ConfigGui.tab;
+
+        // There are no keybinds here so this doesn't need to be huge
+        if (tab == GuiTabs.FEATURES || tab == GuiTabs.TWEAKS || tab == GuiTabs.RENDER) {
+            return 100;
+        }
+
+        return super.getConfigWidth();
+    }
+
+    @Override
     public List<ConfigOptionWrapper> getConfigs() {
         List<? extends IConfigBase> configs;
         GuiTabs tab = ConfigGui.tab;
 
         switch (tab) {
             case GENERIC:
-                configs = GenericConfigs.OPTIONS;
+                configs = Configs.GENERAL_CONFIGS.get();
+                break;
+            case FEATURES:
+                configs = Configs.FEATURE_CONFIGS.get();
                 break;
             case TWEAKS:
-                configs = ConfigUtils.createConfigWrapperForType(ConfigType.BOOLEAN, ImmutableList.copyOf(TweakConfigs.OPTIONS));
+                configs = Configs.TWEAK_CONFIGS.get();
                 break;
             case TWEAKS_HOTKEYS:
-                configs = ConfigUtils.createConfigWrapperForType(ConfigType.HOTKEY, ImmutableList.copyOf(TweakConfigs.OPTIONS));
+                configs = ConfigUtils.createConfigWrapperForType(ConfigType.HOTKEY, Configs.TWEAK_CONFIGS.getHotkeys());
                 break;
             case RENDER:
-                configs = ConfigUtils.createConfigWrapperForType(ConfigType.BOOLEAN, ImmutableList.copyOf(RenderConfigs.OPTIONS));
+                configs = Configs.RENDER_CONFIGS.get();
                 break;
             case RENDER_HOTKEYS:
-                configs = ConfigUtils.createConfigWrapperForType(ConfigType.HOTKEY, ImmutableList.copyOf(RenderConfigs.OPTIONS));
+                configs = ConfigUtils.createConfigWrapperForType(ConfigType.HOTKEY, Configs.RENDER_CONFIGS.getHotkeys());
                 break;
             default:
                 return Collections.emptyList();
@@ -76,19 +109,10 @@ public class ConfigGui extends GuiConfigsBase {
         return ConfigOptionWrapper.createFor(configs);
     }
 
-    private static class ButtonListener implements IButtonActionListener {
-        private final ConfigGui parent;
-        private final GuiTabs tab;
-
-        public ButtonListener(GuiTabs tab, ConfigGui parent) {
-            this.tab = tab;
-            this.parent = parent;
-        }
-
-
+    private record ButtonListener(GuiTabs tab, ConfigGui parent) implements IButtonActionListener {
         @Override
         public void actionPerformedWithButton(ButtonBase button, int mouseButton) {
-            ConfigGui.lastTab = ConfigGui.tab;
+
             ConfigGui.tab = this.tab;
 
             this.parent.reCreateListWidget(); // apply the new config width
@@ -100,6 +124,7 @@ public class ConfigGui extends GuiConfigsBase {
 
     public enum GuiTabs {
         GENERIC("parachute.gui.config.generic"),
+        FEATURES("parachute.gui.config.features"),
         TWEAKS("parachute.gui.config.tweaks"),
         TWEAKS_HOTKEYS("parachute.gui.config.tweaksHotkeys"),
         RENDER("parachute.gui.config.render"),

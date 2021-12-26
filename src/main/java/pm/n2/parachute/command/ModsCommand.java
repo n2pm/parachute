@@ -9,7 +9,7 @@ import net.fabricmc.loader.api.metadata.CustomValue.CvType;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import pm.n2.parachute.ParachuteCommands;
-import pm.n2.parachute.util.FakeCommandSource;
+import pm.n2.parachute.util.ClientCommandSource;
 
 import java.util.*;
 
@@ -40,8 +40,8 @@ public class ModsCommand {
         return true;
     }
 
-    public static void register(CommandDispatcher<FakeCommandSource> dispatcher) {
-        LiteralArgumentBuilder<FakeCommandSource> command = ParachuteCommands.literal("mods")
+    public static void register(CommandDispatcher<ClientCommandSource> dispatcher) {
+        LiteralArgumentBuilder<ClientCommandSource> command = ParachuteCommands.literal("mods")
                 .then(
                         ParachuteCommands.literal("all")
                                 .executes((context) -> execute(context.getSource(), true))
@@ -49,7 +49,7 @@ public class ModsCommand {
         dispatcher.register(command);
     }
 
-    public static int execute(FakeCommandSource source, boolean showAll) {
+    public static int execute(ClientCommandSource source, boolean showAll) {
         // New arraylist because for some reason .toList makes an immutable collection
         List<? extends Text> mods = new ArrayList<>(
                 FabricLoader

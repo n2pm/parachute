@@ -1,13 +1,12 @@
 package pm.n2.parachute.mixin;
 
-import pm.n2.parachute.config.GenericConfigs;
-import pm.n2.parachute.config.TweakConfigs;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import pm.n2.parachute.config.Configs;
 
 @Mixin(Entity.class)
 public class MixinEntity {
@@ -16,7 +15,7 @@ public class MixinEntity {
         Entity entity = (Entity) (Object) this;
         if (entity.isPlayer()) {
             // 0.6F defined in constructor of LivingEntity.java
-            entity.stepHeight = TweakConfigs.TWEAK_STEP_ASSIST.getBooleanValue() ? (float) GenericConfigs.STEP_ASSIST_HEIGHT.getDoubleValue() : 0.6F;
+            entity.stepHeight = Configs.TweakConfigs.STEP_ASSIST_ENABLED.getBooleanValue() ? (float) Configs.TweakConfigs.STEP_ASSIST_HEIGHT.getDoubleValue() : 0.6F;
         }
     }
 }

@@ -8,8 +8,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import pm.n2.parachute.config.GenericConfigs;
-import pm.n2.parachute.config.TweakConfigs;
+import pm.n2.parachute.config.Configs;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,7 +27,7 @@ public class MixinYggdrasilMinecraftSessionService_authlib {
 
     @Inject(method = "isAllowedTextureDomain", at = @At(value = "HEAD"), cancellable = true, remap = false)
     private static void ignoreTextureDomainCheck(String url, CallbackInfoReturnable<Boolean> cir) {
-        if (TweakConfigs.TWEAK_SKIN_SIDELOADING.getBooleanValue()) {
+        if (Configs.TweakConfigs.SKIN_SIDELOADING_ENABLED.getBooleanValue()) {
             // Copy vanilla code for getting the domain since it's Not In Scope
             URI uri;
 
@@ -40,7 +39,7 @@ public class MixinYggdrasilMinecraftSessionService_authlib {
 
             final String domain = uri.getHost();
 
-            if (GenericConfigs.SKIN_SIDELOADING_NON_MOJANG_DOMAINS.getBooleanValue()) {
+            if (Configs.TweakConfigs.SKIN_SIDELOADING_NON_MOJANG_DOMAINS.getBooleanValue()) {
                 cir.setReturnValue(true);
             } else {
                 cir.setReturnValue(isDomainOnList(domain, ALLOWED_DOMAINS));

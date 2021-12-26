@@ -14,12 +14,13 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.suggestion.SuggestionProviders;
+import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import pm.n2.parachute.command.ExampleCommand;
 import pm.n2.parachute.command.HelpCommand;
 import pm.n2.parachute.command.ModsCommand;
-import pm.n2.parachute.util.FakeCommandSource;
+import pm.n2.parachute.util.ClientCommandSource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +34,8 @@ public class ParachuteCommands {
         return INSTANCE;
     }
 
-    private final CommandDispatcher<FakeCommandSource> dispatcher = new CommandDispatcher<>();
-    private MinecraftClient client;
+    private final CommandDispatcher<ClientCommandSource> dispatcher = new CommandDispatcher<>();
+    private final MinecraftClient client;
 
     public ParachuteCommands() {
         this.client = MinecraftClient.getInstance();
@@ -44,15 +45,15 @@ public class ParachuteCommands {
         this.dispatcher.findAmbiguities((parent, child, sibling, inputs) -> Parachute.LOGGER.warn("Ambiguity between arguments {} and {} with inputs: {}", this.dispatcher.getPath(child), this.dispatcher.getPath(sibling), inputs));
     }
 
-    public static LiteralArgumentBuilder<FakeCommandSource> literal(String literal) {
+    public static LiteralArgumentBuilder<ClientCommandSource> literal(String literal) {
         return LiteralArgumentBuilder.literal(literal);
     }
 
-    public static <T> RequiredArgumentBuilder<FakeCommandSource, T> argument(String name, ArgumentType<T> type) {
+    public static <T> RequiredArgumentBuilder<ClientCommandSource, T> argument(String name, ArgumentType<T> type) {
         return RequiredArgumentBuilder.argument(name, type);
     }
 
-    public void execute(String command, FakeCommandSource source) {
+    public void execute(String command, ClientCommandSource source) {
         StringReader stringReader = new StringReader(command);
         if (stringReader.canRead() && stringReader.peek() == COMMAND_PREFIX) {
             stringReader.skip();
@@ -80,9 +81,23 @@ public class ParachuteCommands {
         }
     }
 
+    // Used by MixinCommandSuggestor
+    public static boolean isClientCommandPrefix(String message) {
+        if (message.startsWith(Character.toString(COMMAND_PREFIX) + COMMAND_PREFIX)
+                || message.startsWith(COMMAND_PREFIX + "/"))
+            return false;
+        return message.startsWith(Character.toString(COMMAND_PREFIX));
+    }
+
     public boolean executeCommand(String message) {
-        if (message.charAt(0) == COMMAND_PREFIX) {
-            execute(message, new FakeCommandSource(this.client));
+        // allow people to send ./
+        if (message.startsWith(Character.toString(COMMAND_PREFIX)) && !message.startsWith(COMMAND_PREFIX + "/")) {
+            if (message.startsWith(COMMAND_PREFIX + Character.toString(COMMAND_PREFIX))) {
+                // allow people to send "." in chat, sometimes used to check if someones cheating or smth
+                this.client.getNetworkHandler().sendPacket(new ChatMessageC2SPacket(message.substring(1)));
+                return false;
+            }
+            execute(message, new ClientCommandSource(this.client));
             return false;
         }
         return true;
@@ -90,16 +105,16 @@ public class ParachuteCommands {
 
     // Copied from vanilla
     public RootCommandNode<CommandSource> getCommandTree() {
-        HashMap<CommandNode<FakeCommandSource>, CommandNode<CommandSource>> map = Maps.newHashMap();
+        HashMap<CommandNode<ClientCommandSource>, CommandNode<CommandSource>> map = Maps.newHashMap();
         RootCommandNode<CommandSource> rootCommandNode = new RootCommandNode<>();
         map.put(this.dispatcher.getRoot(), rootCommandNode);
-        this.createCommandTree(this.dispatcher.getRoot(), rootCommandNode, new FakeCommandSource(this.client), map);
+        this.createCommandTree(this.dispatcher.getRoot(), rootCommandNode, new ClientCommandSource(this.client), map);
         return rootCommandNode;
     }
 
     // Copied from vanilla
-    private void createCommandTree(CommandNode<FakeCommandSource> tree, CommandNode<CommandSource> result, FakeCommandSource source, Map<CommandNode<FakeCommandSource>, CommandNode<CommandSource>> resultNodes) {
-        for (CommandNode<FakeCommandSource> commandNode : tree.getChildren()) {
+    private void createCommandTree(CommandNode<ClientCommandSource> tree, CommandNode<CommandSource> result, ClientCommandSource source, Map<CommandNode<ClientCommandSource>, CommandNode<CommandSource>> resultNodes) {
+        for (CommandNode<ClientCommandSource> commandNode : tree.getChildren()) {
             if (commandNode.canUse(source)) {
                 ArgumentBuilder<CommandSource, ?> argumentBuilder = (ArgumentBuilder) commandNode.createBuilder();
                 argumentBuilder.executes((context) -> 0);

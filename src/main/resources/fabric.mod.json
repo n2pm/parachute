@@ -7,7 +7,7 @@
   "authors": ["NotNite", "adryd"],
   "contact": {
     "homepage": "https://gitlab.com/notnet/parachute",
-    "source": "https://gitlab.com/notnet/parachute"
+    "sources": "https://gitlab.com/notnet/parachute"
   },
   "icon": "assets/parachute/icon.png",
   "environment": "client",
@@ -24,7 +24,7 @@
   },
   "mixins": ["parachute.mixins.json"],
   "depends": {
-    "fabricloader": ">=${loader_version}",
+    "fabricloader": ">=0.11.3",
     "minecraft": "${minecraft_version_compatible}",
     "java": ">=16",
     "malilib": ">=${malilib_version}"

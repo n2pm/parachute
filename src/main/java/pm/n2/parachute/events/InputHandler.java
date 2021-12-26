@@ -1,10 +1,8 @@
 package pm.n2.parachute.events;
 
-import pm.n2.parachute.Parachute;
-import pm.n2.parachute.config.GenericConfigs;
-import pm.n2.parachute.config.RenderConfigs;
-import pm.n2.parachute.config.TweakConfigs;
 import fi.dy.masa.malilib.hotkeys.*;
+import pm.n2.parachute.Parachute;
+import pm.n2.parachute.config.Configs;
 
 public class InputHandler implements IKeybindProvider, IKeyboardInputHandler, IMouseInputHandler {
     private static final InputHandler INSTANCE = new InputHandler();
@@ -20,21 +18,21 @@ public class InputHandler implements IKeybindProvider, IKeyboardInputHandler, IM
 
     @Override
     public void addKeysToMap(IKeybindManager manager) {
-        for (IHotkey hotkey : GenericConfigs.HOTKEY_LIST) {
-            manager.addKeybindToMap(hotkey.getKeybind());
+        for (IKeybind keybind : Configs.GENERAL_CONFIGS.getKeybinds()) {
+            manager.addKeybindToMap(keybind);
         }
-        for (IHotkey hotkey : TweakConfigs.OPTIONS) {
-            manager.addKeybindToMap(hotkey.getKeybind());
+        for (IKeybind keybind : Configs.TWEAK_CONFIGS.getKeybinds()) {
+            manager.addKeybindToMap(keybind);
         }
-        for (IHotkey hotkey : RenderConfigs.OPTIONS) {
-            manager.addKeybindToMap(hotkey.getKeybind());
+        for (IKeybind keybind : Configs.RENDER_CONFIGS.getKeybinds()) {
+            manager.addKeybindToMap(keybind);
         }
     }
 
     @Override
     public void addHotkeys(IKeybindManager manager) {
-        manager.addHotkeysForCategory(Parachute.MOD_NAME, "parachute.hotkeys.category", GenericConfigs.HOTKEY_LIST);
-        manager.addHotkeysForCategory(Parachute.MOD_NAME, "parachute.hotkeys.category", TweakConfigs.OPTIONS);
-        manager.addHotkeysForCategory(Parachute.MOD_NAME, "parachute.hotkeys.category", RenderConfigs.OPTIONS);
+        manager.addHotkeysForCategory(Parachute.MOD_NAME, "parachute.hotkeys.category", Configs.RENDER_CONFIGS.getHotkeys());
+        manager.addHotkeysForCategory(Parachute.MOD_NAME, "parachute.hotkeys.category", Configs.TWEAK_CONFIGS.getHotkeys());
+        manager.addHotkeysForCategory(Parachute.MOD_NAME, "parachute.hotkeys.category", Configs.RENDER_CONFIGS.getHotkeys());
     }
 }

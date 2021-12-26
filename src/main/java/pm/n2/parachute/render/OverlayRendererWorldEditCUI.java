@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import pm.n2.parachute.config.TweakConfigs;
+import pm.n2.parachute.config.Configs;
 import pm.n2.parachute.util.WorldDataStorage;
 
 public class OverlayRendererWorldEditCUI extends OverlayRendererBase {
@@ -20,7 +20,7 @@ public class OverlayRendererWorldEditCUI extends OverlayRendererBase {
 
     @Override
     public boolean shouldRender(MinecraftClient mc) {
-        return TweakConfigs.TWEAK_WORLDEDIT_CUI.getBooleanValue();
+        return Configs.FeatureConfigs.WORLDEDIT_CUI.getBooleanValue();
     }
 
     @Override
