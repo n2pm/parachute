@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import pm.n2.parachute.config.Configs;
@@ -28,13 +29,12 @@ public abstract class MixinInGameHud {
     @Shadow
     private static Identifier POWDER_SNOW_OUTLINE;
 
-//    // TODO: get rid of the whitespace that remains
-//    // TODO: Fix this mixin
-//    @ModifyVariable(method = "renderScoreboardSidebar", at = @At(value = "STORE", target = "Lnet/minecraft/scoreboard/ScoreboardPlayerScore;getScore()N"))
-//    private String hideScoreboardNumbers(String original) {
-//        boolean tweakEnabled = Configs.RenderConfigs.HIDE_SCOREBOARD_NUMBERS.getBooleanValue();
-//        return tweakEnabled ? "" : original;
-//    }
+    // TODO: get rid of the whitespace that remains
+    @ModifyVariable(method = "renderScoreboardSidebar", at = @At(value = "STORE", target = "Lnet/minecraft/scoreboard/ScoreboardPlayerScore;getScore()I"))
+    private String hideScoreboardNumbers(String original) {
+        boolean tweakEnabled = Configs.RenderConfigs.HIDE_SCOREBOARD_NUMBERS.getBooleanValue();
+        return tweakEnabled ? "" : original;
+    }
 
     @Inject(method = "renderScoreboardSidebar", at = @At("HEAD"), cancellable = true)
     private void hideScoreboard(MatrixStack matrices, ScoreboardObjective objective, CallbackInfo ci) {
