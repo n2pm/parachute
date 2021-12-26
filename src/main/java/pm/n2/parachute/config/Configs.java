@@ -96,6 +96,7 @@ public class Configs {
         public static final ConfigBooleanHotkeyed CUSTOM_CHAT_HISTORY_LENGTH_ENABLED = new ConfigBooleanHotkeyed("customChatHistoryLengthEnabled", false, "", "Allow for chat length to be overwritten", "Overwrite chat length");
         public static final ConfigInteger CUSTOM_CHAT_HISTORY_LENGTH = new ConfigInteger("customChatHistoryLength", 100, 1, 10000,false, "Chat length");
         public static final ConfigBooleanHotkeyed ALLOW_DISALLOWED_CHARS = new ConfigBooleanHotkeyed("allowDisallowedChars", false, "", "Allow use of disallowed chars for command blocks or a way of kicking yourself from a multiplayer server", "Allow use of disallowed chars");
+        public static final ConfigOptionListHotkeyed IS_CHRISTMAS = new ConfigOptionListHotkeyed("isItChristmas", FeatureOverride.DEFAULT, "", "Overrides christmas state for chests.", "Is it christmas?");
 
         public TweakConfigs() {
             super(ImmutableList.of(
@@ -115,7 +116,8 @@ public class Configs {
                     BRIGADIER_STRING_ESCAPES,
                     CUSTOM_CHAT_HISTORY_LENGTH_ENABLED,
                     CUSTOM_CHAT_HISTORY_LENGTH,
-                    ALLOW_DISALLOWED_CHARS
+                    ALLOW_DISALLOWED_CHARS,
+                    IS_CHRISTMAS
             ));
         }
     }

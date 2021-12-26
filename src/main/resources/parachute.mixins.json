@@ -12,6 +12,7 @@
     "MixinBossBarHud",
     "MixinCamera",
     "MixinChatHud",
+    "MixinChestBlockEntityRenderer",
     "MixinClientConnection",
     "MixinClientPlayerEntity",
     "MixinClientPlayNetworkHandler",
