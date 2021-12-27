@@ -62,18 +62,23 @@ public class Configs {
     }
 
     public static class FeatureConfigs extends BaseConfigs {
-        public static final ConfigBoolean WORLDEDIT_CUI = new ConfigBooleanHotkeyed("worldeditCUI", false, "", "Enables WorldEdit CUI", "WorldEdit CUI");
+        public static final ConfigBooleanHotkeyed WORLDEDIT_CUI = new ConfigBooleanHotkeyed("worldEditCUI", false, "", "Enables WorldEdit CUI", "WorldEdit CUI");
         public static final ConfigBoolean RECONNECT_BUTTON = new ConfigBoolean("reconnectButton", false, "Adds a button to reconnect when you disconnect from a server.", "Show reconnect button");
         public static final ConfigBoolean AUTO_RECONNECT_ENABLED = new ConfigBoolean("tweakAutoReconnect", false, "Automatically reconnect after you disconnect from a server.", "Auto reconnect");
         public static final ConfigInteger AUTO_RECONNECT_TIME = new ConfigInteger("autoReconnectTimeout", 5, 0, 30, "The amount of seconds until auto reconnect triggers.");
-
+        public static final ConfigBooleanHotkeyed POTION_EFFECT_HUD = new ConfigBooleanHotkeyed("potionEffectHUD",false,"", "Enables minimal potion effect HUD", "Potion effect HUD");
+        public static final ConfigBoolean POTION_EFFECT_HUD_NO_COLOR = new ConfigBoolean("potionEffectHUDNoColor", false, "Disables potion color on effect HUD", "Potion effect HUD disable color");
+        public static final ConfigBooleanHotkeyed ARMOR_HUD = new ConfigBooleanHotkeyed("armorHUD", false, "", "Enables armor HUD. \nPorted from blanket", "Armor HUD");
 
         public FeatureConfigs() {
             super(ImmutableList.of(
                     WORLDEDIT_CUI,
                     RECONNECT_BUTTON,
                     AUTO_RECONNECT_ENABLED,
-                    AUTO_RECONNECT_TIME
+                    AUTO_RECONNECT_TIME,
+                    POTION_EFFECT_HUD,
+                    POTION_EFFECT_HUD_NO_COLOR,
+                    ARMOR_HUD
             ));
         }
     }
@@ -97,6 +102,9 @@ public class Configs {
         public static final ConfigInteger CUSTOM_CHAT_HISTORY_LENGTH = new ConfigInteger("customChatHistoryLength", 100, 1, 10000,false, "Chat length");
         public static final ConfigBooleanHotkeyed ALLOW_DISALLOWED_CHARS = new ConfigBooleanHotkeyed("allowDisallowedChars", false, "", "Allow use of disallowed chars for command blocks or a way of kicking yourself from a multiplayer server", "Allow use of disallowed chars");
         public static final ConfigOptionListHotkeyed IS_CHRISTMAS = new ConfigOptionListHotkeyed("isItChristmas", FeatureOverride.DEFAULT, "", "Overrides christmas state for chests.", "Is it christmas?");
+        public static final ConfigBoolean TITLE_BAR_CUSTOMIZATION_ENABLED = new ConfigBoolean("titleBarCustomizationEnabled", false, "Enables customization of the title bar", "Title bar customization");
+        public static final ConfigBoolean TITLE_BAR_HIDE_MODDED = new ConfigBoolean("titleBarHideModded", false, "Hides asterisk in title bar", "Title bar hide modded status");
+        public static final ConfigBoolean TITLE_BAR_HIDE_GAME_STATUS = new ConfigBoolean("titleBarHideGameStatus", false, "Hides game status from title bar. eg. 3rd party multiplayer", "Title bar hide game status");
 
         public TweakConfigs() {
             super(ImmutableList.of(
@@ -117,7 +125,10 @@ public class Configs {
                     CUSTOM_CHAT_HISTORY_LENGTH_ENABLED,
                     CUSTOM_CHAT_HISTORY_LENGTH,
                     ALLOW_DISALLOWED_CHARS,
-                    IS_CHRISTMAS
+                    IS_CHRISTMAS,
+                    TITLE_BAR_CUSTOMIZATION_ENABLED,
+                    TITLE_BAR_HIDE_MODDED,
+                    TITLE_BAR_HIDE_GAME_STATUS
             ));
         }
     }
@@ -141,6 +152,7 @@ public class Configs {
         public static final ConfigBooleanHotkeyed NO_BLINDNESS = new ConfigBooleanHotkeyed("noBlindnessFog", false, "", "Disables blindness fog");
         public static final ConfigBooleanHotkeyed NO_TORCH_FLICKER = new ConfigBooleanHotkeyed("noTorchFlicker", false, "", "Disables the subtle flicker from artificial light sources");
         public static final ConfigBooleanHotkeyed SCALE_DEBUG_PIE = new ConfigBooleanHotkeyed("scaleDebugPie", false, "", "Scale's the debug pie to the gui scale of the game", "Scale debug pie");
+        public static final ConfigBooleanHotkeyed NO_EFFECT_HUD = new ConfigBooleanHotkeyed("noEffectHud", false, "", "Hides potion effect HUD, ported from blanket", "Hide effect HUD");
 
         RenderConfigs() {
             super(ImmutableList.of(
@@ -161,7 +173,8 @@ public class Configs {
                     NO_NIGHT_VISION_FLASHING,
                     NO_BLINDNESS,
                     NO_TORCH_FLICKER,
-                    SCALE_DEBUG_PIE
+                    SCALE_DEBUG_PIE,
+                    NO_EFFECT_HUD
             ));
         }
     }

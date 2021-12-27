@@ -20,6 +20,7 @@ public class WorldEditCUINetworkHandler {
     private static final int PROTOCOL_VERSION = 4;
 
     public static void registerReceiver() {
+        // TODO: Only register when Configs.FeatureConfigs.WORLDEDIT_CUI is enabled
         ClientPlayNetworking.registerReceiver(CHANNEL, WorldEditCUINetworkHandler::onPacket);
         handshake();
     }

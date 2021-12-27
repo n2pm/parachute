@@ -78,4 +78,11 @@ public abstract class MixinInGameHud {
             ci.cancel();
         }
     }
+
+    @Inject(method="renderStatusEffectOverlay",at=@At(value="HEAD"), cancellable=true)
+    private void noStatusEffectOverlay(CallbackInfo info){
+        if (Configs.RenderConfigs.NO_EFFECT_HUD.getBooleanValue())
+            info.cancel();
+    }
+
 }

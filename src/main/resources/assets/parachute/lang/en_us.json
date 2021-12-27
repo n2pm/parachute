@@ -3,6 +3,7 @@
   "parachute.gui.config.title": "Parachute Config",
   "parachute.gui.config.generic": "General",
   "parachute.gui.config.features": "Features",
+  "parachute.gui.config.featuresHotkeys": "Feature Keybinds",
   "parachute.gui.config.tweaks": "Tweaks",
   "parachute.gui.config.tweaksHotkeys": "Tweak Keybinds",
   "parachute.gui.config.render": "Render Tweaks",

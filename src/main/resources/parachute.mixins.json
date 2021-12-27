@@ -25,6 +25,8 @@
     "MixinKeyboard",
     "MixinLightmapTextureManager",
     "MixinMinecraftClient",
+    "MixinMinecraftClient_drawProfilerResults",
+    "MixinMinecraftClient_windowTitle",
     "MixinPlayerListHud",
     "MixinPlayerSkinTexture",
     "MixinSharedConstants",
@@ -35,5 +37,7 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "mixins": [
+  ]
 }

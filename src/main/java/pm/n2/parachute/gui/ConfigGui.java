@@ -90,6 +90,9 @@ public class ConfigGui extends GuiConfigsBase {
             case FEATURES:
                 configs = Configs.FEATURE_CONFIGS.get();
                 break;
+            case FEATURES_HOTKEYS:
+                configs = ConfigUtils.createConfigWrapperForType(ConfigType.HOTKEY, Configs.FEATURE_CONFIGS.getHotkeys());
+                break;
             case TWEAKS:
                 configs = Configs.TWEAK_CONFIGS.get();
                 break;
@@ -125,6 +128,7 @@ public class ConfigGui extends GuiConfigsBase {
     public enum GuiTabs {
         GENERIC("parachute.gui.config.generic"),
         FEATURES("parachute.gui.config.features"),
+        FEATURES_HOTKEYS("parachute.gui.config.featuresHotkeys"),
         TWEAKS("parachute.gui.config.tweaks"),
         TWEAKS_HOTKEYS("parachute.gui.config.tweaksHotkeys"),
         RENDER("parachute.gui.config.render"),
