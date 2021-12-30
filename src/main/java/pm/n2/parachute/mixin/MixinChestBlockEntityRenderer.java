@@ -9,6 +9,7 @@ import pm.n2.parachute.config.FeatureOverride;
 
 @Mixin(ChestBlockEntityRenderer.class)
 public class MixinChestBlockEntityRenderer {
+    // TODO: make this more specific so it shuts up the warning
     @ModifyArg(method = "render(Lnet/minecraft/block/entity/BlockEntity;FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;II)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/TexturedRenderLayers;getChestTexture(Lnet/minecraft/block/entity/BlockEntity;Lnet/minecraft/block/enums/ChestType;Z)Lnet/minecraft/client/util/SpriteIdentifier;"), index = 2)
     private boolean isChristmas(boolean christmas) {
         return switch ((FeatureOverride) Configs.TweakConfigs.IS_CHRISTMAS.getOptionListValue()) {

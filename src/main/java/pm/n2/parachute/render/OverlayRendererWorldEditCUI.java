@@ -1,9 +1,13 @@
 package pm.n2.parachute.render;
 
+import fi.dy.masa.malilib.render.RenderUtils;
 import fi.dy.masa.malilib.util.Color4f;
 import fi.dy.masa.malilib.util.IntBoundingBox;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3d;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
@@ -38,11 +42,12 @@ public class OverlayRendererWorldEditCUI extends OverlayRendererBase {
     }
 
     @Override
-    public void update(Vec3d cameraPos, Entity entity, MinecraftClient mc) {
+    public void update(Vec3d cameraPos, MatrixStack matrixStack, Entity entity, MinecraftClient mc) {
         RenderObjectBase renderQuads = this.renderObjects.get(0);
         RenderObjectBase renderLines = this.renderObjects.get(1);
-        BUFFER_1.begin(renderQuads.getGlMode(), VertexFormats.POSITION_COLOR);
-        BUFFER_2.begin(renderLines.getGlMode(), VertexFormats.POSITION_COLOR);
+        BUFFER_QUADS.begin(renderQuads.getGlMode(), VertexFormats.POSITION_COLOR);
+        BUFFER_LINES.begin(renderLines.getGlMode(), VertexFormats.POSITION_COLOR);
+        MatrixStack.Entry entry = matrixStack.peek();
         BlockPos[] pos = WorldDataStorage.getInstance().getWorldEditPos();
         if (pos[0] != null && pos[1] != null) {
             int minX = Math.min(pos[0].getX(), pos[1].getX());
@@ -52,15 +57,15 @@ public class OverlayRendererWorldEditCUI extends OverlayRendererBase {
             int maxY = Math.max(pos[0].getY(), pos[1].getY());
             int maxZ = Math.max(pos[0].getZ(), pos[1].getZ());
             BlockBox box = new BlockBox(minX, minY, minZ, maxX, maxY, maxZ);
-            fi.dy.masa.malilib.render.RenderUtils.drawBox(IntBoundingBox.fromVanillaBox(box), cameraPos, white, BUFFER_1, BUFFER_2);
+            RenderUtils.drawBox(IntBoundingBox.fromVanillaBox(box), cameraPos, white, BUFFER_QUADS, BUFFER_LINES);
         }
         if (pos[0] != null)
-            fi.dy.masa.malilib.render.RenderUtils.drawBlockBoundingBoxOutlinesBatchedLines(pos[0], cameraPos, red, 0.04, BUFFER_2);
+            RenderUtils.drawBlockBoundingBoxOutlinesBatchedLines(pos[0], cameraPos, red, 0.04, BUFFER_LINES);
         if (pos[1] != null)
-            fi.dy.masa.malilib.render.RenderUtils.drawBlockBoundingBoxOutlinesBatchedLines(pos[1], cameraPos, blue, 0.05, BUFFER_2);
-        BUFFER_1.end();
-        BUFFER_2.end();
-        renderQuads.uploadData(BUFFER_1);
-        renderLines.uploadData(BUFFER_2);
+            RenderUtils.drawBlockBoundingBoxOutlinesBatchedLines(pos[1], cameraPos, blue, 0.05, BUFFER_LINES);
+        BUFFER_QUADS.end();
+        BUFFER_LINES.end();
+        renderQuads.uploadData(BUFFER_QUADS);
+        renderLines.uploadData(BUFFER_LINES);
     }
 }

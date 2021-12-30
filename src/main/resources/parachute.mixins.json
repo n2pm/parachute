@@ -27,7 +27,8 @@
     "MixinMinecraftClient",
     "MixinMinecraftClient_drawProfilerResults",
     "MixinMinecraftClient_windowTitle",
-    "MixinPlayerListHud",
+    "MixinPlayerListHud_playerListLength",
+    "MixinPlayerListHud_showLatencyMs",
     "MixinPlayerSkinTexture",
     "MixinSharedConstants",
     "MixinStringReader_brigadier",
@@ -39,5 +40,6 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "MixinMultiplayerServerListWidget_ServerEntry"
   ]
 }

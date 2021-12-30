@@ -20,6 +20,7 @@ import net.minecraft.util.Formatting;
 import pm.n2.parachute.command.ExampleCommand;
 import pm.n2.parachute.command.HelpCommand;
 import pm.n2.parachute.command.ModsCommand;
+import pm.n2.parachute.command.PanoramaCommand;
 import pm.n2.parachute.util.ClientCommandSource;
 
 import java.util.HashMap;
@@ -42,6 +43,7 @@ public class ParachuteCommands {
         ExampleCommand.register(this.dispatcher);
         HelpCommand.register(this.dispatcher);
         ModsCommand.register(this.dispatcher);
+        PanoramaCommand.register(this.dispatcher);
         this.dispatcher.findAmbiguities((parent, child, sibling, inputs) -> Parachute.LOGGER.warn("Ambiguity between arguments {} and {} with inputs: {}", this.dispatcher.getPath(child), this.dispatcher.getPath(sibling), inputs));
     }
 
@@ -116,6 +118,7 @@ public class ParachuteCommands {
     private void createCommandTree(CommandNode<ClientCommandSource> tree, CommandNode<CommandSource> result, ClientCommandSource source, Map<CommandNode<ClientCommandSource>, CommandNode<CommandSource>> resultNodes) {
         for (CommandNode<ClientCommandSource> commandNode : tree.getChildren()) {
             if (commandNode.canUse(source)) {
+                @SuppressWarnings({"unchecked", "rawtypes"})
                 ArgumentBuilder<CommandSource, ?> argumentBuilder = (ArgumentBuilder) commandNode.createBuilder();
                 argumentBuilder.executes((context) -> 0);
                 if (argumentBuilder.getCommand() != null) {
@@ -123,6 +126,7 @@ public class ParachuteCommands {
                 }
 
                 if (argumentBuilder instanceof RequiredArgumentBuilder) {
+                    @SuppressWarnings({"unchecked", "rawtypes"})
                     RequiredArgumentBuilder<CommandSource, ?> requiredArgumentBuilder = (RequiredArgumentBuilder) argumentBuilder;
                     if (requiredArgumentBuilder.getSuggestionsProvider() != null) {
                         requiredArgumentBuilder.suggests(SuggestionProviders.getLocalProvider(requiredArgumentBuilder.getSuggestionsProvider()));

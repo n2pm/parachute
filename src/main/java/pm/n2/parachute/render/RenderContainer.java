@@ -2,13 +2,16 @@ package pm.n2.parachute.render;
 
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.systems.RenderSystem;
+import fi.dy.masa.malilib.render.RenderUtils;
 import fi.dy.masa.malilib.util.JsonUtils;
 import fi.dy.masa.malilib.util.PositionUtils;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
+import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,22 +38,20 @@ public class RenderContainer {
     public void render(Entity entity, MatrixStack matrixStack, Matrix4f projMatrix, MinecraftClient mc) {
         Vec3d cameraPos = mc.gameRenderer.getCamera().getPos();
 
-        this.update(cameraPos, entity, mc);
+        this.update(cameraPos, matrixStack, entity, mc);
         this.draw(cameraPos, matrixStack, projMatrix, mc);
     }
 
-    protected void update(Vec3d cameraPos, Entity entity, MinecraftClient mc) {
+    protected void update(Vec3d cameraPos, MatrixStack matrixStack, Entity entity, MinecraftClient mc) {
         this.allocateResourcesIfNeeded();
         this.countActive = 0;
 
-        for (int i = 0; i < this.renderers.size(); ++i) {
-            OverlayRendererBase renderer = this.renderers.get(i);
-
+        for (OverlayRendererBase renderer : this.renderers) {
             if (renderer.shouldRender(mc)) {
                 if (renderer.needsUpdate(entity, mc)) {
                     renderer.lastUpdatePos = PositionUtils.getEntityBlockPos(entity);
                     renderer.setUpdatePosition(cameraPos);
-                    renderer.update(cameraPos, entity, mc);
+                    renderer.update(cameraPos, matrixStack, entity, mc);
                 }
 
                 ++this.countActive;
@@ -64,7 +65,7 @@ public class RenderContainer {
             RenderSystem.disableCull();
             RenderSystem.enableDepthTest();
             RenderSystem.depthMask(false);
-            RenderSystem.polygonOffset(-3f, -3f);
+            RenderSystem.polygonOffset(-1f, -1f);
             RenderSystem.enablePolygonOffset();
 
             fi.dy.masa.malilib.render.RenderUtils.setupBlend();
@@ -94,16 +95,16 @@ public class RenderContainer {
     }
 
     protected void allocateResourcesIfNeeded() {
-        if (this.resourcesAllocated == false) {
+        if (!this.resourcesAllocated) {
             this.deleteGlResources();
             this.allocateGlResources();
         }
     }
 
     protected void allocateGlResources() {
-        if (this.resourcesAllocated == false) {
-            for (int i = 0; i < this.renderers.size(); ++i) {
-                this.renderers.get(i).allocateGlResources();
+        if (!this.resourcesAllocated) {
+            for (OverlayRendererBase renderer : this.renderers) {
+                renderer.allocateGlResources();
             }
 
             this.resourcesAllocated = true;
@@ -112,8 +113,8 @@ public class RenderContainer {
 
     protected void deleteGlResources() {
         if (this.resourcesAllocated) {
-            for (int i = 0; i < this.renderers.size(); ++i) {
-                this.renderers.get(i).deleteGlResources();
+            for (OverlayRendererBase renderer : this.renderers) {
+                renderer.deleteGlResources();
             }
 
             this.resourcesAllocated = false;
@@ -123,11 +124,10 @@ public class RenderContainer {
     public JsonObject toJson() {
         JsonObject obj = new JsonObject();
 
-        for (int i = 0; i < this.renderers.size(); ++i) {
-            OverlayRendererBase renderer = this.renderers.get(i);
+        for (OverlayRendererBase renderer : this.renderers) {
             String id = renderer.getSaveId();
 
-            if (id.isEmpty() == false) {
+            if (!id.isEmpty()) {
                 obj.add(id, renderer.toJson());
             }
         }
@@ -136,11 +136,10 @@ public class RenderContainer {
     }
 
     public void fromJson(JsonObject obj) {
-        for (int i = 0; i < this.renderers.size(); ++i) {
-            OverlayRendererBase renderer = this.renderers.get(i);
+        for (OverlayRendererBase renderer : this.renderers) {
             String id = renderer.getSaveId();
 
-            if (id.isEmpty() == false && JsonUtils.hasObject(obj, id)) {
+            if (!id.isEmpty() && JsonUtils.hasObject(obj, id)) {
                 renderer.fromJson(obj.get(id).getAsJsonObject());
             }
         }

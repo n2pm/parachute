@@ -6,8 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
 
-public interface IOverlayRenderer
-{
+public interface IOverlayRenderer {
     /**
      * Returns the camera position when the renderer was last updated
      */
@@ -30,14 +29,15 @@ public interface IOverlayRenderer
 
     /**
      * Re-draw the buffer contents, if needed
+     *
      * @param cameraPos The position of the camera when the method is called.
-     * The camera position should be subtracted from any world coordinates for the vertex positions.
-     * During the draw() call the MatrixStack will be translated by the camera position,
-     * minus the difference between the camera position during the update() call,
-     * and the camera position during the draw() call.
-     * @param entity The current camera entity
+     *                  The camera position should be subtracted from any world coordinates for the vertex positions.
+     *                  During the draw() call the MatrixStack will be translated by the camera position,
+     *                  minus the difference between the camera position during the update() call,
+     *                  and the camera position during the draw() call.
+     * @param entity    The current camera entity
      */
-    void update(Vec3d cameraPos, Entity entity, MinecraftClient mc);
+    void update(Vec3d cameraPos, MatrixStack matrixStack, Entity entity, MinecraftClient mc);
 
     /**
      * Draw the buffer contents to screen

@@ -1,10 +1,8 @@
 package pm.n2.parachute.config;
 
-import fi.dy.masa.malilib.config.IConfigOptionList;
 import fi.dy.masa.malilib.hotkeys.IKeybind;
 import fi.dy.masa.malilib.hotkeys.KeyAction;
 import fi.dy.masa.malilib.util.InfoUtils;
-import pm.n2.parachute.Parachute;
 
 public class KeyCallbackCycleOptionListWithMessage extends KeyCallbackCycleOptionList {
     public KeyCallbackCycleOptionListWithMessage(ConfigOptionListHotkeyed config) {

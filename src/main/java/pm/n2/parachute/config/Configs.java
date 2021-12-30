@@ -91,6 +91,7 @@ public class Configs {
         public static final ConfigBooleanHotkeyed THIRD_PERSON_CAMERA_NO_CLIP = new ConfigBooleanHotkeyed("3rdPersonCameraClip", false, "", "Allow 3rd person camera to clip", "Third person camera noclip");
         public static final ConfigBooleanHotkeyed CUSTOM_PLAYER_LIST_LENGTH_ENABLED = new ConfigBooleanHotkeyed("customPlayerListLengthEnabled", false, "", "Overwrite the player list length", "Overwrite player list length");
         public static final ConfigInteger CUSTOM_PLAYER_LIST_LENGTH = new ConfigInteger("customPlayerListLength", 80, 0, 1000, "Overwrites the tab list length; requires \"Overwrite player list length\"");
+        public static final ConfigBooleanHotkeyed PLAYER_LIST_PING = new ConfigBooleanHotkeyed("playerListPing", false, "", "Shows player list ping in miliseconds.\nPorted from blanket.", "Player list ping");
         public static final ConfigBooleanHotkeyed NO_BOOK_PAGE_LENGTH = new ConfigBooleanHotkeyed("noBookPageLengthLimit", false, "", "Ignore book page length when creating books", "Ignore book page length when creating books");
         public static final ConfigBoolean SKIN_SIDELOADING_ENABLED = new ConfigBoolean("skinSideloading", false, "Disable skin domain checks in authlib and skin size checks", "Skin sideloading");
         public static final ConfigBoolean SKIN_SIDELOADING_NON_MOJANG_DOMAINS = new ConfigBoolean("skinSideloadingNonMojangDomains", false, "Allow loading of skins from non Mojang domains. This could reveal your IP to 3rd parties (like anybody actually cares)", "Sideload skins from non Mojang domains");
@@ -101,10 +102,11 @@ public class Configs {
         public static final ConfigBooleanHotkeyed CUSTOM_CHAT_HISTORY_LENGTH_ENABLED = new ConfigBooleanHotkeyed("customChatHistoryLengthEnabled", false, "", "Allow for chat length to be overwritten", "Overwrite chat length");
         public static final ConfigInteger CUSTOM_CHAT_HISTORY_LENGTH = new ConfigInteger("customChatHistoryLength", 100, 1, 10000,false, "Chat length");
         public static final ConfigBooleanHotkeyed ALLOW_DISALLOWED_CHARS = new ConfigBooleanHotkeyed("allowDisallowedChars", false, "", "Allow use of disallowed chars for command blocks or a way of kicking yourself from a multiplayer server", "Allow use of disallowed chars");
-        public static final ConfigOptionListHotkeyed IS_CHRISTMAS = new ConfigOptionListHotkeyed("isItChristmas", FeatureOverride.DEFAULT, "", "Overrides christmas state for chests.", "Is it christmas?");
+        public static final ConfigOptionListHotkeyed IS_CHRISTMAS = new ConfigOptionListHotkeyed("isItChristmas", FeatureOverride.DEFAULT, "", "Overrides christmas state for chests.", "Is it Christmas?");
         public static final ConfigBoolean TITLE_BAR_CUSTOMIZATION_ENABLED = new ConfigBoolean("titleBarCustomizationEnabled", false, "Enables customization of the title bar", "Title bar customization");
         public static final ConfigBoolean TITLE_BAR_HIDE_MODDED = new ConfigBoolean("titleBarHideModded", false, "Hides asterisk in title bar", "Title bar hide modded status");
         public static final ConfigBoolean TITLE_BAR_HIDE_GAME_STATUS = new ConfigBoolean("titleBarHideGameStatus", false, "Hides game status from title bar. eg. 3rd party multiplayer", "Title bar hide game status");
+        public static final ConfigBoolean MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO = new ConfigBoolean("multiplayerDetailedVersionInfo", false, "Additional version info such as protocol and server brand shown on server selection screen", "Show version info on server selection screen");
 
         public TweakConfigs() {
             super(ImmutableList.of(
@@ -115,6 +117,7 @@ public class Configs {
                     THIRD_PERSON_CAMERA_NO_CLIP,
                     CUSTOM_PLAYER_LIST_LENGTH_ENABLED,
                     CUSTOM_PLAYER_LIST_LENGTH,
+//                    PLAYER_LIST_PING,
                     NO_BOOK_PAGE_LENGTH,
                     SKIN_SIDELOADING_ENABLED,
                     SKIN_SIDELOADING_NON_MOJANG_DOMAINS,
@@ -128,7 +131,8 @@ public class Configs {
                     IS_CHRISTMAS,
                     TITLE_BAR_CUSTOMIZATION_ENABLED,
                     TITLE_BAR_HIDE_MODDED,
-                    TITLE_BAR_HIDE_GAME_STATUS
+                    TITLE_BAR_HIDE_GAME_STATUS,
+                    MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO
             ));
         }
     }

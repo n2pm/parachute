@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import pm.n2.parachute.config.Configs;
 
 @Mixin(PlayerListHud.class)
-public class MixinPlayerListHud {
+public class MixinPlayerListHud_playerListLength {
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Ljava/lang/Math;min(II)I", ordinal = 0), index = 1)
     private int ignorePlayerListSizeLimit(int count) {
         if (Configs.TweakConfigs.CUSTOM_PLAYER_LIST_LENGTH_ENABLED.getBooleanValue()) {
