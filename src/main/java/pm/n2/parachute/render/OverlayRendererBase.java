@@ -83,6 +83,7 @@ public abstract class OverlayRendererBase implements IOverlayRenderer {
     @Override
     public void allocateGlResources() {
         this.allocateBuffer(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR, GameRenderer::getPositionColorShader);
+        // this.allocateBuffer(VertexFormat.DrawMode.LINES, VertexFormats.LINES, GameRenderer::getRenderTypeLinesShader);
         this.allocateBuffer(VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION_COLOR, GameRenderer::getPositionColorShader);
     }
 

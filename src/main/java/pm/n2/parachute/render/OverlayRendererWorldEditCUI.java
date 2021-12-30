@@ -43,21 +43,27 @@ public class OverlayRendererWorldEditCUI extends OverlayRendererBase {
 
     @Override
     public void update(Vec3d cameraPos, MatrixStack matrixStack, Entity entity, MinecraftClient mc) {
+        // setGlLineWidth(6.0f);
         RenderObjectBase renderQuads = this.renderObjects.get(0);
         RenderObjectBase renderLines = this.renderObjects.get(1);
         BUFFER_QUADS.begin(renderQuads.getGlMode(), VertexFormats.POSITION_COLOR);
+        // BUFFER_LINES.begin(renderLines.getGlMode(), VertexFormats.LINES);
         BUFFER_LINES.begin(renderLines.getGlMode(), VertexFormats.POSITION_COLOR);
-        MatrixStack.Entry entry = matrixStack.peek();
         BlockPos[] pos = WorldDataStorage.getInstance().getWorldEditPos();
         if (pos[0] != null && pos[1] != null) {
+            // I'm lazy
             int minX = Math.min(pos[0].getX(), pos[1].getX());
             int minY = Math.min(pos[0].getY(), pos[1].getY());
             int minZ = Math.min(pos[0].getZ(), pos[1].getZ());
             int maxX = Math.max(pos[0].getX(), pos[1].getX());
             int maxY = Math.max(pos[0].getY(), pos[1].getY());
             int maxZ = Math.max(pos[0].getZ(), pos[1].getZ());
-            BlockBox box = new BlockBox(minX, minY, minZ, maxX, maxY, maxZ);
-            RenderUtils.drawBox(IntBoundingBox.fromVanillaBox(box), cameraPos, white, BUFFER_QUADS, BUFFER_LINES);
+            IntBoundingBox box = new IntBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
+            // To get line rendering, make a new RenderUtils class that extends malilib's
+            // Have drawBox be a copy of drawBox, pass through matrixStack so we can access it and get normals when
+            // drawing lines. drawBoxAllSidesBatchedQuads will call the malilib function. drawBoxAllEdgesBatchedLines
+            // will be modified to take normals
+            RenderUtils.drawBox(box, cameraPos, white, BUFFER_QUADS, BUFFER_LINES);
         }
         if (pos[0] != null)
             RenderUtils.drawBlockBoundingBoxOutlinesBatchedLines(pos[0], cameraPos, red, 0.04, BUFFER_LINES);
