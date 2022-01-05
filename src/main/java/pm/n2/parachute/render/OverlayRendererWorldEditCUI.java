@@ -1,15 +1,10 @@
 package pm.n2.parachute.render;
 
-import fi.dy.masa.malilib.render.RenderUtils;
-import fi.dy.masa.malilib.util.Color4f;
 import fi.dy.masa.malilib.util.IntBoundingBox;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3d;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import pm.n2.parachute.config.Configs;
@@ -17,10 +12,6 @@ import pm.n2.parachute.util.WorldDataStorage;
 
 public class OverlayRendererWorldEditCUI extends OverlayRendererBase {
     protected static boolean needsUpdate = true;
-
-    private final Color4f white = new Color4f(1f, 1f, 1f, 0.25f);
-    private final Color4f red = new Color4f(1f, 0f, 0f, 1f);
-    private final Color4f blue = new Color4f(0f, 0f, 1f, 1f);
 
     @Override
     public boolean shouldRender(MinecraftClient mc) {
@@ -43,12 +34,11 @@ public class OverlayRendererWorldEditCUI extends OverlayRendererBase {
 
     @Override
     public void update(Vec3d cameraPos, MatrixStack matrixStack, Entity entity, MinecraftClient mc) {
-        // setGlLineWidth(6.0f);
+        setGlLineWidth(6.0f);
         RenderObjectBase renderQuads = this.renderObjects.get(0);
         RenderObjectBase renderLines = this.renderObjects.get(1);
         BUFFER_QUADS.begin(renderQuads.getGlMode(), VertexFormats.POSITION_COLOR);
-        // BUFFER_LINES.begin(renderLines.getGlMode(), VertexFormats.LINES);
-        BUFFER_LINES.begin(renderLines.getGlMode(), VertexFormats.POSITION_COLOR);
+        BUFFER_LINES.begin(renderLines.getGlMode(), VertexFormats.LINES);
         BlockPos[] pos = WorldDataStorage.getInstance().getWorldEditPos();
         if (pos[0] != null && pos[1] != null) {
             // I'm lazy
@@ -59,16 +49,12 @@ public class OverlayRendererWorldEditCUI extends OverlayRendererBase {
             int maxY = Math.max(pos[0].getY(), pos[1].getY());
             int maxZ = Math.max(pos[0].getZ(), pos[1].getZ());
             IntBoundingBox box = new IntBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
-            // To get line rendering, make a new RenderUtils class that extends malilib's
-            // Have drawBox be a copy of drawBox, pass through matrixStack so we can access it and get normals when
-            // drawing lines. drawBoxAllSidesBatchedQuads will call the malilib function. drawBoxAllEdgesBatchedLines
-            // will be modified to take normals
-            RenderUtils.drawBox(box, cameraPos, white, BUFFER_QUADS, BUFFER_LINES);
+            RenderUtils.drawBox(box, cameraPos, RenderColors.TRANSPARENT_WHITE, RenderColors.OUTLINE_WHITE, BUFFER_QUADS, BUFFER_LINES);
         }
         if (pos[0] != null)
-            RenderUtils.drawBlockBoundingBoxOutlinesBatchedLines(pos[0], cameraPos, red, 0.04, BUFFER_LINES);
+            RenderUtils.drawBlockBoundingBoxOutlinesBatchedLines(pos[0], cameraPos, RenderColors.OUTLINE_RED, 0, BUFFER_LINES);
         if (pos[1] != null)
-            RenderUtils.drawBlockBoundingBoxOutlinesBatchedLines(pos[1], cameraPos, blue, 0.05, BUFFER_LINES);
+            RenderUtils.drawBlockBoundingBoxOutlinesBatchedLines(pos[1], cameraPos, RenderColors.OUTLINE_BLUE, 0, BUFFER_LINES);
         BUFFER_QUADS.end();
         BUFFER_LINES.end();
         renderQuads.uploadData(BUFFER_QUADS);

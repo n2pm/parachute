@@ -84,30 +84,31 @@ public class Configs {
     }
 
     public static class TweakConfigs extends BaseConfigs {
-        public static final ConfigOptionListHotkeyed SHOW_NAMETAGS = new ConfigOptionListHotkeyed("teamNametagRule", FeatureOverride.DEFAULT, "", "Overrides team settings for nametags.", "Show player nametags");
+        public static final ConfigOptionListHotkeyed SHOW_NAMETAGS = new ConfigOptionListHotkeyed("teamNametagRule", FeatureOverride.DEFAULT, "", "Overrides team settings for name tags.", "Show player name tags");
         public static final ConfigBooleanHotkeyed FORCE_COPY_DEBUG_INFO = new ConfigBooleanHotkeyed("forceCopyDebugInfo", false, "", "Copy all known info when using F3 + I, even when not op.", "Force copy debug info");
         public static final ConfigBooleanHotkeyed FORCE_DETAILED_DEBUG_INFO = new ConfigBooleanHotkeyed("noReducedDebugInfo", false, "", "Overrides reduced debug info.", "Force detailed debug info");
         public static final ConfigBoolean NO_SERVER_RESOURCE_PACKS = new ConfigBooleanHotkeyed("noServerResourcePacks", false, "", "Tells the server you accepted a resource pack without applying it.", "Ignore server resource packs");
         public static final ConfigBooleanHotkeyed THIRD_PERSON_CAMERA_NO_CLIP = new ConfigBooleanHotkeyed("3rdPersonCameraClip", false, "", "Allow 3rd person camera to clip", "Third person camera noclip");
         public static final ConfigBooleanHotkeyed CUSTOM_PLAYER_LIST_LENGTH_ENABLED = new ConfigBooleanHotkeyed("customPlayerListLengthEnabled", false, "", "Overwrite the player list length", "Overwrite player list length");
         public static final ConfigInteger CUSTOM_PLAYER_LIST_LENGTH = new ConfigInteger("customPlayerListLength", 80, 0, 1000, "Overwrites the tab list length; requires \"Overwrite player list length\"");
-        public static final ConfigBooleanHotkeyed PLAYER_LIST_PING = new ConfigBooleanHotkeyed("playerListPing", false, "", "Shows player list ping in miliseconds.\nPorted from blanket.", "Player list ping");
+        public static final ConfigBooleanHotkeyed PLAYER_LIST_PING = new ConfigBooleanHotkeyed("playerListPing", false, "", "Shows player list ping in milliseconds.\nPorted from blanket.", "Player list ping (unfinished)");
         public static final ConfigBooleanHotkeyed NO_BOOK_PAGE_LENGTH = new ConfigBooleanHotkeyed("noBookPageLengthLimit", false, "", "Ignore book page length when creating books", "Ignore book page length when creating books");
         public static final ConfigBoolean SKIN_SIDELOADING_ENABLED = new ConfigBoolean("skinSideloading", false, "Disable skin domain checks in authlib and skin size checks", "Skin sideloading");
-        public static final ConfigBoolean SKIN_SIDELOADING_NON_MOJANG_DOMAINS = new ConfigBoolean("skinSideloadingNonMojangDomains", false, "Allow loading of skins from non Mojang domains. This could reveal your IP to 3rd parties (like anybody actually cares)", "Sideload skins from non Mojang domains");
+        public static final ConfigBoolean SKIN_SIDELOADING_NON_MOJANG_DOMAINS = new ConfigBoolean("skinSideloadingNonMojangDomains", false, "Allow loading of skins from non Mojang domains. This could reveal your IP to 3rd parties (like anybody actually cares)", "Side load skins from non Mojang domains");
         public static final ConfigBoolean NO_SERVER_BLOCKIST = new ConfigBoolean("noMojangServerBlocklist", false, "Bypass Mojang's multiplayer server blocklist for EULA violating servers. Don't actually do this lol", "Disable Mojang's multiplayer server blocklist");
         public static final ConfigBooleanHotkeyed STEP_ASSIST_ENABLED = new ConfigBooleanHotkeyed("stepAssistEnabled", false, "", "Sets block step height to 1 block", "Step assist");
         public static final ConfigDouble STEP_ASSIST_HEIGHT = new ConfigDouble("stepAssistHeight", 1.0, 0.0, 2.0,true, "Step assist height");
-        public static final ConfigBooleanHotkeyed BRIGADIER_STRING_ESCAPES = new ConfigBooleanHotkeyed("brigadierStringEscapes", false, "", "A backport of brigadier#90. Makes stringified NBTs support more JSON-like string escapes. by Mstrodl\nRequires a compatible server if using on multiplayer", "Brigardier better string escapes");
-        public static final ConfigBooleanHotkeyed CUSTOM_CHAT_HISTORY_LENGTH_ENABLED = new ConfigBooleanHotkeyed("customChatHistoryLengthEnabled", false, "", "Allow for chat length to be overwritten", "Overwrite chat length");
+        public static final ConfigBoolean BRIGADIER_STRING_ESCAPES = new ConfigBoolean("brigadierStringEscapes", false, "A backport of brigadier#90. Makes stringified NBTs support more JSON-like string escapes. by Mstrodl\nRequires a compatible server if using on multiplayer", "Brigadier better string escapes");
+        public static final ConfigBoolean CUSTOM_CHAT_HISTORY_LENGTH_ENABLED = new ConfigBoolean("customChatHistoryLengthEnabled", false, "Allow for chat length to be overwritten", "Overwrite chat length");
         public static final ConfigInteger CUSTOM_CHAT_HISTORY_LENGTH = new ConfigInteger("customChatHistoryLength", 100, 1, 10000,false, "Chat length");
+        public static final ConfigBoolean DONT_RESET_CHAT_HISTORY = new ConfigBoolean("dontResetChatHistory", false, "Don't reset chat history when logging out", "Don't reset chat history");
         public static final ConfigBooleanHotkeyed ALLOW_DISALLOWED_CHARS = new ConfigBooleanHotkeyed("allowDisallowedChars", false, "", "Allow use of disallowed chars for command blocks or a way of kicking yourself from a multiplayer server", "Allow use of disallowed chars");
         public static final ConfigOptionListHotkeyed IS_CHRISTMAS = new ConfigOptionListHotkeyed("isItChristmas", FeatureOverride.DEFAULT, "", "Overrides christmas state for chests.", "Is it Christmas?");
         public static final ConfigBoolean TITLE_BAR_CUSTOMIZATION_ENABLED = new ConfigBoolean("titleBarCustomizationEnabled", false, "Enables customization of the title bar", "Title bar customization");
         public static final ConfigBoolean TITLE_BAR_HIDE_MODDED = new ConfigBoolean("titleBarHideModded", false, "Hides asterisk in title bar", "Title bar hide modded status");
         public static final ConfigBoolean TITLE_BAR_HIDE_GAME_STATUS = new ConfigBoolean("titleBarHideGameStatus", false, "Hides game status from title bar. eg. 3rd party multiplayer", "Title bar hide game status");
         public static final ConfigBoolean MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO = new ConfigBoolean("multiplayerDetailedVersionInfo", false, "Additional version info such as protocol and server brand shown on server selection screen", "Show version info on server selection screen");
-
+        public static final ConfigBoolean REGISTER_HIDDEN_ITEMS = new ConfigBoolean("registerHiddenItems", false, "Registers items like command blocks in the creative inventory");
         public TweakConfigs() {
             super(ImmutableList.of(
                     SHOW_NAMETAGS,
@@ -117,7 +118,7 @@ public class Configs {
                     THIRD_PERSON_CAMERA_NO_CLIP,
                     CUSTOM_PLAYER_LIST_LENGTH_ENABLED,
                     CUSTOM_PLAYER_LIST_LENGTH,
-//                    PLAYER_LIST_PING,
+                    PLAYER_LIST_PING,
                     NO_BOOK_PAGE_LENGTH,
                     SKIN_SIDELOADING_ENABLED,
                     SKIN_SIDELOADING_NON_MOJANG_DOMAINS,
@@ -127,12 +128,14 @@ public class Configs {
                     BRIGADIER_STRING_ESCAPES,
                     CUSTOM_CHAT_HISTORY_LENGTH_ENABLED,
                     CUSTOM_CHAT_HISTORY_LENGTH,
+                    DONT_RESET_CHAT_HISTORY,
                     ALLOW_DISALLOWED_CHARS,
                     IS_CHRISTMAS,
                     TITLE_BAR_CUSTOMIZATION_ENABLED,
                     TITLE_BAR_HIDE_MODDED,
                     TITLE_BAR_HIDE_GAME_STATUS,
-                    MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO
+                    MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO,
+                    REGISTER_HIDDEN_ITEMS
             ));
         }
     }

@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import pm.n2.parachute.config.Configs;
@@ -20,8 +21,17 @@ public class MixinPlayerListHud_showLatencyMs {
     private
     MinecraftClient client;
 
+    @Redirect(method="render", at=@At(value = "INVOKE", target = "Ljava/lang/Math;max(II)I", ordinal = 0))
+    private int rectSize(int currentSize, int textSize) {
+        if (Configs.TweakConfigs.PLAYER_LIST_PING.getBooleanValue()) {
+            // Extra zero to account for a space.
+            textSize += this.client.textRenderer.getWidth("00ms");
+        }
+        return Math.max(currentSize, textSize);
+    }
+
     @Inject(method = "renderLatencyIcon", at = @At("HEAD"), cancellable = true)
-    private void numericPing(MatrixStack matrixStack, int x, int w, int y, PlayerListEntry playerEntry, CallbackInfo ci){
+    private void numericPing(MatrixStack matrixStack, int x, int w, int y, PlayerListEntry playerEntry, CallbackInfo ci) {
         if (Configs.TweakConfigs.PLAYER_LIST_PING.getBooleanValue()) {
             int color;
             int latency = playerEntry.getLatency();
@@ -42,9 +52,9 @@ public class MixinPlayerListHud_showLatencyMs {
                 color = 0xAA0000;
             }
 
-            int xPos = w + x - 11;
+            int xPos = w + x - this.client.textRenderer.getWidth(Math.min(playerEntry.getLatency(), 999) + "ms");
 
-            this.client.textRenderer.drawWithShadow(matrixStack, playerEntry.getLatency() + "ms", xPos, y, color);
+            this.client.textRenderer.drawWithShadow(matrixStack, Math.min(playerEntry.getLatency(), 999) + "ms", xPos, y, color);
 
             ci.cancel();
         }
