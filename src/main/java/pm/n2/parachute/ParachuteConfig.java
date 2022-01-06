@@ -28,6 +28,8 @@ public class ParachuteConfig implements IConfigHandler {
                 ConfigUtils.readHotkeys(root, "tweakKeys", Configs.TWEAK_CONFIGS.getHotkeys());
                 ConfigUtils.readConfigBase(root, "render", Configs.RENDER_CONFIGS.get());
                 ConfigUtils.readHotkeys(root, "renderKeys", Configs.RENDER_CONFIGS.getHotkeys());
+                ConfigUtils.readHotkeys(root, "debugRendererKeys", Configs.DEBUG_RENDERER_CONFIGS.getHotkeys());
+                ConfigUtils.readConfigBase(root, "bugFix", Configs.BUG_FIX_CONFIGS.get());
             }
         }
     }
@@ -44,6 +46,8 @@ public class ParachuteConfig implements IConfigHandler {
             ConfigUtils.writeHotkeys(root, "tweakKeys", Configs.TWEAK_CONFIGS.getHotkeys());
             ConfigUtils.writeConfigBase(root, "render", Configs.RENDER_CONFIGS.get());
             ConfigUtils.writeHotkeys(root, "renderKeys", Configs.RENDER_CONFIGS.getHotkeys());
+            ConfigUtils.writeHotkeys(root, "debugRendererKeys", Configs.DEBUG_RENDERER_CONFIGS.getHotkeys());
+            ConfigUtils.writeConfigBase(root, "bugFix", Configs.BUG_FIX_CONFIGS.get());
 
             JsonUtils.writeJsonToFile(root, new File(dir, CONFIG_FILE_NAME));
         }
