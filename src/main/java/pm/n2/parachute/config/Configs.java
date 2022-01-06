@@ -109,7 +109,6 @@ public class Configs {
         public static final ConfigBoolean TITLE_BAR_HIDE_MODDED = new ConfigBoolean("titleBarHideModded", false, "Hides asterisk in title bar", "Title bar hide modded status");
         public static final ConfigBoolean TITLE_BAR_HIDE_GAME_STATUS = new ConfigBoolean("titleBarHideGameStatus", false, "Hides game status from title bar. eg. 3rd party multiplayer", "Title bar hide game status");
         public static final ConfigBoolean MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO = new ConfigBoolean("multiplayerDetailedVersionInfo", false, "Additional version info such as protocol and server brand shown on server selection screen", "Show version info on server selection screen");
-        public static final ConfigBoolean REGISTER_HIDDEN_ITEMS = new ConfigBoolean("registerHiddenItems", false, "Registers items like command blocks in the creative inventory");
 
         public TweakConfigs() {
             super(ImmutableList.of(
@@ -136,8 +135,7 @@ public class Configs {
                     TITLE_BAR_CUSTOMIZATION_ENABLED,
                     TITLE_BAR_HIDE_MODDED,
                     TITLE_BAR_HIDE_GAME_STATUS,
-                    MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO,
-                    REGISTER_HIDDEN_ITEMS
+                    MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO
             ));
         }
     }
