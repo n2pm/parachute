@@ -18,21 +18,6 @@ public class ParachutePreLaunch implements PreLaunchEntrypoint {
             "com/mojang/brigadier/StringReader.class"
     };
 
-    @Override
-    public void onPreLaunch() {
-        try {
-            ClassLoader classLoader = getClass().getClassLoader();
-            Method m = classLoader.getClass().getMethod("addURL", URL.class);
-            m.setAccessible(true);
-            for (String mixinTarget : libraryMixinTargets) {
-                Parachute.LOGGER.info("did something to {} lol", mixinTarget);
-                m.invoke(classLoader, getSource(classLoader.getParent().getParent().getParent(), mixinTarget).orElseThrow());
-            }
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-    }
-
     private static Optional<URL> getSource(ClassLoader loader, String filename) {
         URL url;
 
@@ -47,5 +32,20 @@ public class ParachutePreLaunch implements PreLaunchEntrypoint {
         }
 
         return Optional.empty();
+    }
+
+    @Override
+    public void onPreLaunch() {
+        try {
+            ClassLoader classLoader = getClass().getClassLoader();
+            Method m = classLoader.getClass().getMethod("addURL", URL.class);
+            m.setAccessible(true);
+            for (String mixinTarget : libraryMixinTargets) {
+                Parachute.LOGGER.info("did something to {} lol", mixinTarget);
+                m.invoke(classLoader, getSource(classLoader.getParent().getParent().getParent(), mixinTarget).orElseThrow());
+            }
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 }

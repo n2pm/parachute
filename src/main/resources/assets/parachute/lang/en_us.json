@@ -9,5 +9,6 @@
   "parachute.gui.config.render": "Render Tweaks",
   "parachute.gui.config.renderHotkeys": "Render Tweak Keybinds",
   "parachute.gui.config.debugRenderer": "Debug Renderers",
-  "parachute.gui.config.debugRendererHotkeys": "Debug Renderer Keybinds"
+  "parachute.gui.config.debugRendererHotkeys": "Debug Renderer Keybinds",
+  "parachute.gui.config.bugFix": "Bug Fixes"
 }

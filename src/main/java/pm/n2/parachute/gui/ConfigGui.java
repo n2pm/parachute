@@ -71,7 +71,7 @@ public class ConfigGui extends GuiConfigsBase {
         GuiTabs tab = ConfigGui.tab;
 
         // There are no keybinds here so this doesn't need to be huge
-        if (tab == GuiTabs.FEATURES || tab == GuiTabs.TWEAKS || tab == GuiTabs.RENDER || tab == GuiTabs.DEBUG_RENDERER) {
+        if (tab == GuiTabs.FEATURES || tab == GuiTabs.TWEAKS || tab == GuiTabs.RENDER || tab == GuiTabs.DEBUG_RENDERER || tab == GuiTabs.BUG_FIX) {
             return 100;
         }
 
@@ -111,11 +111,38 @@ public class ConfigGui extends GuiConfigsBase {
             case DEBUG_RENDERER_HOTKEYS:
                 configs = ConfigUtils.createConfigWrapperForType(ConfigType.HOTKEY, Configs.DEBUG_RENDERER_CONFIGS.getHotkeys());
                 break;
+            case BUG_FIX:
+                configs = Configs.BUG_FIX_CONFIGS.get();
+                break;
             default:
                 return Collections.emptyList();
         }
 
         return ConfigOptionWrapper.createFor(configs);
+    }
+
+    public enum GuiTabs {
+        GENERIC("parachute.gui.config.generic"),
+        FEATURES("parachute.gui.config.features"),
+        FEATURES_HOTKEYS("parachute.gui.config.featuresHotkeys"),
+        TWEAKS("parachute.gui.config.tweaks"),
+        TWEAKS_HOTKEYS("parachute.gui.config.tweaksHotkeys"),
+        RENDER("parachute.gui.config.render"),
+        RENDER_HOTKEYS("parachute.gui.config.renderHotkeys"),
+        DEBUG_RENDERER("parachute.gui.config.debugRenderer"),
+        DEBUG_RENDERER_HOTKEYS("parachute.gui.config.debugRendererHotkeys"),
+        BUG_FIX("parachute.gui.config.bugFix");
+
+        private final String translationKey;
+
+        GuiTabs(String translationKey) {
+            this.translationKey = translationKey;
+        }
+
+        public String getDisplayName() {
+            return StringUtils.translate(this.translationKey);
+        }
+
     }
 
     private record ButtonListener(GuiTabs tab, ConfigGui parent) implements IButtonActionListener {
@@ -128,29 +155,5 @@ public class ConfigGui extends GuiConfigsBase {
             Objects.requireNonNull(this.parent.getListWidget()).resetScrollbarPosition();
             this.parent.initGui();
         }
-    }
-
-
-    public enum GuiTabs {
-        GENERIC("parachute.gui.config.generic"),
-        FEATURES("parachute.gui.config.features"),
-        FEATURES_HOTKEYS("parachute.gui.config.featuresHotkeys"),
-        TWEAKS("parachute.gui.config.tweaks"),
-        TWEAKS_HOTKEYS("parachute.gui.config.tweaksHotkeys"),
-        RENDER("parachute.gui.config.render"),
-        RENDER_HOTKEYS("parachute.gui.config.renderHotkeys"),
-        DEBUG_RENDERER("parachute.gui.config.debugRenderer"),
-        DEBUG_RENDERER_HOTKEYS("parachute.gui.config.debugRendererHotkeys");
-
-        private final String translationKey;
-
-        GuiTabs(String translationKey) {
-            this.translationKey = translationKey;
-        }
-
-        public String getDisplayName() {
-            return StringUtils.translate(this.translationKey);
-        }
-
     }
 }

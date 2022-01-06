@@ -17,6 +17,7 @@
     "MixinClientPlayerEntity",
     "MixinClientPlayNetworkHandler",
     "MixinCommandSuggestor",
+    "MixinDebugRenderer",
     "MixinDisconnectedScreen",
     "MixinEntity",
     "MixinGameRenderer",
@@ -27,10 +28,12 @@
     "MixinMinecraftClient",
     "MixinMinecraftClient_drawProfilerResults",
     "MixinMinecraftClient_windowTitle",
+    "MixinMultiplayerServerListWidget_ServerEntry",
     "MixinPlayerListHud_playerListLength",
     "MixinPlayerListHud_showLatencyMs",
     "MixinPlayerSkinTexture",
     "MixinSharedConstants",
+    "MixinSocialInteractionsManager_chatLagFix",
     "MixinStringReader_brigadier",
     "MixinTeam",
     "MixinYggdrasilMinecraftSessionService_authlib",
@@ -40,7 +43,5 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "MixinDebugRenderer",
-    "MixinMultiplayerServerListWidget_ServerEntry"
   ]
 }

@@ -18,4 +18,10 @@ public class MixinEntity {
             entity.stepHeight = Configs.TweakConfigs.STEP_ASSIST_ENABLED.getBooleanValue() ? (float) Configs.TweakConfigs.STEP_ASSIST_HEIGHT.getDoubleValue() : 0.6F;
         }
     }
+
+//    // Doesn't work
+//    @ModifyVariable(method = "adjustMovementForCollisions(Lnet/minecraft/util/math/Vec3d;)Lnet/minecraft/util/math/Vec3d;", at = @At(value = "JUMP", opcode = Opcodes.IFNE), index = 8, ordinal = 3)
+//    private boolean shouldStepUp(boolean original) {
+//        return Configs.TweakConfigs.HALF_STEP.getBooleanValue() || original;
+//    }
 }

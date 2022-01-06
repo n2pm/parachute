@@ -17,6 +17,7 @@ public class Configs {
     public static TweakConfigs TWEAK_CONFIGS = new TweakConfigs();
     public static RenderConfigs RENDER_CONFIGS = new RenderConfigs();
     public static DebugRendererConfigs DEBUG_RENDERER_CONFIGS = new DebugRendererConfigs();
+    public static BugFixConfigs BUG_FIX_CONFIGS = new BugFixConfigs();
 
     public static class BaseConfigs {
         public final ImmutableList<IConfigValue> OPTIONS;
@@ -99,6 +100,7 @@ public class Configs {
         public static final ConfigBoolean NO_SERVER_BLOCKIST = new ConfigBoolean("noMojangServerBlocklist", false, "Bypass Mojang's multiplayer server blocklist for EULA violating servers. Don't actually do this lol", "Disable Mojang's multiplayer server blocklist");
         public static final ConfigBooleanHotkeyed STEP_ASSIST_ENABLED = new ConfigBooleanHotkeyed("stepAssistEnabled", false, "", "Sets block step height to 1 block", "Step assist");
         public static final ConfigDouble STEP_ASSIST_HEIGHT = new ConfigDouble("stepAssistHeight", 1.0, 0.0, 2.0, true, "Step assist height");
+        //        public static final ConfigBooleanHotkeyed HALF_STEP = new ConfigBooleanHotkeyed("halfStep", false, "", "Step up when in air", "Half step");
         public static final ConfigBoolean BRIGADIER_STRING_ESCAPES = new ConfigBoolean("brigadierStringEscapes", false, "A backport of brigadier#90. Makes stringified NBTs support more JSON-like string escapes. by Mstrodl\nRequires a compatible server if using on multiplayer", "Brigadier better string escapes");
         public static final ConfigBoolean CUSTOM_CHAT_HISTORY_LENGTH_ENABLED = new ConfigBoolean("customChatHistoryLengthEnabled", false, "Allow for chat length to be overwritten", "Overwrite chat length");
         public static final ConfigInteger CUSTOM_CHAT_HISTORY_LENGTH = new ConfigInteger("customChatHistoryLength", 100, 1, 10000, false, "Chat length");
@@ -126,6 +128,7 @@ public class Configs {
                     NO_SERVER_BLOCKIST,
                     STEP_ASSIST_ENABLED,
                     STEP_ASSIST_HEIGHT,
+//                    HALF_STEP,
                     BRIGADIER_STRING_ESCAPES,
                     CUSTOM_CHAT_HISTORY_LENGTH_ENABLED,
                     CUSTOM_CHAT_HISTORY_LENGTH,
@@ -186,26 +189,33 @@ public class Configs {
         }
     }
 
-    public static class DebugRendererConfigs extends BaseConfigs {
-        private static final String requires = "\nRequires Ceramic or another serverside mod which provides debug info";
+    public static class BugFixConfigs extends BaseConfigs {
+        public static final ConfigBoolean CHAT_LAG_FIX = new ConfigBoolean("chatLagFix", false, "Fixes lag from chat messages at the expense of not being able to block players", "Chat lag fix");
 
-        public static final ConfigBooleanHotkeyed PATHFINDING = new ConfigBooleanHotkeyed("pathfinding", false, "", "" + requires, "");
+        BugFixConfigs() {
+            super(ImmutableList.of(CHAT_LAG_FIX));
+        }
+    }
+
+    public static class DebugRendererConfigs extends BaseConfigs {
         public static final ConfigBooleanHotkeyed WATER = new ConfigBooleanHotkeyed("water", false, "", "", "");
-//        public static final ConfigBooleanHotkeyed CHUNK_BORDER = new ConfigBooleanHotkeyed("chunkBorder", false, "", "", "");
+        //        public static final ConfigBooleanHotkeyed CHUNK_BORDER = new ConfigBooleanHotkeyed("chunkBorder", false, "", "", "");
         public static final ConfigBooleanHotkeyed HEIGHTMAP = new ConfigBooleanHotkeyed("heightmap", false, "", "", "");
         public static final ConfigBooleanHotkeyed COLLISION = new ConfigBooleanHotkeyed("collision", false, "", "", "");
+        public static final ConfigBooleanHotkeyed SKY_LIGHT = new ConfigBooleanHotkeyed("skyLight", false, "", "", "");
+        public static final ConfigBooleanHotkeyed BLOCK_OUTLINE = new ConfigBooleanHotkeyed("blockOutline", false, "", "", "");
+        private static final String requires = "\nRequires Ceramic or another serverside mod which provides debug info";
+        public static final ConfigBooleanHotkeyed PATHFINDING = new ConfigBooleanHotkeyed("pathfinding", false, "", "" + requires, "");
         public static final ConfigBooleanHotkeyed NEIGHBOR_UPDATE = new ConfigBooleanHotkeyed("neighborUpdate", false, "", "" + requires, "");
         public static final ConfigBooleanHotkeyed STRUCTURE = new ConfigBooleanHotkeyed("structure", false, "", "" + requires, "");
-        public static final ConfigBooleanHotkeyed SKY_LIGHT = new ConfigBooleanHotkeyed("skyLight", false, "", "", "");
         public static final ConfigBooleanHotkeyed WORLD_GEN_ATTEMPT = new ConfigBooleanHotkeyed("worldGenAttempt", false, "", "" + requires, "");
-        public static final ConfigBooleanHotkeyed BLOCK_OUTLINE = new ConfigBooleanHotkeyed("blockOutline", false, "", "", "");
         public static final ConfigBooleanHotkeyed CHUNK_LOADING = new ConfigBooleanHotkeyed("chunkLoading", false, "", "" + requires, "");
         public static final ConfigBooleanHotkeyed VILLAGE = new ConfigBooleanHotkeyed("village", false, "", "" + requires, "");
         public static final ConfigBooleanHotkeyed VILLAGE_SECTIONS = new ConfigBooleanHotkeyed("villageSections", false, "", "" + requires, "");
         public static final ConfigBooleanHotkeyed BEE = new ConfigBooleanHotkeyed("bee", false, "", "" + requires, "");
         public static final ConfigBooleanHotkeyed RAID_CENTER = new ConfigBooleanHotkeyed("raidCenter", false, "", "" + requires, "");
         public static final ConfigBooleanHotkeyed GOAL_SELECTOR = new ConfigBooleanHotkeyed("goalSelector", false, "", "" + requires, "");
-//        public static final ConfigBooleanHotkeyed GAME_TEST = new ConfigBooleanHotkeyed("gameTest", false, "", "" + requires, "");
+        //        public static final ConfigBooleanHotkeyed GAME_TEST = new ConfigBooleanHotkeyed("gameTest", false, "", "" + requires, "");
         public static final ConfigBooleanHotkeyed GAME_EVENT = new ConfigBooleanHotkeyed("gameEvent", false, "", "" + requires, "");
 
         DebugRendererConfigs() {

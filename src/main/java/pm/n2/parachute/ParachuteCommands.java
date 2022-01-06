@@ -28,16 +28,10 @@ import java.util.Map;
 
 // I wish fabric client commands api was like this, then it'd actually be useful
 public class ParachuteCommands {
-    private static final ParachuteCommands INSTANCE = new ParachuteCommands();
     public static final char COMMAND_PREFIX = '.';
-
-    public static ParachuteCommands getInstance() {
-        return INSTANCE;
-    }
-
+    private static final ParachuteCommands INSTANCE = new ParachuteCommands();
     private final CommandDispatcher<ClientCommandSource> dispatcher = new CommandDispatcher<>();
     private final MinecraftClient client;
-
     public ParachuteCommands() {
         this.client = MinecraftClient.getInstance();
         ExampleCommand.register(this.dispatcher);
@@ -47,12 +41,23 @@ public class ParachuteCommands {
         this.dispatcher.findAmbiguities((parent, child, sibling, inputs) -> Parachute.LOGGER.warn("Ambiguity between arguments {} and {} with inputs: {}", this.dispatcher.getPath(child), this.dispatcher.getPath(sibling), inputs));
     }
 
+    public static ParachuteCommands getInstance() {
+        return INSTANCE;
+    }
+
     public static LiteralArgumentBuilder<ClientCommandSource> literal(String literal) {
         return LiteralArgumentBuilder.literal(literal);
     }
 
     public static <T> RequiredArgumentBuilder<ClientCommandSource, T> argument(String name, ArgumentType<T> type) {
         return RequiredArgumentBuilder.argument(name, type);
+    }
+
+    // Used by MixinCommandSuggestor
+    public static boolean isClientCommandPrefix(String message) {
+        if (message.startsWith(Character.toString(COMMAND_PREFIX) + COMMAND_PREFIX) || message.startsWith(COMMAND_PREFIX + "/"))
+            return false;
+        return message.startsWith(Character.toString(COMMAND_PREFIX));
     }
 
     public void execute(String command, ClientCommandSource source) {
@@ -83,14 +88,6 @@ public class ParachuteCommands {
         }
     }
 
-    // Used by MixinCommandSuggestor
-    public static boolean isClientCommandPrefix(String message) {
-        if (message.startsWith(Character.toString(COMMAND_PREFIX) + COMMAND_PREFIX)
-                || message.startsWith(COMMAND_PREFIX + "/"))
-            return false;
-        return message.startsWith(Character.toString(COMMAND_PREFIX));
-    }
-
     public boolean executeCommand(String message) {
         // allow people to send ./
         if (message.startsWith(Character.toString(COMMAND_PREFIX)) && !message.startsWith(COMMAND_PREFIX + "/")) {
@@ -118,16 +115,14 @@ public class ParachuteCommands {
     private void createCommandTree(CommandNode<ClientCommandSource> tree, CommandNode<CommandSource> result, ClientCommandSource source, Map<CommandNode<ClientCommandSource>, CommandNode<CommandSource>> resultNodes) {
         for (CommandNode<ClientCommandSource> commandNode : tree.getChildren()) {
             if (commandNode.canUse(source)) {
-                @SuppressWarnings({"unchecked", "rawtypes"})
-                ArgumentBuilder<CommandSource, ?> argumentBuilder = (ArgumentBuilder) commandNode.createBuilder();
+                @SuppressWarnings({"unchecked", "rawtypes"}) ArgumentBuilder<CommandSource, ?> argumentBuilder = (ArgumentBuilder) commandNode.createBuilder();
                 argumentBuilder.executes((context) -> 0);
                 if (argumentBuilder.getCommand() != null) {
                     argumentBuilder.executes((context) -> 0);
                 }
 
                 if (argumentBuilder instanceof RequiredArgumentBuilder) {
-                    @SuppressWarnings({"unchecked", "rawtypes"})
-                    RequiredArgumentBuilder<CommandSource, ?> requiredArgumentBuilder = (RequiredArgumentBuilder) argumentBuilder;
+                    @SuppressWarnings({"unchecked", "rawtypes"}) RequiredArgumentBuilder<CommandSource, ?> requiredArgumentBuilder = (RequiredArgumentBuilder) argumentBuilder;
                     if (requiredArgumentBuilder.getSuggestionsProvider() != null) {
                         requiredArgumentBuilder.suggests(SuggestionProviders.getLocalProvider(requiredArgumentBuilder.getSuggestionsProvider()));
                     }
