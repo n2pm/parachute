@@ -40,6 +40,7 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "MixinDebugRenderer",
     "MixinMultiplayerServerListWidget_ServerEntry"
   ]
 }

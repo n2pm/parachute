@@ -24,6 +24,9 @@ import java.util.Objects;
 import static com.mojang.brigadier.arguments.BoolArgumentType.getBool;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 
+/**
+ * @author NotNite <hi@notnite.com>
+ */
 public class PanoramaCommand {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss");
 

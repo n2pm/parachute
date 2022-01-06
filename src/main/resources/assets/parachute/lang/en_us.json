@@ -7,5 +7,7 @@
   "parachute.gui.config.tweaks": "Tweaks",
   "parachute.gui.config.tweaksHotkeys": "Tweak Keybinds",
   "parachute.gui.config.render": "Render Tweaks",
-  "parachute.gui.config.renderHotkeys": "Render Tweak Keybinds"
+  "parachute.gui.config.renderHotkeys": "Render Tweak Keybinds",
+  "parachute.gui.config.debugRenderer": "Debug Renderers",
+  "parachute.gui.config.debugRendererHotkeys": "Debug Renderer Keybinds"
 }

@@ -63,7 +63,7 @@ public class ConfigGui extends GuiConfigsBase {
 
     @Override
     protected boolean useKeybindSearch() {
-        return ConfigGui.tab == GuiTabs.TWEAKS_HOTKEYS || ConfigGui.tab == GuiTabs.RENDER_HOTKEYS;
+        return ConfigGui.tab == GuiTabs.TWEAKS_HOTKEYS || ConfigGui.tab == GuiTabs.RENDER_HOTKEYS || ConfigGui.tab == GuiTabs.DEBUG_RENDERER_HOTKEYS;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ConfigGui extends GuiConfigsBase {
         GuiTabs tab = ConfigGui.tab;
 
         // There are no keybinds here so this doesn't need to be huge
-        if (tab == GuiTabs.FEATURES || tab == GuiTabs.TWEAKS || tab == GuiTabs.RENDER) {
+        if (tab == GuiTabs.FEATURES || tab == GuiTabs.TWEAKS || tab == GuiTabs.RENDER || tab == GuiTabs.DEBUG_RENDERER) {
             return 100;
         }
 
@@ -105,6 +105,12 @@ public class ConfigGui extends GuiConfigsBase {
             case RENDER_HOTKEYS:
                 configs = ConfigUtils.createConfigWrapperForType(ConfigType.HOTKEY, Configs.RENDER_CONFIGS.getHotkeys());
                 break;
+            case DEBUG_RENDERER:
+                configs = Configs.DEBUG_RENDERER_CONFIGS.get();
+                break;
+            case DEBUG_RENDERER_HOTKEYS:
+                configs = ConfigUtils.createConfigWrapperForType(ConfigType.HOTKEY, Configs.DEBUG_RENDERER_CONFIGS.getHotkeys());
+                break;
             default:
                 return Collections.emptyList();
         }
@@ -132,7 +138,9 @@ public class ConfigGui extends GuiConfigsBase {
         TWEAKS("parachute.gui.config.tweaks"),
         TWEAKS_HOTKEYS("parachute.gui.config.tweaksHotkeys"),
         RENDER("parachute.gui.config.render"),
-        RENDER_HOTKEYS("parachute.gui.config.renderHotkeys");
+        RENDER_HOTKEYS("parachute.gui.config.renderHotkeys"),
+        DEBUG_RENDERER("parachute.gui.config.debugRenderer"),
+        DEBUG_RENDERER_HOTKEYS("parachute.gui.config.debugRendererHotkeys");
 
         private final String translationKey;
 

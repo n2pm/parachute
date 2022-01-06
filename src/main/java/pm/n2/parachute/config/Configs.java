@@ -16,6 +16,7 @@ public class Configs {
     public static FeatureConfigs FEATURE_CONFIGS = new FeatureConfigs();
     public static TweakConfigs TWEAK_CONFIGS = new TweakConfigs();
     public static RenderConfigs RENDER_CONFIGS = new RenderConfigs();
+    public static DebugRendererConfigs DEBUG_RENDERER_CONFIGS = new DebugRendererConfigs();
 
     public static class BaseConfigs {
         public final ImmutableList<IConfigValue> OPTIONS;
@@ -66,7 +67,7 @@ public class Configs {
         public static final ConfigBoolean RECONNECT_BUTTON = new ConfigBoolean("reconnectButton", false, "Adds a button to reconnect when you disconnect from a server.", "Show reconnect button");
         public static final ConfigBoolean AUTO_RECONNECT_ENABLED = new ConfigBoolean("tweakAutoReconnect", false, "Automatically reconnect after you disconnect from a server.", "Auto reconnect");
         public static final ConfigInteger AUTO_RECONNECT_TIME = new ConfigInteger("autoReconnectTimeout", 5, 0, 30, "The amount of seconds until auto reconnect triggers.");
-        public static final ConfigBooleanHotkeyed POTION_EFFECT_HUD = new ConfigBooleanHotkeyed("potionEffectHUD",false,"", "Enables minimal potion effect HUD", "Potion effect HUD");
+        public static final ConfigBooleanHotkeyed POTION_EFFECT_HUD = new ConfigBooleanHotkeyed("potionEffectHUD", false, "", "Enables minimal potion effect HUD", "Potion effect HUD");
         public static final ConfigBoolean POTION_EFFECT_HUD_NO_COLOR = new ConfigBoolean("potionEffectHUDNoColor", false, "Disables potion color on effect HUD", "Potion effect HUD disable color");
         public static final ConfigBooleanHotkeyed ARMOR_HUD = new ConfigBooleanHotkeyed("armorHUD", false, "", "Enables armor HUD. \nPorted from blanket", "Armor HUD");
 
@@ -97,10 +98,10 @@ public class Configs {
         public static final ConfigBoolean SKIN_SIDELOADING_NON_MOJANG_DOMAINS = new ConfigBoolean("skinSideloadingNonMojangDomains", false, "Allow loading of skins from non Mojang domains. This could reveal your IP to 3rd parties (like anybody actually cares)", "Side load skins from non Mojang domains");
         public static final ConfigBoolean NO_SERVER_BLOCKIST = new ConfigBoolean("noMojangServerBlocklist", false, "Bypass Mojang's multiplayer server blocklist for EULA violating servers. Don't actually do this lol", "Disable Mojang's multiplayer server blocklist");
         public static final ConfigBooleanHotkeyed STEP_ASSIST_ENABLED = new ConfigBooleanHotkeyed("stepAssistEnabled", false, "", "Sets block step height to 1 block", "Step assist");
-        public static final ConfigDouble STEP_ASSIST_HEIGHT = new ConfigDouble("stepAssistHeight", 1.0, 0.0, 2.0,true, "Step assist height");
+        public static final ConfigDouble STEP_ASSIST_HEIGHT = new ConfigDouble("stepAssistHeight", 1.0, 0.0, 2.0, true, "Step assist height");
         public static final ConfigBoolean BRIGADIER_STRING_ESCAPES = new ConfigBoolean("brigadierStringEscapes", false, "A backport of brigadier#90. Makes stringified NBTs support more JSON-like string escapes. by Mstrodl\nRequires a compatible server if using on multiplayer", "Brigadier better string escapes");
         public static final ConfigBoolean CUSTOM_CHAT_HISTORY_LENGTH_ENABLED = new ConfigBoolean("customChatHistoryLengthEnabled", false, "Allow for chat length to be overwritten", "Overwrite chat length");
-        public static final ConfigInteger CUSTOM_CHAT_HISTORY_LENGTH = new ConfigInteger("customChatHistoryLength", 100, 1, 10000,false, "Chat length");
+        public static final ConfigInteger CUSTOM_CHAT_HISTORY_LENGTH = new ConfigInteger("customChatHistoryLength", 100, 1, 10000, false, "Chat length");
         public static final ConfigBoolean DONT_RESET_CHAT_HISTORY = new ConfigBoolean("dontResetChatHistory", false, "Don't reset chat history when logging out", "Don't reset chat history");
         public static final ConfigBooleanHotkeyed ALLOW_DISALLOWED_CHARS = new ConfigBooleanHotkeyed("allowDisallowedChars", false, "", "Allow use of disallowed chars for command blocks or a way of kicking yourself from a multiplayer server", "Allow use of disallowed chars");
         public static final ConfigOptionListHotkeyed IS_CHRISTMAS = new ConfigOptionListHotkeyed("isItChristmas", FeatureOverride.DEFAULT, "", "Overrides christmas state for chests.", "Is it Christmas?");
@@ -109,6 +110,7 @@ public class Configs {
         public static final ConfigBoolean TITLE_BAR_HIDE_GAME_STATUS = new ConfigBoolean("titleBarHideGameStatus", false, "Hides game status from title bar. eg. 3rd party multiplayer", "Title bar hide game status");
         public static final ConfigBoolean MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO = new ConfigBoolean("multiplayerDetailedVersionInfo", false, "Additional version info such as protocol and server brand shown on server selection screen", "Show version info on server selection screen");
         public static final ConfigBoolean REGISTER_HIDDEN_ITEMS = new ConfigBoolean("registerHiddenItems", false, "Registers items like command blocks in the creative inventory");
+
         public TweakConfigs() {
             super(ImmutableList.of(
                     SHOW_NAMETAGS,
@@ -186,5 +188,49 @@ public class Configs {
         }
     }
 
+    public static class DebugRendererConfigs extends BaseConfigs {
+        private static final String requires = "\nRequires Ceramic or another serverside mod which provides debug info";
 
+        public static final ConfigBooleanHotkeyed PATHFINDING = new ConfigBooleanHotkeyed("pathfinding", false, "", "" + requires, "");
+        public static final ConfigBooleanHotkeyed WATER = new ConfigBooleanHotkeyed("water", false, "", "", "");
+//        public static final ConfigBooleanHotkeyed CHUNK_BORDER = new ConfigBooleanHotkeyed("chunkBorder", false, "", "", "");
+        public static final ConfigBooleanHotkeyed HEIGHTMAP = new ConfigBooleanHotkeyed("heightmap", false, "", "", "");
+        public static final ConfigBooleanHotkeyed COLLISION = new ConfigBooleanHotkeyed("collision", false, "", "", "");
+        public static final ConfigBooleanHotkeyed NEIGHBOR_UPDATE = new ConfigBooleanHotkeyed("neighborUpdate", false, "", "" + requires, "");
+        public static final ConfigBooleanHotkeyed STRUCTURE = new ConfigBooleanHotkeyed("structure", false, "", "" + requires, "");
+        public static final ConfigBooleanHotkeyed SKY_LIGHT = new ConfigBooleanHotkeyed("skyLight", false, "", "", "");
+        public static final ConfigBooleanHotkeyed WORLD_GEN_ATTEMPT = new ConfigBooleanHotkeyed("worldGenAttempt", false, "", "" + requires, "");
+        public static final ConfigBooleanHotkeyed BLOCK_OUTLINE = new ConfigBooleanHotkeyed("blockOutline", false, "", "", "");
+        public static final ConfigBooleanHotkeyed CHUNK_LOADING = new ConfigBooleanHotkeyed("chunkLoading", false, "", "" + requires, "");
+        public static final ConfigBooleanHotkeyed VILLAGE = new ConfigBooleanHotkeyed("village", false, "", "" + requires, "");
+        public static final ConfigBooleanHotkeyed VILLAGE_SECTIONS = new ConfigBooleanHotkeyed("villageSections", false, "", "" + requires, "");
+        public static final ConfigBooleanHotkeyed BEE = new ConfigBooleanHotkeyed("bee", false, "", "" + requires, "");
+        public static final ConfigBooleanHotkeyed RAID_CENTER = new ConfigBooleanHotkeyed("raidCenter", false, "", "" + requires, "");
+        public static final ConfigBooleanHotkeyed GOAL_SELECTOR = new ConfigBooleanHotkeyed("goalSelector", false, "", "" + requires, "");
+//        public static final ConfigBooleanHotkeyed GAME_TEST = new ConfigBooleanHotkeyed("gameTest", false, "", "" + requires, "");
+        public static final ConfigBooleanHotkeyed GAME_EVENT = new ConfigBooleanHotkeyed("gameEvent", false, "", "" + requires, "");
+
+        DebugRendererConfigs() {
+            super(ImmutableList.of(
+                    PATHFINDING,
+                    WATER,
+//                    CHUNK_BORDER,
+                    HEIGHTMAP,
+                    COLLISION,
+                    NEIGHBOR_UPDATE,
+                    STRUCTURE,
+                    SKY_LIGHT,
+                    WORLD_GEN_ATTEMPT,
+                    BLOCK_OUTLINE,
+                    CHUNK_LOADING,
+                    VILLAGE,
+                    VILLAGE_SECTIONS,
+                    BEE,
+                    RAID_CENTER,
+                    GOAL_SELECTOR,
+//                    GAME_TEST,
+                    GAME_EVENT
+            ));
+        }
+    }
 }
