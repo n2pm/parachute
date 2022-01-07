@@ -6,6 +6,7 @@ import fi.dy.masa.malilib.config.options.*;
 import fi.dy.masa.malilib.hotkeys.IHotkey;
 import fi.dy.masa.malilib.hotkeys.IKeybind;
 import fi.dy.masa.malilib.hotkeys.KeybindSettings;
+import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -198,38 +199,37 @@ public class Configs {
     }
 
     public static class DebugRendererConfigs extends BaseConfigs {
-        public static final ConfigBooleanHotkeyed WATER = new ConfigBooleanHotkeyed("water", false, "", "", "");
+        public static final ConfigBooleanHotkeyed WATER = new ConfigBooleanHotkeyed("debugWater", false, "", "", "");
         //        public static final ConfigBooleanHotkeyed CHUNK_BORDER = new ConfigBooleanHotkeyed("chunkBorder", false, "", "", "");
-        public static final ConfigBooleanHotkeyed HEIGHTMAP = new ConfigBooleanHotkeyed("heightmap", false, "", "", "");
-        public static final ConfigBooleanHotkeyed COLLISION = new ConfigBooleanHotkeyed("collision", false, "", "", "");
-        public static final ConfigBooleanHotkeyed SKY_LIGHT = new ConfigBooleanHotkeyed("skyLight", false, "", "", "");
-        public static final ConfigBooleanHotkeyed BLOCK_OUTLINE = new ConfigBooleanHotkeyed("blockOutline", false, "", "", "");
-        private static final String requires = "\nRequires Ceramic or another serverside mod which provides debug info";
-        public static final ConfigBooleanHotkeyed PATHFINDING = new ConfigBooleanHotkeyed("pathfinding", false, "", "" + requires, "");
-        public static final ConfigBooleanHotkeyed NEIGHBOR_UPDATE = new ConfigBooleanHotkeyed("neighborUpdate", false, "", "" + requires, "");
-        public static final ConfigBooleanHotkeyed STRUCTURE = new ConfigBooleanHotkeyed("structure", false, "", "" + requires, "");
-        public static final ConfigBooleanHotkeyed WORLD_GEN_ATTEMPT = new ConfigBooleanHotkeyed("worldGenAttempt", false, "", "" + requires, "");
-        public static final ConfigBooleanHotkeyed CHUNK_LOADING = new ConfigBooleanHotkeyed("chunkLoading", false, "", "" + requires, "");
-        public static final ConfigBooleanHotkeyed VILLAGE = new ConfigBooleanHotkeyed("village", false, "", "" + requires, "");
-        public static final ConfigBooleanHotkeyed VILLAGE_SECTIONS = new ConfigBooleanHotkeyed("villageSections", false, "", "" + requires, "");
-        public static final ConfigBooleanHotkeyed BEE = new ConfigBooleanHotkeyed("bee", false, "", "" + requires, "");
-        public static final ConfigBooleanHotkeyed RAID_CENTER = new ConfigBooleanHotkeyed("raidCenter", false, "", "" + requires, "");
-        public static final ConfigBooleanHotkeyed GOAL_SELECTOR = new ConfigBooleanHotkeyed("goalSelector", false, "", "" + requires, "");
+        public static final ConfigBooleanHotkeyed HEIGHTMAP = new ConfigBooleanHotkeyed("debugHeightmap", false, "", "Enables vanilla heightmap debugger", "");
+        public static final ConfigBooleanHotkeyed COLLISION = new ConfigBooleanHotkeyed("debugCollision", false, "", "Enables vanilla collision boxes debugger", "");
+        public static final ConfigBooleanHotkeyed SKY_LIGHT = new ConfigBooleanHotkeyed("debugSkyLight", false, "", "Enables vanilla sky light debugger", "");
+        public static final ConfigBooleanHotkeyed BLOCK_OUTLINE = new ConfigBooleanHotkeyed("debugBlockOutline", false, "", "Enables vanilla block outline debugger", "");
+        private static final String requires = "\n" + Formatting.RED + "Requires Ceramic or another serverside mod which provides debug info" + Formatting.RESET + "\nto enable debug sending in ceramic, run: /ceramic sendServerDebugInfo true";
+        public static final ConfigBooleanHotkeyed PATHFINDING = new ConfigBooleanHotkeyed("debugPathfinding", false, "", "Enables vanilla pathfinding debugger" + requires, "");
+        public static final ConfigBooleanHotkeyed NEIGHBOR_UPDATE = new ConfigBooleanHotkeyed("debugNeighborUpdate", false, "", "Enables vanilla neighbor update debugger" + requires, "");
+        public static final ConfigBooleanHotkeyed STRUCTURE = new ConfigBooleanHotkeyed("debugStructure", false, "", "Enables vanilla structure debugger" + requires, "");
+        public static final ConfigBooleanHotkeyed WORLD_GEN_ATTEMPT = new ConfigBooleanHotkeyed("debugWorldGenAttempt", false, "", "Enables vanilla world gen attempt debugger" + requires, "");
+        public static final ConfigBooleanHotkeyed CHUNK_LOADING = new ConfigBooleanHotkeyed("debugChunkLoading", false, "", "Enables vanilla chunk loading debugger" + requires, "");
+        public static final ConfigBooleanHotkeyed VILLAGE = new ConfigBooleanHotkeyed("debugBrain", false, "", "Enables vanilla entity brain debugger" + requires, "");
+        public static final ConfigBooleanHotkeyed VILLAGE_SECTIONS = new ConfigBooleanHotkeyed("debugVillageSections", false, "Enables vanilla village sections debugger", "" + requires, "");
+        public static final ConfigBooleanHotkeyed BEE = new ConfigBooleanHotkeyed("debugBee", false, "", "" + requires, "Enables vanilla bee debugger");
+        public static final ConfigBooleanHotkeyed RAID_CENTER = new ConfigBooleanHotkeyed("debugRaidCenter", false, "", "Enables vanilla raid center debugger" + requires, "");
+        public static final ConfigBooleanHotkeyed GOAL_SELECTOR = new ConfigBooleanHotkeyed("debugGoalSelector", false, "", "Enables vanilla goal selector debugger" + requires, "");
         //        public static final ConfigBooleanHotkeyed GAME_TEST = new ConfigBooleanHotkeyed("gameTest", false, "", "" + requires, "");
-        public static final ConfigBooleanHotkeyed GAME_EVENT = new ConfigBooleanHotkeyed("gameEvent", false, "", "" + requires, "");
+        public static final ConfigBooleanHotkeyed GAME_EVENT = new ConfigBooleanHotkeyed("debugGameEvent", false, "", "Enables vanilla game event debugger" + requires, "");
 
         DebugRendererConfigs() {
             super(ImmutableList.of(
-                    PATHFINDING,
                     WATER,
-//                    CHUNK_BORDER,
                     HEIGHTMAP,
                     COLLISION,
+                    BLOCK_OUTLINE,
+                    SKY_LIGHT,
+                    PATHFINDING,
                     NEIGHBOR_UPDATE,
                     STRUCTURE,
-                    SKY_LIGHT,
                     WORLD_GEN_ATTEMPT,
-                    BLOCK_OUTLINE,
                     CHUNK_LOADING,
                     VILLAGE,
                     VILLAGE_SECTIONS,

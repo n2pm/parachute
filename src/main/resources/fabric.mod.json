@@ -4,7 +4,10 @@
   "version": "${version}",
   "name": "Parachute",
   "description": "A soft landing for a hard fall.",
-  "authors": ["NotNite", "adryd"],
+  "authors": [
+    "NotNite",
+    "adryd"
+  ],
   "contact": {
     "homepage": "https://gitlab.com/notnet/parachute",
     "sources": "https://gitlab.com/notnet/parachute"
@@ -22,7 +25,9 @@
       "pm.n2.parachute.compat.modmenu.ModMenuImpl"
     ]
   },
-  "mixins": ["parachute.mixins.json"],
+  "mixins": [
+    "parachute.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.11.3",
     "minecraft": "${minecraft_version_compatible}",

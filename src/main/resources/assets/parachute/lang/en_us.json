@@ -1,6 +1,6 @@
 {
   "parachute.hotkeys.category": "Parachute",
-  "parachute.gui.config.title": "Parachute Config",
+  "parachute.gui.config.title": "Parachute (%s)",
   "parachute.gui.config.generic": "General",
   "parachute.gui.config.features": "Features",
   "parachute.gui.config.featuresHotkeys": "Feature Keybinds",
