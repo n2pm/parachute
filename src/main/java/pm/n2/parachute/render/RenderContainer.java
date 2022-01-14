@@ -2,16 +2,13 @@ package pm.n2.parachute.render;
 
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.systems.RenderSystem;
-import fi.dy.masa.malilib.render.RenderUtils;
 import fi.dy.masa.malilib.util.JsonUtils;
 import fi.dy.masa.malilib.util.PositionUtils;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +62,7 @@ public class RenderContainer {
             RenderSystem.disableCull();
             RenderSystem.enableDepthTest();
             RenderSystem.depthMask(false);
-            RenderSystem.polygonOffset(-1f, -1f);
+            RenderSystem.polygonOffset(-3f, -3f);
             RenderSystem.enablePolygonOffset();
 
             fi.dy.masa.malilib.render.RenderUtils.setupBlend();

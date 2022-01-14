@@ -7,6 +7,7 @@ import fi.dy.masa.malilib.hotkeys.IHotkey;
 import fi.dy.masa.malilib.hotkeys.IKeybind;
 import fi.dy.masa.malilib.hotkeys.KeybindSettings;
 import net.minecraft.util.Formatting;
+import pm.n2.parachute.util.WorldDataStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +84,9 @@ public class Configs {
                     POTION_EFFECT_HUD_NO_COLOR,
                     ARMOR_HUD
             ));
+
+            WorldDataStorage worldData = WorldDataStorage.getInstance();
+            WORLDEDIT_CUI.setValueChangeCallback(worldData::onWorldEditConfigChange);
         }
     }
 

@@ -1,32 +1,42 @@
 package pm.n2.parachute.util;
 
+import fi.dy.masa.malilib.config.options.ConfigBoolean;
 import net.minecraft.util.math.BlockPos;
-import pm.n2.parachute.Parachute;
+import pm.n2.parachute.config.Configs;
 import pm.n2.parachute.network.WorldEditCUINetworkHandler;
 
 public class WorldDataStorage {
     private static final WorldDataStorage INSTANCE = new WorldDataStorage();
+    private final BlockPos[] worldEditPos = {null, null};
+    private String worldEditSelectionMode;
+    private boolean inGame;
 
-    public static WorldDataStorage getInstance()
-    {
+    public static WorldDataStorage getInstance() {
         return INSTANCE;
     }
 
-    private final BlockPos[] worldEditPos = {null,null};
-    private String worldEditSelectionMode;
-
-
     public void reset(boolean isLogout) {
         this.resetWorldEditPos();
-    }
-
-    public void registerWorldEditCUIChannel() {
-        Parachute.LOGGER.info("WorldDataStorage#registerWorldeditCUIChannel()");
-        WorldEditCUINetworkHandler.registerReceiver();
+        this.inGame = !isLogout;
     }
 
     public void onWorldJoin() {
-        this.registerWorldEditCUIChannel();
+        this.inGame = true;
+        if (Configs.FeatureConfigs.WORLDEDIT_CUI.getBooleanValue()) {
+            WorldEditCUINetworkHandler.registerReceiver();
+        }
+    }
+
+    // WorldEdit CUI storage
+    public void onWorldEditConfigChange(ConfigBoolean value) {
+        this.resetWorldEditPos();
+        if (this.inGame) {
+            if (value.getBooleanValue()) {
+                WorldEditCUINetworkHandler.registerReceiver();
+            } else {
+                WorldEditCUINetworkHandler.unregisterReceiver();
+            }
+        }
     }
 
     public void setWorldEditPos(int pos, BlockPos blockPos) {

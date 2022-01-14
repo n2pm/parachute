@@ -71,10 +71,10 @@ public class ConfigGui extends GuiConfigsBase {
     protected int getConfigWidth() {
         GuiTabs tab = ConfigGui.tab;
 
-        // There are no keybinds here so this doesn't need to be huge
-        if (tab == GuiTabs.FEATURES || tab == GuiTabs.TWEAKS || tab == GuiTabs.RENDER || tab == GuiTabs.DEBUG_RENDERER || tab == GuiTabs.BUG_FIX) {
-            return 100;
-        }
+//        // There are no keybinds here so this doesn't need to be huge
+//        if (tab == GuiTabs.FEATURES || tab == GuiTabs.TWEAKS || tab == GuiTabs.RENDER || tab == GuiTabs.DEBUG_RENDERER || tab == GuiTabs.BUG_FIX) {
+//            return 100;
+//        }
 
         return super.getConfigWidth();
     }
