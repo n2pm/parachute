@@ -3,7 +3,6 @@ package pm.n2.parachute;
 import fi.dy.masa.malilib.event.RenderEventHandler;
 import pm.n2.parachute.events.InputHandler;
 import pm.n2.parachute.events.KeyCallbacks;
-import pm.n2.parachute.events.RenderHandler;
 import pm.n2.parachute.events.WorldLoadListener;
 import fi.dy.masa.malilib.config.ConfigManager;
 import fi.dy.masa.malilib.event.InputEventHandler;
@@ -16,10 +15,6 @@ public class InitHandler implements IInitializationHandler {
     @Override
     public void registerModHandlers() {
         ConfigManager.getInstance().registerConfigHandler(Parachute.MOD_ID, new ParachuteConfig());
-
-        RenderHandler renderer = RenderHandler.getInstance();
-        RenderEventHandler.getInstance().registerGameOverlayRenderer(renderer);
-        RenderEventHandler.getInstance().registerWorldLastRenderer(renderer);
 
         InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());

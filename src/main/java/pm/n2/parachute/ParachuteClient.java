@@ -1,5 +1,6 @@
 package pm.n2.parachute;
 
+import com.adryd.cauldron.api.render.helper.OverlayRenderManager;
 import fi.dy.masa.malilib.event.InitializationHandler;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -8,6 +9,7 @@ import net.minecraft.util.Formatting;
 import com.adryd.cauldron.api.command.ClientCommandManager;
 import pm.n2.parachute.command.ModsCommand;
 import pm.n2.parachute.command.PanoramaCommand;
+import pm.n2.parachute.render.OverlayRendererWorldEditCUI;
 
 public class ParachuteClient implements ClientModInitializer {
     private static String MOD_VERSION = "0.0.0";
@@ -49,5 +51,7 @@ public class ParachuteClient implements ClientModInitializer {
 
         PanoramaCommand.register(ClientCommandManager.DISPATCHER);
         ModsCommand.register(ClientCommandManager.DISPATCHER);
+
+        OverlayRenderManager.addRenderer(new OverlayRendererWorldEditCUI());
     }
 }
