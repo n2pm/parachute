@@ -1,6 +1,7 @@
 plugins {
     id "maven-publish"
     alias(libs.plugins.quilt.loom)
+    alias(libs.plugins.minotaur)
 }
 
 archivesBaseName = project.archives_base_name + "-" + libs.versions.minecraft.get()
@@ -42,6 +43,7 @@ dependencies {
     modApi include("fi.dy.masa.malilib:malilib-fabric-1.19.1:${libs.versions.malilib.get()}")
     modCompileOnly("com.terraformersmc:modmenu:${libs.versions.mod.menu.get()}")
 
+    // todo: don't load from fs
     modImplementation files("./libs/cauldron-mc1.19.1-0.1.2-alpha2.jar")
     include files("./libs/cauldron-mc1.19.1-0.1.2-alpha2.jar")
 }
@@ -87,3 +89,19 @@ publishing {
         // retrieving dependencies.
     }
 }
+
+modrinth {
+    syncBodyFrom = rootProject.file("README.md").text
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "parachute"
+    versionNumber = version
+    versionType = build_release ? "release" : "alpha"
+    uploadFile = remapJar
+    gameVersions = ["1.19.1"]
+    loaders = ["quilt"]
+    dependencies {
+        required.project "qsl"
+    }
+}
+
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody)

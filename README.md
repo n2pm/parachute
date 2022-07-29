@@ -30,17 +30,17 @@ Parachute is a kitchen sink mod with various QoL features and tweaks.
 
 ## Render Tweaks
 
-- No scoreboard/scoreboard numbers
-- No boss bar
-- No fire/underwater/block/spyglass/pumpkin/powdered snow overlay
-- No vignette
+- Disable scoreboard/scoreboard numbers
+- Disable boss bar
+- Disable fire/underwater/block/spyglass/pumpkin/powdered snow overlay
+- Disable vignette
 - Toggle crosshair & block outline
 - Force entity glowing
 - Perma night vision (& no night vision flashing)
-- No blindness flog
-- No torch flicker
+- Disable blindness flog
+- Disable torch flicker
 - Scale debug pie in F3 menu
-- No effect HUD
+- Disable effect HUD
 - Enable various debug renderers
 
 ## Funny badges
