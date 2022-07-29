@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "quilt_loader": {
+    "group": "pm.n2",
+    "id": "parachute",
+    "version": "${version}",
+    "metadata": {
+      "name": "Parachute",
+      "description": "A soft landing for a hard fall.",
+      "contributors": {
+        "NotNite": "Owner",
+        "adryd": "Developer"
+      },
+      "contact": {
+        "homepage": "https://github.com/n2pm/parachute",
+        "issues": "https://github.com/n2pm/parachute/issues",
+        "sources": "https://github.com/n2pm/parachute"
+      },
+      "icon": "assets/parachute/icon.png"
+    },
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "entrypoints": {
+      "preLaunch": [
+        "pm.n2.parachute.ParachutePreLaunch"
+      ],
+      "client": [
+        "pm.n2.parachute.ParachuteClient"
+      ],
+      "modmenu": [
+        "pm.n2.parachute.compat.modmenu.ModMenuImpl"
+      ]
+    },
+    "depends": [
+      {
+        "id": "quilt_loader",
+        "versions": ">=0.17.0-"
+      },
+      {
+        "id": "quilted_fabric_api",
+        "versions": ">=2.0.0-"
+      },
+      {
+        "id": "minecraft",
+        "versions": ">=1.19"
+      }
+    ]
+  },
+  "mixin": "parachute.mixins.json"
+}

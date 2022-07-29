@@ -1,8 +1,8 @@
 package pm.n2.parachute;
 
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
-import net.fabricmc.loader.impl.util.UrlConversionException;
-import net.fabricmc.loader.impl.util.UrlUtil;
+import org.quiltmc.loader.impl.util.UrlConversionException;
+import org.quiltmc.loader.impl.util.UrlUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -42,7 +42,7 @@ public class ParachutePreLaunch implements PreLaunchEntrypoint {
         URL url;
         if ((url = loader.getResource(filename)) != null) {
             try {
-                URL urlSource = UrlUtil.asUrl(UrlUtil.getCodeSource(url, filename));
+                URL urlSource = UrlUtil.getSource(filename, url);
                 return Optional.of(urlSource);
             } catch (UrlConversionException e) {
                 e.printStackTrace();
