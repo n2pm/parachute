@@ -9,7 +9,7 @@ import pm.n2.parachute.config.Configs;
 
 @Mixin(Keyboard.class)
 public class MixinKeyboard {
-    @ModifyArgs(method = "processF3", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Keyboard;copyLookAt(ZZ)V"))
+    @ModifyArgs(method = "processDebugKeys", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Keyboard;copyLocationFromTarget(ZZ)V"))
     private void copyLookAt(Args args) {
         boolean hasQueryPermission = args.get(0);
         boolean tweakEnabled = Configs.TweakConfigs.FORCE_COPY_DEBUG_INFO.getBooleanValue();
