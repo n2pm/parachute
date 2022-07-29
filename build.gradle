@@ -1,7 +1,7 @@
 plugins {
-    id 'fabric-loom' version '0.12-SNAPSHOT'
+    id "fabric-loom" version "0.12-SNAPSHOT"
     //id "io.github.juuxel.loom-quiltflower-mini" version "1.1.0"
-    id 'maven-publish'
+    id "maven-publish"
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -16,7 +16,7 @@ def build_ci_commit = System.getenv("CI_COMMIT_SHORT_SHA")
 version = project.mod_version + ""
 
 if (!build_release) {
-    version = project.mod_version + "+" + new Date().format('yyyyMMdd.HHmmss')
+    version = project.mod_version + "+" + new Date().format("yyyyMMdd.HHmmss")
 }
 
 if (build_ci_commit != null) {
@@ -39,7 +39,7 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
 
-    implementation 'com.github.bbottema:jetbrains-runtime-annotations:1.0.0'
+    implementation "com.github.bbottema:jetbrains-runtime-annotations:1.0.0"
 
     // probably a bad idea to jij this lol
     modApi include("fi.dy.masa.malilib:malilib-fabric-1.19.1:${project.malilib_version}")

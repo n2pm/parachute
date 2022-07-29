@@ -9,8 +9,8 @@
     "adryd"
   ],
   "contact": {
-    "homepage": "https://gitlab.com/notnet/parachute",
-    "sources": "https://gitlab.com/notnet/parachute"
+    "homepage": "https://github.com/n2pm/parachute",
+    "sources": "https://github.com/n2pm/parachute"
   },
   "icon": "assets/parachute/icon.png",
   "environment": "client",
