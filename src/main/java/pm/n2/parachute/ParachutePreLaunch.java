@@ -13,13 +13,11 @@ import java.util.Optional;
 
 public class ParachutePreLaunch implements PreLaunchEntrypoint {
     // Taken from https://github.com/kb-1000/no-telemetry/blob/main/src/main/java/de/kb1000/notelemetry/NoTelemetry.java
-
     private static final String[] libraryMixinTargets = {
             "com/mojang/authlib/yggdrasil/YggdrasilMinecraftSessionService.class",
             "com/mojang/authlib/yggdrasil/YggdrasilUserApiService.class",
             "com/mojang/brigadier/StringReader.class"
     };
-
 
     @Override
     public void onPreLaunch() {
@@ -34,10 +32,12 @@ public class ParachutePreLaunch implements PreLaunchEntrypoint {
                     e.printStackTrace();
                 }
             }
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoSuchElementException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException |
+                 NoSuchElementException e) {
             e.printStackTrace();
         }
     }
+
     private static Optional<URL> getSource(ClassLoader loader, String filename) throws MalformedURLException {
         URL url;
         if ((url = loader.getResource(filename)) != null) {
