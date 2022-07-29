@@ -11,7 +11,6 @@ import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ServerAddress;
 import net.minecraft.client.network.ServerInfo;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -69,13 +68,13 @@ public abstract class MixinDisconnectedScreen extends Screen {
         ConnectScreen.connect(new MultiplayerScreen(new TitleScreen()), client, ServerAddress.parse(lastServerInfo.address), lastServerInfo);
     }
 
-    private LiteralText getText() {
+    private Text getText() {
         String reconnectText = "Reconnect";
         float timeLeft = (float) time / 20;
 
         boolean autoReconnect = Configs.FeatureConfigs.AUTO_RECONNECT_ENABLED.getBooleanValue();
         if (autoReconnect) reconnectText += " " + String.format("(%.1f)", timeLeft);
 
-        return new LiteralText(reconnectText);
+        return Text.literal(reconnectText);
     }
 }

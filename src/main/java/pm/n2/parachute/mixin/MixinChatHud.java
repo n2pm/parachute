@@ -19,7 +19,7 @@ import java.util.List;
 
 @Mixin(ChatHud.class)
 public class MixinChatHud {
-    @ModifyConstant(method = "addMessage(Lnet/minecraft/text/Text;IIZ)V", constant = @Constant(intValue = 100), require = 2)
+    @ModifyConstant(method = "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V", constant = @Constant(intValue = 100), require = 2)
     public int overwriteMaxHistory(int maxLength) {
         if (Configs.TweakConfigs.CUSTOM_CHAT_HISTORY_LENGTH_ENABLED.getBooleanValue()) {
             return Configs.TweakConfigs.CUSTOM_CHAT_HISTORY_LENGTH.getIntegerValue();

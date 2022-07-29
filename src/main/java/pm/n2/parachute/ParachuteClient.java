@@ -5,6 +5,9 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.util.Formatting;
+import com.adryd.cauldron.api.command.ClientCommandManager;
+import pm.n2.parachute.command.ModsCommand;
+import pm.n2.parachute.command.PanoramaCommand;
 
 public class ParachuteClient implements ClientModInitializer {
     private static String MOD_VERSION = "0.0.0";
@@ -43,5 +46,8 @@ public class ParachuteClient implements ClientModInitializer {
 
         InitializationHandler.getInstance().registerInitializationHandler(new InitHandler());
         Parachute.LOGGER.info("Hello from parachute <3!");
+
+        PanoramaCommand.register(ClientCommandManager.DISPATCHER);
+        ModsCommand.register(ClientCommandManager.DISPATCHER);
     }
 }

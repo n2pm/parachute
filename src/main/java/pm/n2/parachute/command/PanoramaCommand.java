@@ -1,5 +1,7 @@
 package pm.n2.parachute.command;
 
+import com.adryd.cauldron.api.command.CauldronClientCommandSource;
+import com.adryd.cauldron.api.command.ClientCommandManager;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -8,10 +10,7 @@ import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import pm.n2.parachute.Parachute;
-import pm.n2.parachute.ParachuteCommands;
-import pm.n2.parachute.util.ClientCommandSource;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +44,7 @@ public class PanoramaCommand {
         }
     }
 
-    public static int run(CommandContext<ClientCommandSource> ctx, int size, boolean shouldAlign) {
+    public static int run(CommandContext<CauldronClientCommandSource> ctx, int size, boolean shouldAlign) {
         // client.takePanorama takes an argument and a File
         // from that file, it makes the "screenshots" folder INSIDE of it
         // i don't want to write a mixin or paste-rewrite this function,
@@ -87,17 +86,17 @@ public class PanoramaCommand {
             return 1;
         } catch (IOException err) {
             Parachute.LOGGER.error(err);
-            ctx.getSource().sendFeedback(new TranslatableText("screenshot.failure", err));
+            ctx.getSource().sendFeedback(Text.translatable("screenshot.failure", err));
             return 0;
         }
     }
 
-    public static void register(CommandDispatcher<ClientCommandSource> dispatcher) {
+    public static void register(CommandDispatcher<CauldronClientCommandSource> dispatcher) {
         // fuck optional arguments
-        LiteralArgumentBuilder<ClientCommandSource> command = ParachuteCommands
+        LiteralArgumentBuilder<CauldronClientCommandSource> command = ClientCommandManager
                 .literal("panorama")
-                .then(ParachuteCommands.argument("size", IntegerArgumentType.integer())
-                        .then(ParachuteCommands.argument("align", BoolArgumentType.bool())
+                .then(ClientCommandManager.argument("size", IntegerArgumentType.integer())
+                        .then(ClientCommandManager.argument("align", BoolArgumentType.bool())
                                 .executes(ctx -> run(ctx, getInteger(ctx, "size"), getBool(ctx, "align"))))
                         .executes(ctx -> run(ctx, getInteger(ctx, "size"), false)))
                 .executes(ctx -> run(ctx, 1024, false));

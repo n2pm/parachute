@@ -1,6 +1,5 @@
 package pm.n2.parachute.events;
 
-import pm.n2.parachute.ParachuteCommands;
 import pm.n2.parachute.config.Configs;
 import pm.n2.parachute.gui.ConfigGui;
 import fi.dy.masa.malilib.gui.GuiBase;
@@ -28,10 +27,6 @@ public class KeyCallbacks {
         public boolean onKeyAction(KeyAction action, IKeybind key) {
             if (key == Configs.GeneralConfigs.OPEN_CONFIG_GUI.getKeybind()) {
                 GuiBase.openGui(new ConfigGui());
-                return true;
-            }
-            if (key == Configs.GeneralConfigs.OPEN_CLIENT_COMMANDS.getKeybind()) {
-                ((IMixinMinecraftClient) client).pubOpenChatScreen(Character.toString(ParachuteCommands.COMMAND_PREFIX));
                 return true;
             }
             return false;

@@ -29,9 +29,9 @@
     "parachute.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.11.3",
-    "minecraft": "${minecraft_version_compatible}",
+    "fabricloader": ">=0.14.3",
+    "minecraft": "1.19.1",
     "java": ">=16",
-    "malilib": ">=${malilib_version}"
+    "malilib": ">=0.13.0"
   }
 }

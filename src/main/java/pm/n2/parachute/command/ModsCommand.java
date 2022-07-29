@@ -1,5 +1,7 @@
 package pm.n2.parachute.command;
 
+import com.adryd.cauldron.api.command.CauldronClientCommandSource;
+import com.adryd.cauldron.api.command.ClientCommandManager;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -8,17 +10,15 @@ import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.fabricmc.loader.api.metadata.CustomValue.CvType;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
-import pm.n2.parachute.ParachuteCommands;
-import pm.n2.parachute.util.ClientCommandSource;
 
 import java.util.*;
 
 public class ModsCommand {
     public static Text getInformationText(ModMetadata modMeta) {
-        return Texts.bracketed(new LiteralText(modMeta.getId())).styled((style) -> {
+        return Texts.bracketed(Text.literal(modMeta.getId())).styled((style) -> {
             Style temp = style.withColor(Formatting.GREEN)
                     .withInsertion(StringArgumentType.escapeIfRequired(modMeta.getName()))
-                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, (new LiteralText("")).append(modMeta.getName()).append("\n").append(modMeta.getVersion().toString())));
+                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, (Text.literal("")).append(modMeta.getName()).append("\n").append(modMeta.getVersion().toString())));
             if (modMeta.getContact().get("sources").isPresent()) {
                 return temp.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, modMeta.getContact().get("sources").get()));
             }
@@ -40,16 +40,16 @@ public class ModsCommand {
         return true;
     }
 
-    public static void register(CommandDispatcher<ClientCommandSource> dispatcher) {
-        LiteralArgumentBuilder<ClientCommandSource> command = ParachuteCommands.literal("mods")
+    public static void register(CommandDispatcher<CauldronClientCommandSource> dispatcher) {
+        LiteralArgumentBuilder<CauldronClientCommandSource> command = ClientCommandManager.literal("mods")
                 .then(
-                        ParachuteCommands.literal("all")
+                        ClientCommandManager.literal("all")
                                 .executes((context) -> execute(context.getSource(), true))
                 ).executes((context) -> execute(context.getSource(), false));
         dispatcher.register(command);
     }
 
-    public static int execute(ClientCommandSource source, boolean showAll) {
+    public static int execute(CauldronClientCommandSource source, boolean showAll) {
         // New arraylist because for some reason .toList makes an immutable collection
         List<? extends Text> mods = new ArrayList<>(
                 FabricLoader
@@ -64,7 +64,7 @@ public class ModsCommand {
         // Sort alphabetically
         mods.sort(Comparator.comparing(Text::getString));
 
-        source.sendFeedback(new LiteralText("There are " + mods.size() + " mods loaded" + (showAll ? "" : "*") + ": ").append(Texts.join(mods, new LiteralText(", "))));
+        source.sendFeedback(Text.literal("There are " + mods.size() + " mods loaded" + (showAll ? "" : "*") + ": ").append(Texts.join(mods, Text.literal(", "))));
         return 1;
     }
 }
