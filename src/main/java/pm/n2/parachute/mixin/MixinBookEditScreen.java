@@ -9,7 +9,8 @@ import pm.n2.parachute.config.Configs;
 
 @Mixin(BookEditScreen.class)
 public class MixinBookEditScreen {
-    @Inject(method="method_27596", at=@At("HEAD"), cancellable = true, remap = false)
+    // dawg wtf is this shit
+    @Inject(method = "m_npozgazf", at = @At("HEAD"), cancellable = true, remap = false)
     private void checkPageLength(String string, CallbackInfoReturnable<Boolean> cir) {
         if (Configs.TweakConfigs.NO_BOOK_PAGE_LENGTH.getBooleanValue()) {
             cir.setReturnValue(true);
