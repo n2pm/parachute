@@ -1,5 +1,9 @@
 name: Gradle CI
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   gradle:
@@ -19,7 +23,7 @@ jobs:
         run: ./gradlew build
         env:
           BUILD_RELEASE: true
-      - name: Archive Artifacts
+      - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
           name: Artifacts
