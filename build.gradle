@@ -25,6 +25,7 @@ repositories {
     maven { url "https://masa.dy.fi/maven" }
     maven { url "https://maven.terraformersmc.com/releases/" }
     maven { url "https://maven.gegy.dev/" }
+    flatDir { dirs "libs" }
     mavenCentral()
 }
 
@@ -33,19 +34,18 @@ dependencies {
     mappings loom.layered {
         addLayer quiltMappings.mappings("org.quiltmc:quilt-mappings:${libs.versions.quilt.mappings.get()}:v2")
     }
-    modImplementation libs.quilt.loader
 
+    modImplementation libs.quilt.loader
     modImplementation libs.quilted.fabric.api
 
-    implementation "com.github.bbottema:jetbrains-runtime-annotations:1.0.0"
+    implementation "com.github.bbottema:jetbrains-runtime-annotations:1.0.1"
 
     // probably a bad idea to jij this lol
     modApi include("fi.dy.masa.malilib:malilib-fabric-1.19.1:${libs.versions.malilib.get()}")
     modCompileOnly("com.terraformersmc:modmenu:${libs.versions.mod.menu.get()}")
 
     // todo: don't load from fs
-    modImplementation files("./libs/cauldron-mc1.19.1-0.1.2-alpha2.jar")
-    include files("./libs/cauldron-mc1.19.1-0.1.2-alpha2.jar")
+    modApi include("com.adryd:cauldron:mc1.19.1-0.1.2-alpha2")
 }
 
 processResources {
