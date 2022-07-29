@@ -11,7 +11,7 @@ archivesBaseName = project.archives_base_name + "-" + project.minecraft_version
 group = project.maven_group
 
 def build_release = System.getenv("BUILD_RELEASE") == "true"
-def build_ci_commit = System.getenv("CI_COMMIT_SHORT_SHA")
+def build_ci_commit = System.getenv("SHA")
 
 version = project.mod_version + ""
 
