@@ -1,0 +1,14 @@
+{
+  "parachute.hotkeys.category": "Parachute",
+  "parachute.gui.config.title": "Parachute (%s)",
+  "parachute.gui.config.generic": "Общее",
+  "parachute.gui.config.features": "Функции",
+  "parachute.gui.config.featuresHotkeys": "Горячие клавиши функций",
+  "parachute.gui.config.tweaks": "Мелкие настройки",
+  "parachute.gui.config.tweaksHotkeys": "Горячие клавиши мелких настроек",
+  "parachute.gui.config.render": "Рендеринг",
+  "parachute.gui.config.renderHotkeys": "Привязки клавиш настройки рендеринга",
+  "parachute.gui.config.debugRenderer": "Отладка рендереров",
+  "parachute.gui.config.debugRendererHotkeys": "Отладка горячих клавиш рендерера",
+  "parachute.gui.config.bugFix": "Исправления ошибок"
+}
