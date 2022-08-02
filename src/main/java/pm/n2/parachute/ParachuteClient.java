@@ -2,11 +2,10 @@ package pm.n2.parachute;
 
 import com.adryd.cauldron.api.render.helper.OverlayRenderManager;
 import fi.dy.masa.malilib.event.InitializationHandler;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.util.Formatting;
 import com.adryd.cauldron.api.command.ClientCommandManager;
+import org.quiltmc.loader.api.ModContainer;
+import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import pm.n2.parachute.command.ModsCommand;
 import pm.n2.parachute.command.PanoramaCommand;
 import pm.n2.parachute.render.OverlayRendererWorldEditCUI;
@@ -36,15 +35,10 @@ public class ParachuteClient implements ClientModInitializer {
         return MOD_VERSION;
     }
 
-    @Override
-    public void onInitializeClient() {
-        ModContainer mod = FabricLoader.getInstance()
-                .getModContainer("parachute")
-                .orElseThrow(NullPointerException::new);
-
-        MOD_VERSION = mod.getMetadata()
-                .getVersion()
-                .getFriendlyString();
+    public void onInitializeClient(ModContainer mod) {
+        MOD_VERSION = mod.metadata()
+                .version()
+                .raw();
 
         InitializationHandler.getInstance().registerInitializationHandler(new InitHandler());
         Parachute.LOGGER.info("Hello from parachute <3!");
