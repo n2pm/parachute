@@ -1,6 +1,0 @@
-Heya! here are some features we'd like to implement
-
- - Figure out a way of getting MaLiLib to display pretty names in the config menu
- - Clear worldedit data on dimension change
- - Panorama command
- - Clean up unchecked assignments in copied vanilla code
