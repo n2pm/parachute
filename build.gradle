@@ -94,7 +94,7 @@ modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = "parachute"
     versionNumber = version
-    versionType = build_release ? "release" : "alpha"
+    versionType = (System.getenv("MODRINTH_RELEASE") == "true") ? "release" : "beta"
     uploadFile = remapJar
     gameVersions = ["1.19.1"]
     loaders = ["quilt"]
