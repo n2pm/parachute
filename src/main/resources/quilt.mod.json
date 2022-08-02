@@ -20,7 +20,6 @@
     },
     "intermediate_mappings": "net.fabricmc:intermediary",
     "entrypoints": {
-      "preLaunch": ["pm.n2.parachute.ParachutePreLaunch"],
       "client_init": ["pm.n2.parachute.ParachuteClient"],
       "modmenu": ["pm.n2.parachute.compat.modmenu.ModMenuImpl"]
     },
