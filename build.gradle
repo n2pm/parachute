@@ -25,7 +25,7 @@ repositories {
     maven { url "https://masa.dy.fi/maven" }
     maven { url "https://maven.terraformersmc.com/releases/" }
     maven { url "https://maven.gegy.dev/" }
-    flatDir { dirs "libs" }
+    maven { url "https://maven.svc.adryd.com/releases/" }
     mavenCentral()
 }
 
@@ -44,8 +44,7 @@ dependencies {
     modApi include("fi.dy.masa.malilib:malilib-fabric-1.19.1:${libs.versions.malilib.get()}")
     modCompileOnly("com.terraformersmc:modmenu:${libs.versions.mod.menu.get()}")
 
-    // todo: don't load from fs
-    modApi include("com.adryd:cauldron:mc1.19.1-0.1.2-alpha2")
+    modApi include("com.adryd:cauldron:${libs.versions.cauldron.get()}")
 }
 
 processResources {
