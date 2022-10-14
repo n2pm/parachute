@@ -6,19 +6,21 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.fabricmc.loader.api.metadata.CustomValue.CvType;
+import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class ModsCommand {
     public static Text getInformationText(ModMetadata modMeta) {
-        return Texts.bracketed(Text.literal(modMeta.getId())).styled((style) -> {
+        return Texts.bracketed(new LiteralText(modMeta.getId())).styled((style) -> {
             Style temp = style.withColor(Formatting.GREEN)
                     .withInsertion(StringArgumentType.escapeIfRequired(modMeta.getName()))
-                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, (Text.literal("")).append(modMeta.getName()).append("\n").append(modMeta.getVersion().toString())));
+                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, (new LiteralText("")).append(modMeta.getName()).append("\n").append(modMeta.getVersion().toString())));
             if (modMeta.getContact().get("sources").isPresent()) {
                 return temp.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, modMeta.getContact().get("sources").get()));
             }
@@ -64,7 +66,7 @@ public class ModsCommand {
         // Sort alphabetically
         mods.sort(Comparator.comparing(Text::getString));
 
-        source.sendFeedback(Text.literal("There are " + mods.size() + " mods loaded" + (showAll ? "" : "*") + ": ").append(Texts.join(mods, Text.literal(", "))));
+        source.sendFeedback(new LiteralText("There are " + mods.size() + " mods loaded" + (showAll ? "" : "*") + ": ").append(Texts.join(mods, new LiteralText(", "))));
         return 1;
     }
 }

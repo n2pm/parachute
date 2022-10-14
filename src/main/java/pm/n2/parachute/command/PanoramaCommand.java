@@ -10,6 +10,7 @@ import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import pm.n2.parachute.Parachute;
 
 import java.io.File;
@@ -51,7 +52,7 @@ public class PanoramaCommand {
         // so i make the folder and just move it up
         // it's messy but i don't care
         try {
-            ClientPlayerEntity player = ctx.getSource().getPlayer();
+            ClientPlayerEntity player = ctx.getSource().getClient().player;
             float oldYaw = player.getYaw();
             float oldPitch = player.getPitch();
             if (shouldAlign) {
@@ -86,7 +87,7 @@ public class PanoramaCommand {
             return 1;
         } catch (IOException err) {
             Parachute.LOGGER.error(err);
-            ctx.getSource().sendFeedback(Text.translatable("screenshot.failure", err));
+            ctx.getSource().sendFeedback(new TranslatableText("screenshot.failure", err));
             return 0;
         }
     }

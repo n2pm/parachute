@@ -3,6 +3,7 @@ package pm.n2.parachute.mixin;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerServerListWidget;
 import net.minecraft.client.network.ServerInfo;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Final;
@@ -26,20 +27,21 @@ public class MixinMultiplayerServerListWidget_ServerEntry {
         if (Configs.TweakConfigs.MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO.getBooleanValue()) {
             if (this.server.online && this.server.ping != -2L) {
                 if (this.server.ping < 0L) {
-                    return Text.literal("Offline").formatted(Formatting.DARK_RED);
+                    return new LiteralText("Offline").formatted(Formatting.DARK_RED);
                 }
                 boolean bl = this.server.protocolVersion != SharedConstants.getGameVersion().getProtocolVersion();
-                return Text.literal("")
-                        .append(this.server.version.copy().formatted(bl ? Formatting.RED : Formatting.GRAY))
-                        .append(Text.literal(" (").formatted(Formatting.DARK_GRAY))
-                        .append(Text.literal(this.server.protocolVersion + "").formatted(Formatting.GRAY))
-                        .append(Text.literal(") ").formatted(Formatting.DARK_GRAY))
+                return new LiteralText("")
+                        .append(this.server.version.shallowCopy().formatted(bl ? Formatting.RED : Formatting.GRAY))
+                        .append(new LiteralText(" (").formatted(Formatting.DARK_GRAY))
+                        .append(new LiteralText(this.server.protocolVersion + "").formatted(Formatting.GRAY))
+                        .append(new LiteralText(") ").formatted(Formatting.DARK_GRAY))
                         .append(this.server.playerCountLabel);
             } else {
-                return Text.literal("Pinging...");
+                return new LiteralText("Pinging...");
             }
 
         }
         return original;
     }
+
 }

@@ -1,5 +1,6 @@
 package pm.n2.parachute.mixin;
 
+import net.minecraft.text.LiteralText;
 import pm.n2.parachute.Parachute;
 import pm.n2.parachute.config.Configs;
 import pm.n2.parachute.util.GlobalDataStorage;
@@ -68,13 +69,13 @@ public abstract class MixinDisconnectedScreen extends Screen {
         ConnectScreen.connect(new MultiplayerScreen(new TitleScreen()), client, ServerAddress.parse(lastServerInfo.address), lastServerInfo);
     }
 
-    private Text getText() {
+    private LiteralText getText() {
         String reconnectText = "Reconnect";
         float timeLeft = (float) time / 20;
 
         boolean autoReconnect = Configs.FeatureConfigs.AUTO_RECONNECT_ENABLED.getBooleanValue();
         if (autoReconnect) reconnectText += " " + String.format("(%.1f)", timeLeft);
 
-        return Text.literal(reconnectText);
+        return new LiteralText(reconnectText);
     }
 }

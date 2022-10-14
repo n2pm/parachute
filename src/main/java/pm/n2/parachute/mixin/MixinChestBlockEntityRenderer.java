@@ -18,4 +18,5 @@ public class MixinChestBlockEntityRenderer {
             case FORCE_TRUE -> true;
         };
     }
+
 }

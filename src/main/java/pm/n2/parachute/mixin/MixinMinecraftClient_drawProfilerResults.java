@@ -1,6 +1,6 @@
 package pm.n2.parachute.mixin;
 
-import com.mojang.blaze3d.glfw.Window;
+import net.minecraft.client.util.Window;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,7 +22,7 @@ public class MixinMinecraftClient_drawProfilerResults {
         return Matrix4f.projectionMatrix(left, right, bottom, top, nearPlane, farPlane);
     }
 
-    @Redirect(method = "drawProfilerResults", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/glfw/Window;getFramebufferHeight()I"))
+    @Redirect(method = "drawProfilerResults", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getFramebufferHeight()I"))
     private int changeProfilerScaleHeight(Window instance) {
         if (Configs.RenderConfigs.SCALE_DEBUG_PIE.getBooleanValue()) {
             return (int) (instance.getFramebufferHeight() / (instance.getScaleFactor() / 2));
@@ -30,7 +30,7 @@ public class MixinMinecraftClient_drawProfilerResults {
         return instance.getFramebufferHeight();
     }
 
-    @Redirect(method = "drawProfilerResults", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/glfw/Window;getFramebufferWidth()I"))
+    @Redirect(method = "drawProfilerResults", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getFramebufferWidth()I"))
     private int changeProfilerScaleWidth(Window instance) {
         if (Configs.RenderConfigs.SCALE_DEBUG_PIE.getBooleanValue()) {
             return (int) (instance.getFramebufferWidth() / (instance.getScaleFactor() / 2));
