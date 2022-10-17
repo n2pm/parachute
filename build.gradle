@@ -48,6 +48,10 @@ dependencies {
     modApi include("com.adryd:cauldron:${libs.versions.cauldron.get()}")
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/parachute.accesswidener")
+}
+
 processResources {
     inputs.property "version", version
 
