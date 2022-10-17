@@ -118,6 +118,7 @@ public class Configs {
         public static final ConfigBoolean TITLE_BAR_HIDE_MODDED = new ConfigBoolean("titleBarHideModded", false, "Hides asterisk in title bar", "Title bar hide modded status");
         public static final ConfigBoolean TITLE_BAR_HIDE_GAME_STATUS = new ConfigBoolean("titleBarHideGameStatus", false, "Hides game status from title bar. eg. 3rd party multiplayer", "Title bar hide game status");
         public static final ConfigBoolean MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO = new ConfigBoolean("multiplayerDetailedVersionInfo", false, "Additional version info such as protocol and server brand shown on server selection screen", "Show version info on server selection screen");
+        public static final ConfigBoolean LIVEOVERFLOW_BOT_MOVEMENT = new ConfigBoolean("liveOverflowBotMovement", false, "Move like a bot for LiveOverflow's mc server", "LiveOverflow bot movement");
 
         public TweakConfigs() {
             super(ImmutableList.of(
@@ -145,7 +146,8 @@ public class Configs {
                     TITLE_BAR_CUSTOMIZATION_ENABLED,
                     TITLE_BAR_HIDE_MODDED,
                     TITLE_BAR_HIDE_GAME_STATUS,
-                    MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO
+                    MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO,
+                    LIVEOVERFLOW_BOT_MOVEMENT
             ));
         }
     }

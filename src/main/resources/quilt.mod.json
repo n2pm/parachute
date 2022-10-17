@@ -38,5 +38,6 @@
       }
     ]
   },
-  "mixin": "parachute.mixins.json"
+  "mixin": "parachute.mixins.json",
+  "accessWidener" : "parachute.accesswidener"
 }
