@@ -1,7 +1,6 @@
 plugins {
     id "maven-publish"
     alias(libs.plugins.quilt.loom)
-    alias(libs.plugins.minotaur)
 }
 
 archivesBaseName = project.archives_base_name + "-" + libs.versions.minecraft.get()
@@ -89,19 +88,3 @@ publishing {
         // retrieving dependencies.
     }
 }
-
-modrinth {
-    syncBodyFrom = rootProject.file("README.md").text
-    token = System.getenv("MODRINTH_TOKEN")
-    projectId = "parachute"
-    versionNumber = version
-    versionType = (System.getenv("MODRINTH_RELEASE") == "true") ? "release" : "beta"
-    uploadFile = remapJar
-    gameVersions = ["1.19.1"]
-    loaders = ["quilt"]
-    dependencies {
-        required.project "qsl"
-    }
-}
-
-tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
