@@ -1,7 +1,10 @@
 package pm.n2.parachute.mixin;
 
 import net.minecraft.client.MinecraftClient;
+<<<<<<< HEAD
 import net.minecraft.client.gui.screen.Screen;
+=======
+>>>>>>> 472652d (Lmao im so bad at coding)
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
@@ -25,6 +28,18 @@ public class MixinClientPlayerEntity {
     @Final
     protected MinecraftClient client;
 
+    @Shadow
+    @Final
+    public ClientPlayNetworkHandler networkHandler;
+
+    private double lastPosX = Double.MAX_VALUE;
+    private double lastPosY;
+    private double lastPosZ;
+
+    private double lastTpX;
+    private double lastTpY;
+    private double lastTpZ;
+
     @Redirect(method = "updateNausea", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;closeHandledScreen()V", ordinal = 0))
     private void allowGuisInPortal_1(ClientPlayerEntity player) {
         if (!Configs.FeatureConfigs.PORTAL_SCREENS.getBooleanValue()) {
@@ -37,5 +52,61 @@ public class MixinClientPlayerEntity {
         if (!Configs.FeatureConfigs.PORTAL_SCREENS.getBooleanValue()) {
             instance.setScreen(screen);
         }
+    }
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void tntDisconnect(CallbackInfo ci) {
+        if (Configs.TweakConfigs.LIVEOVERFLOW_TNT_DISCONNECT.getBooleanValue()) {
+            for (Entity entity : this.client.getCameraEntity().getWorld().getEntitiesByType(EntityType.TNT, new Box(999, 999, 999, -999, 0, -999), Entity::isAlive)) {
+                if (entity.distanceTo((ClientPlayerEntity) (Object) this) < 10) {
+                    // Hack to get kicked on the next tick
+                    this.networkHandler.sendPacket(new ChatMessageC2SPacket("§aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+                }
+            }
+        }
+    }
+
+    @Redirect(method = "sendMovementPackets", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isCamera()Z"))
+    private boolean modifyMovement(ClientPlayerEntity instance) {
+        Vec3d pos = ((IMixinEntity) instance).getPos();
+        if (Configs.TweakConfigs.LIVEOVERFLOW_WORLDGUARD_BYPASS.getBooleanValue()) {
+            if (this.lastPosX == Double.MAX_VALUE) {
+                // Initialize
+                // TODO: Doesn't work on first join or reconnect for some reason
+                this.lastPosX = pos.x;
+                this.lastPosY = pos.y;
+                this.lastPosZ = pos.z;
+                this.lastTpX = pos.x;
+                this.lastTpY = pos.y;
+                this.lastTpZ = pos.z;
+            }
+
+            // Slow all movements
+            double newX = this.lastPosX + (pos.x - this.lastPosX) * 0.03d;
+            double newY = this.lastPosY + (pos.y - this.lastPosY) * 0.03d;
+            double newZ = this.lastPosZ + (pos.z - this.lastPosZ) * 0.03d;
+            instance.setPosition(newX, newY, newZ);
+
+            double delta = Math.pow(this.lastTpX - newX, 2) + Math.pow(this.lastTpY - newY, 2) + Math.pow(this.lastTpZ - newZ, 2);
+            if (delta > 1 / 300f) {
+                this.lastTpX = newX;
+                this.lastTpY = newY;
+                this.lastTpZ = newZ;
+                instance.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(pos.x, -128, pos.z, instance.isOnGround()));
+            }
+
+            this.lastPosX = newX;
+            this.lastPosY = newY;
+            this.lastPosZ = newZ;
+        } else {
+            // Keep updated when not enabled
+            this.lastPosX = pos.x;
+            this.lastPosY = pos.y;
+            this.lastPosZ = pos.z;
+            this.lastTpX = pos.x;
+            this.lastTpY = pos.y;
+            this.lastTpZ = pos.z;
+        }
+        return ((IMixinClientPlayerEntity) instance).invokeIsCamera();
     }
 }
