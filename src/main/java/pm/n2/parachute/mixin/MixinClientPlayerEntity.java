@@ -27,11 +27,6 @@ public class MixinClientPlayerEntity {
     @Shadow
     @Final
     protected MinecraftClient client;
-
-    @Shadow
-    @Final
-    public ClientPlayNetworkHandler networkHandler;
-
     private double lastPosX = Double.MAX_VALUE;
     private double lastPosY;
     private double lastPosZ;
