@@ -6,8 +6,9 @@
   "client": [
     "IMixinBookEditScreen",
     "IMixinClickableWidget",
+    "IMixinClientPlayerEntity",
+    "IMixinEntity",
     "IMixinMinecraftClient",
-    "IMixinPlayerMoveC2SPacket",
     "MixinAllowedAddressResolver",
     "MixinBackgroundRenderer",
     "MixinBookEditScreen",
@@ -16,6 +17,7 @@
     "MixinChatHud",
     "MixinChestBlockEntityRenderer",
     "MixinClientConnection",
+    "MixinClientPlayerEntity",
     "MixinClientPlayNetworkHandler",
     "MixinDebugRenderer",
     "MixinDisconnectedScreen",
@@ -32,6 +34,7 @@
     "MixinMultiplayerServerListWidget_ServerEntry",
     "MixinPlayerListHud_playerListLength",
     "MixinPlayerListHud_showLatencyMs",
+    "MixinPlayerMoveC2SPacket",
     "MixinPlayerSkinTexture",
     "MixinSharedConstants",
     "MixinStringReader_brigadier",
@@ -41,5 +44,7 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "mixins": [
+  ]
 }
