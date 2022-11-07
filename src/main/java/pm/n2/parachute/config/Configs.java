@@ -73,6 +73,7 @@ public class Configs {
         public static final ConfigBooleanHotkeyed POTION_EFFECT_HUD = new ConfigBooleanHotkeyed("potionEffectHUD", false, "", "Enables minimal potion effect HUD", "Potion effect HUD");
         public static final ConfigBoolean POTION_EFFECT_HUD_NO_COLOR = new ConfigBoolean("potionEffectHUDNoColor", false, "Disables potion color on effect HUD", "Potion effect HUD disable color");
         public static final ConfigBooleanHotkeyed ARMOR_HUD = new ConfigBooleanHotkeyed("armorHUD", false, "", "Enables armor HUD. \nPorted from blanket", "Armor HUD");
+        public static final ConfigBoolean PORTAL_SCREENS = new ConfigBoolean("portalScreens", false, "Allow opening screens whilst in portals", "Portal Screens");
 
         public FeatureConfigs() {
             super(ImmutableList.of(
@@ -82,7 +83,8 @@ public class Configs {
                     AUTO_RECONNECT_TIME,
                     POTION_EFFECT_HUD,
                     POTION_EFFECT_HUD_NO_COLOR,
-                    ARMOR_HUD
+                    ARMOR_HUD,
+                    PORTAL_SCREENS
             ));
 
             WorldDataStorage worldData = WorldDataStorage.getInstance();
