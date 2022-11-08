@@ -11,8 +11,7 @@ import pm.n2.parachute.config.Configs;
 
 @Mixin(ChatHud.class)
 public class MixinChatHud {
-    // dawg this shit is Not Mapped :sob:
-    @ModifyConstant(method = "Lnet/minecraft/client/gui/hud/ChatHud;method_1815(Lnet/minecraft/text/Text;Lnet/minecraft/network/chat/MessageSignature;ILnet/minecraft/unmapped/C_bzcwstys;Z)V", constant = @Constant(intValue = 100), require = 2)
+    @ModifyConstant(method = "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/chat/MessageSignature;ILnet/minecraft/client/gui/hud/ChatMessageTag;Z)V", constant = @Constant(intValue = 100), require = 2)
     public int overwriteMaxHistory(int maxLength) {
         if (Configs.TweakConfigs.CUSTOM_CHAT_HISTORY_LENGTH_ENABLED.getBooleanValue()) {
             return Configs.TweakConfigs.CUSTOM_CHAT_HISTORY_LENGTH.getIntegerValue();
