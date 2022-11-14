@@ -8,7 +8,7 @@ quilted_fabric_api = "4.0.0-beta.19+0.64.0-1.19.2"
 
 malilib = "0.13.0"
 mod_menu = "4.1.0"
-cauldron = "0.1.2-alpha2"
+cauldron = "0.1.5-alpha1"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }

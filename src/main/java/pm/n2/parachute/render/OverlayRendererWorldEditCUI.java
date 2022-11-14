@@ -30,7 +30,7 @@ public class OverlayRendererWorldEditCUI extends OverlayRendererBase {
     }
 
     @Override
-    public boolean shouldUpdate() {
+    public boolean shouldUpdate(Camera camera) {
         return this.shouldUpdate;
     }
 
@@ -52,15 +52,15 @@ public class OverlayRendererWorldEditCUI extends OverlayRendererBase {
             int maxY = Math.max(pos[0].getY(), pos[1].getY()) + 1;
             int maxZ = Math.max(pos[0].getZ(), pos[1].getZ()) + 1;
             Box box = new Box(minX, minY, minZ, maxX, maxY, maxZ);
-            LineDrawing.drawBox(box, RenderColors.OUTLINE_WHITE, linesBuf);
-            QuadDrawing.drawBox(box, RenderColors.TRANSPARENT_WHITE, quadsBuf);
+            LineDrawing.drawBox(box, RenderColors.OUTLINE_WHITE, camera, linesBuf);
+            QuadDrawing.drawBox(box, RenderColors.TRANSPARENT_WHITE, camera, quadsBuf);
         }
         if (pos[0] != null)
-            LineDrawing.drawBox(new Box(pos[0]), RenderColors.OUTLINE_RED, linesBuf);
+            LineDrawing.drawBox(new Box(pos[0]), RenderColors.OUTLINE_RED, camera, linesBuf);
         if (pos[1] != null)
-            LineDrawing.drawBox(new Box(pos[1]), RenderColors.OUTLINE_BLUE, linesBuf);
+            LineDrawing.drawBox(new Box(pos[1]), RenderColors.OUTLINE_BLUE, camera, linesBuf);
 
-        renderLines.endBuffer();
-        renderQuads.endBuffer();
+        renderLines.endBuffer(camera);
+        renderQuads.endBuffer(camera);
     }
 }
