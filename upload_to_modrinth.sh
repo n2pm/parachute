@@ -21,5 +21,4 @@ if [ ! -f CHANGELOG.md ]; then
   exit 1
 fi
 
-./gradlew build
-
+./gradlew modrinth
