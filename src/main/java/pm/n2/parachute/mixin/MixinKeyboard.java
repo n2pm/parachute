@@ -10,9 +10,17 @@ import pm.n2.parachute.config.Configs;
 @Mixin(Keyboard.class)
 public class MixinKeyboard {
     @Redirect(method = "processF3", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasReducedDebugInfo()Z"))
-    private boolean copyLookAt(ClientPlayerEntity instance) {
+    private boolean hasReducedDebugInfo(ClientPlayerEntity instance) {
         return Configs.TweakConfigs.FORCE_COPY_DEBUG_INFO.getBooleanValue()
                 ? false
                 : instance.hasReducedDebugInfo();
+    }
+
+    @Redirect(method = "processF3", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasPermissionLevel(I)Z", ordinal = 0))
+    private boolean copyLookAt(ClientPlayerEntity instance, int i) {
+        if (!Configs.TweakConfigs.FORCE_COPY_DEBUG_INFO.getBooleanValue()) {
+            return instance.hasPermissionLevel(i);
+        }
+        return true;
     }
 }

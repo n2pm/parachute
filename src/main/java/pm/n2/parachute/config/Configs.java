@@ -156,9 +156,7 @@ public class Configs {
         public static final ConfigOptionListHotkeyed SHOW_BLOCK_OUTLINE = new ConfigOptionListHotkeyed("showBlockOutline", FeatureOverride.DEFAULT, "", "Forces the block outline to show in spectator and adventure mode or hide in creative mode", "Show block outline");
         public static final ConfigBooleanHotkeyed FORCE_GLOWING = new ConfigBooleanHotkeyed("forceEntityGlowing", false, "", "Forces all entities to glow", "Force entity glowing");
         public static final ConfigBooleanHotkeyed NIGHT_VISION = new ConfigBooleanHotkeyed("nightVision", false, "", "Enables night vision\nMeant to be an alternative to tweakeroo's tweakGammaOverride");
-        public static final ConfigBooleanHotkeyed NO_NIGHT_VISION_FLASHING = new ConfigBooleanHotkeyed("noNightVisionFlashing", false, "", "Disable flashing when night vision potion is ending", "Disable night vision flashing");
         public static final ConfigBooleanHotkeyed NO_BLINDNESS = new ConfigBooleanHotkeyed("noBlindnessFog", false, "", "Disables blindness fog");
-        public static final ConfigBooleanHotkeyed NO_TORCH_FLICKER = new ConfigBooleanHotkeyed("noTorchFlicker", false, "", "Disables the subtle flicker from artificial light sources");
         public static final ConfigBooleanHotkeyed NO_EFFECT_HUD = new ConfigBooleanHotkeyed("noEffectHud", false, "", "Hides potion effect HUD, ported from blanket", "Hide effect HUD");
 
         RenderConfigs() {
@@ -176,9 +174,7 @@ public class Configs {
                     SHOW_BLOCK_OUTLINE,
                     FORCE_GLOWING,
                     NIGHT_VISION,
-                    NO_NIGHT_VISION_FLASHING,
                     NO_BLINDNESS,
-                    NO_TORCH_FLICKER,
                     NO_EFFECT_HUD
             ));
         }

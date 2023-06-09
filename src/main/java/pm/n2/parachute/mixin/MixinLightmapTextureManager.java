@@ -15,16 +15,6 @@ import pm.n2.parachute.config.Configs;
 
 @Mixin(LightmapTextureManager.class)
 public abstract class MixinLightmapTextureManager {
-    @Accessor("flickerIntensity")
-    abstract void setFlickerIntensity(float value);
-
-    @Inject(method = "update", at = @At("HEAD"))
-    private void disableTorchFlicker(float delta, CallbackInfo ci) {
-        if (Configs.RenderConfigs.NO_TORCH_FLICKER.getBooleanValue()) {
-            setFlickerIntensity(0);
-        }
-    }
-
     @Redirect(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasStatusEffect(Lnet/minecraft/entity/effect/StatusEffect;)Z"))
     private boolean forceNightVision(ClientPlayerEntity instance, StatusEffect statusEffect) {
         if (Configs.RenderConfigs.NIGHT_VISION.getBooleanValue()) {
