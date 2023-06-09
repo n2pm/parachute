@@ -89,15 +89,16 @@ publishing {
 
 modrinth {
     syncBodyFrom = rootProject.file("README.md").text
+    changelog = rootProject.file("CHANGELOG.md").text
     token = System.getenv("MODRINTH_TOKEN")
     projectId = "parachute"
-    versionNumber = version
-    versionType = (System.getenv("MODRINTH_RELEASE") == "true") ? "release" : "beta"
+    versionType = (System.getenv("BUILD_RELEASE") == "true") ? "release" : "beta"
     uploadFile = remapJar
     gameVersions = ["1.20"]
-    loaders = ["fabric"]
+    loaders = ["fabric", "quilt"]
     dependencies {
         required.project "fabric-api"
+        optional.project "modmenu"
     }
 }
 
