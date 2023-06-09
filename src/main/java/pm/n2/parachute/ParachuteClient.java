@@ -2,6 +2,8 @@ package pm.n2.parachute;
 
 import com.adryd.cauldron.api.render.helper.OverlayRenderManager;
 import fi.dy.masa.malilib.event.InitializationHandler;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Formatting;
 import com.adryd.cauldron.api.command.ClientCommandManager;
 import org.quiltmc.loader.api.ModContainer;
@@ -35,17 +37,19 @@ public class ParachuteClient implements ClientModInitializer {
         return MOD_VERSION;
     }
 
-    public void onInitializeClient(ModContainer mod) {
-        MOD_VERSION = mod.metadata()
-                .version()
-                .raw();
+    public void onInitializeClient() {
+        MOD_VERSION = FabricLoader
+                .getInstance()
+                .getModContainer("parachute")
+                .get()
+                .getMetadata()
+                .getVersion()
+                .toString();
 
         InitializationHandler.getInstance().registerInitializationHandler(new InitHandler());
         Parachute.LOGGER.info("Hello from parachute <3!");
 
         PanoramaCommand.register(ClientCommandManager.DISPATCHER);
         ModsCommand.register(ClientCommandManager.DISPATCHER);
-
-        OverlayRenderManager.addRenderer(new OverlayRendererWorldEditCUI());
     }
 }
