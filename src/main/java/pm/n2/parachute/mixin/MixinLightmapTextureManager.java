@@ -23,7 +23,7 @@ public abstract class MixinLightmapTextureManager {
         return instance.hasStatusEffect(statusEffect);
     }
 
-    @Redirect(method = "update", at=@At(value="INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getNightVisionStrength(Lnet/minecraft/entity/LivingEntity;F)F"))
+    @Redirect(method = "update", at=@At(value="INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getNightVisionStrength(Lnet/minecraft/entity/LivingEntity;F)F"), require = 0)
     private float forceNightVisionDuration(LivingEntity entity, float f) {
         if (Configs.RenderConfigs.NIGHT_VISION.getBooleanValue()) {
             return 1.0F;

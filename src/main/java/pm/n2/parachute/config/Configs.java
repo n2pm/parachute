@@ -79,7 +79,7 @@ public class Configs {
                     AUTO_RECONNECT_ENABLED,
                     AUTO_RECONNECT_TIME,
                     //POTION_EFFECT_HUD,
-                    POTION_EFFECT_HUD_NO_COLOR,
+                    //POTION_EFFECT_HUD_NO_COLOR,
                     //ARMOR_HUD,
                     PORTAL_SCREENS
             ));
@@ -96,7 +96,7 @@ public class Configs {
         public static final ConfigInteger CUSTOM_PLAYER_LIST_LENGTH = new ConfigInteger("customPlayerListLength", 80, 0, 1000, "Overwrites the tab list length; requires \"Overwrite player list length\"");
         public static final ConfigBooleanHotkeyed PLAYER_LIST_PING = new ConfigBooleanHotkeyed("playerListPing", false, "", "Shows player list ping in milliseconds.\nPorted from blanket.", "Player list ping (unfinished)");
         public static final ConfigBooleanHotkeyed NO_BOOK_PAGE_LENGTH = new ConfigBooleanHotkeyed("noBookPageLengthLimit", false, "", "Ignore book page length when creating books", "Ignore book page length when creating books");
-        public static final ConfigBoolean SKIN_SIDELOADING_ENABLED = new ConfigBoolean("skinSideloading", false, "Disable skin domain checks in authlib and skin size checks", "Skin sideloading");
+        //public static final ConfigBoolean SKIN_SIDELOADING_ENABLED = new ConfigBoolean("skinSideloading", false, "Disable skin domain checks in authlib and skin size checks", "Skin sideloading");
         //public static final ConfigBoolean SKIN_SIDELOADING_NON_MOJANG_DOMAINS = new ConfigBoolean("skinSideloadingNonMojangDomains", false, "Allow loading of skins from non Mojang domains. This could reveal your IP to 3rd parties (like anybody actually cares)", "Side load skins from non Mojang domains");
         public static final ConfigBoolean NO_SERVER_BLOCKIST = new ConfigBoolean("noMojangServerBlocklist", false, "Bypass Mojang's multiplayer server blocklist for EULA violating servers. Don't actually do this lol", "Disable Mojang's multiplayer server blocklist");
         public static final ConfigBooleanHotkeyed STEP_ASSIST_ENABLED = new ConfigBooleanHotkeyed("stepAssistEnabled", false, "", "Sets block step height to 1 block", "Step assist");
@@ -123,7 +123,7 @@ public class Configs {
                     CUSTOM_PLAYER_LIST_LENGTH,
                     PLAYER_LIST_PING,
                     NO_BOOK_PAGE_LENGTH,
-                    SKIN_SIDELOADING_ENABLED,
+//                    SKIN_SIDELOADING_ENABLED,
                     //SKIN_SIDELOADING_NON_MOJANG_DOMAINS,
                     NO_SERVER_BLOCKIST,
                     STEP_ASSIST_ENABLED,
@@ -200,7 +200,7 @@ public class Configs {
         public static final ConfigBooleanHotkeyed WORLD_GEN_ATTEMPT = new ConfigBooleanHotkeyed("debugWorldGenAttempt", false, "", "Enables vanilla world gen attempt debugger" + requires, "");
         public static final ConfigBooleanHotkeyed CHUNK_LOADING = new ConfigBooleanHotkeyed("debugChunkLoading", false, "", "Enables vanilla chunk loading debugger" + requires, "");
         public static final ConfigBooleanHotkeyed VILLAGE = new ConfigBooleanHotkeyed("debugBrain", false, "", "Enables vanilla entity brain debugger" + requires, "");
-        public static final ConfigBooleanHotkeyed VILLAGE_SECTIONS = new ConfigBooleanHotkeyed("debugVillageSections", false, "Enables vanilla village sections debugger", "" + requires, "");
+        public static final ConfigBooleanHotkeyed VILLAGE_SECTIONS = new ConfigBooleanHotkeyed("debugVillageSections", false, "", "Enables vanilla village sections debugger" + requires, "");
         public static final ConfigBooleanHotkeyed BEE = new ConfigBooleanHotkeyed("debugBee", false, "", "" + requires, "Enables vanilla bee debugger");
         public static final ConfigBooleanHotkeyed RAID_CENTER = new ConfigBooleanHotkeyed("debugRaidCenter", false, "", "Enables vanilla raid center debugger" + requires, "");
         public static final ConfigBooleanHotkeyed GOAL_SELECTOR = new ConfigBooleanHotkeyed("debugGoalSelector", false, "", "Enables vanilla goal selector debugger" + requires, "");
