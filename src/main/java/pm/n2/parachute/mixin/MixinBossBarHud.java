@@ -1,5 +1,6 @@
 package pm.n2.parachute.mixin;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.BossBarHud;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,7 +12,7 @@ import pm.n2.parachute.config.Configs;
 @Mixin(BossBarHud.class)
 public class MixinBossBarHud {
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    private void render(MatrixStack matrices, CallbackInfo ci) {
+    private void render(DrawContext context, CallbackInfo ci) {
         boolean tweakEnabled = Configs.RenderConfigs.HIDE_BOSSBAR.getBooleanValue();
         if (tweakEnabled) ci.cancel();
     }

@@ -12,7 +12,9 @@ import pm.n2.parachute.config.Configs;
 @Mixin(ChatHud.class)
 public class MixinChatHud {
     // dawg this shit is Not Mapped :sob:
-    @ModifyConstant(method = "addMessage(Lnet/minecraft/text/Text;)V", constant = @Constant(intValue = 100), require = 2)
+    // NOTE(jules): it is now mapped, but I am keeping that hilarious comment just because of the legacy
+
+    @ModifyConstant(method = "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V", constant = @Constant(intValue = 100), require = 2)
     public int overwriteMaxHistory(int maxLength) {
         if (Configs.TweakConfigs.CUSTOM_CHAT_HISTORY_LENGTH_ENABLED.getBooleanValue()) {
             return Configs.TweakConfigs.CUSTOM_CHAT_HISTORY_LENGTH.getIntegerValue();

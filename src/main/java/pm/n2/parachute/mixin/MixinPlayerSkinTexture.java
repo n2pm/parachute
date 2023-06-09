@@ -18,7 +18,7 @@ public class MixinPlayerSkinTexture {
         return height;
     }
 
-    @Redirect(method = "remapTexture", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/texture/NativeImage;getHeight()I"))
+    @Redirect(method = "remapTexture", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/texture/NativeImage;getWidth()I"))
     private int spoofWidth(NativeImage instance) {
         return Configs.TweakConfigs.SKIN_SIDELOADING_ENABLED.getBooleanValue() ? 64 : instance.getWidth();
     }

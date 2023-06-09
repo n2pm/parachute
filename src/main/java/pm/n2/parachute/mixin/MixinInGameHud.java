@@ -1,7 +1,7 @@
 package pm.n2.parachute.mixin;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.scoreboard.ScoreboardObjective;
 import net.minecraft.util.Identifier;
@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import pm.n2.parachute.config.Configs;
@@ -29,20 +28,21 @@ public abstract class MixinInGameHud {
     @Shadow
     private static Identifier POWDER_SNOW_OUTLINE;
 
-    // TODO: get rid of the whitespace that remains
+    // This is broken right now and I can't be fucked to fix it
+    /*// TODO: get rid of the whitespace that remains
     @ModifyVariable(method = "renderScoreboardSidebar", at = @At(value = "STORE", target = "Lnet/minecraft/scoreboard/ScoreboardPlayerScore;getScore()I"))
     private String hideScoreboardNumbers(String original) {
         boolean tweakEnabled = Configs.RenderConfigs.HIDE_SCOREBOARD_NUMBERS.getBooleanValue();
         return tweakEnabled ? "" : original;
-    }
+    }*/
 
     @Inject(method = "renderScoreboardSidebar", at = @At("HEAD"), cancellable = true)
-    private void hideScoreboard(MatrixStack matrices, ScoreboardObjective objective, CallbackInfo ci) {
+    private void hideScoreboard(DrawContext context, ScoreboardObjective objective, CallbackInfo ci) {
         if (Configs.RenderConfigs.HIDE_SCOREBOARD.getBooleanValue()) ci.cancel();
     }
 
     @Inject(method = "renderCrosshair", at = @At("HEAD"), cancellable = true)
-    private void hideCrosshair(MatrixStack matrices, CallbackInfo ci) {
+    private void hideCrosshair(DrawContext context, CallbackInfo ci) {
         if (Configs.RenderConfigs.SHOW_CROSSHAIR.getOptionListValue() == FeatureOverride.FORCE_FALSE) {
             ci.cancel();
         }
@@ -56,14 +56,14 @@ public abstract class MixinInGameHud {
     }
 
     @Inject(method = "renderSpyglassOverlay", at = @At("HEAD"), cancellable = true)
-    private void hideSpyglass(float scale, CallbackInfo ci) {
+    private void hideSpyglass(DrawContext context, float scale, CallbackInfo ci) {
         if (Configs.RenderConfigs.HIDE_SPYGLASS_OVERLAY.getBooleanValue()) {
             ci.cancel();
         }
     }
 
     @Inject(method = "renderOverlay", at = @At("HEAD"), cancellable = true)
-    private void hideGenericOverlay(Identifier texture, float opacity, CallbackInfo ci) {
+    private void hideGenericOverlay(DrawContext context, Identifier texture, float opacity, CallbackInfo ci) {
         if (Configs.RenderConfigs.HIDE_PUMPKIN_OVERLAY.getBooleanValue() && texture == PUMPKIN_BLUR) {
             ci.cancel();
         }
@@ -73,14 +73,14 @@ public abstract class MixinInGameHud {
     }
 
     @Inject(method = "renderVignetteOverlay", at = @At("HEAD"), cancellable = true)
-    private void hideVignette(Entity entity, CallbackInfo ci) {
+    private void hideVignette(DrawContext context, Entity entity, CallbackInfo ci) {
         if (Configs.RenderConfigs.HIDE_VIGNETTE.getBooleanValue()) {
             ci.cancel();
         }
     }
 
-    @Inject(method="renderStatusEffectOverlay",at=@At(value="HEAD"), cancellable=true)
-    private void noStatusEffectOverlay(CallbackInfo info){
+    @Inject(method = "renderStatusEffectOverlay", at = @At(value = "HEAD"), cancellable = true)
+    private void noStatusEffectOverlay(CallbackInfo info) {
         if (Configs.RenderConfigs.NO_EFFECT_HUD.getBooleanValue())
             info.cancel();
     }

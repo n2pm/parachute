@@ -12,22 +12,22 @@ import pm.n2.parachute.config.Configs;
 
 @Mixin(InGameOverlayRenderer.class)
 public class MixinInGameOverlayRenderer {
-    @Inject(method="renderFireOverlay", at=@At(value="HEAD"), cancellable = true)
-    private static void hideFireOverlay(MinecraftClient client, MatrixStack matrices, CallbackInfo ci){
+    @Inject(method = "renderFireOverlay", at = @At(value = "HEAD"), cancellable = true)
+    private static void hideFireOverlay(MinecraftClient client, MatrixStack matrices, CallbackInfo ci) {
         if (Configs.RenderConfigs.HIDE_FIRE_OVERLAY.getBooleanValue()) {
             ci.cancel();
         }
     }
 
-    @Inject(method="renderUnderwaterOverlay", at=@At(value="HEAD"), cancellable = true)
-    private static void hideWaterOverlay(MinecraftClient client, MatrixStack matrices, CallbackInfo ci){
+    @Inject(method = "renderUnderwaterOverlay", at = @At(value = "HEAD"), cancellable = true)
+    private static void hideWaterOverlay(MinecraftClient client, MatrixStack matrices, CallbackInfo ci) {
         if (Configs.RenderConfigs.HIDE_UNDERWATER_OVERLAY.getBooleanValue()) {
             ci.cancel();
         }
     }
 
-    @Inject(method="renderInWallOverlay", at=@At(value="HEAD"), cancellable = true)
-    private static void hideWallOverlay(Sprite sprite, MatrixStack matrices, CallbackInfo ci){
+    @Inject(method = "renderInWallOverlay", at = @At(value = "HEAD"), cancellable = true)
+    private static void hideWallOverlay(Sprite sprite, MatrixStack matrices, CallbackInfo ci) {
         if (Configs.RenderConfigs.HIDE_INBLOCK_OVERLAY.getBooleanValue()) {
             ci.cancel();
         }

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "parachute",
+  "version": "${version}",
+  "name": "Parachute",
+  "description": "A soft landing for a hard fall.",
+  "authors": [
+    "NotNite",
+    "adryd"
+  ],
+  "contact": {
+    "homepage": "https://github.com/n2pm/parachute",
+    "issues": "https://github.com/n2pm/parachute/issues",
+    "sources": "https://github.com/n2pm/parachute"
+  },
+  "license": "MIT",
+  "icon": "assets/parachute/icon.png",
+  "entrypoints": {
+    "client": [
+      "pm.n2.parachute.ParachuteClient"
+    ],
+    "modmenu": [
+      "pm.n2.parachute.compat.modmenu.ModMenuImpl"
+    ]
+  },
+  "depends": {
+    "minecraft": ">=1.20",
+    "fabricloader": ">=0.14.19",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
+  },
+  "mixins": ["parachute.mixins.json"],
+  "accessWidener": "parachute.accesswidener"
+}
