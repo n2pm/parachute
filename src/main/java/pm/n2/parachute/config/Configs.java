@@ -68,9 +68,9 @@ public class Configs {
         public static final ConfigBoolean RECONNECT_BUTTON = new ConfigBoolean("reconnectButton", false, "Adds a button to reconnect when you disconnect from a server.", "Show reconnect button");
         public static final ConfigBoolean AUTO_RECONNECT_ENABLED = new ConfigBoolean("tweakAutoReconnect", false, "Automatically reconnect after you disconnect from a server.", "Auto reconnect");
         public static final ConfigInteger AUTO_RECONNECT_TIME = new ConfigInteger("autoReconnectTimeout", 5, 0, 30, "The amount of seconds until auto reconnect triggers.");
-        public static final ConfigBooleanHotkeyed POTION_EFFECT_HUD = new ConfigBooleanHotkeyed("potionEffectHUD", false, "", "Enables minimal potion effect HUD", "Potion effect HUD");
+        //public static final ConfigBooleanHotkeyed POTION_EFFECT_HUD = new ConfigBooleanHotkeyed("potionEffectHUD", false, "", "Enables minimal potion effect HUD", "Potion effect HUD");
         public static final ConfigBoolean POTION_EFFECT_HUD_NO_COLOR = new ConfigBoolean("potionEffectHUDNoColor", false, "Disables potion color on effect HUD", "Potion effect HUD disable color");
-        public static final ConfigBooleanHotkeyed ARMOR_HUD = new ConfigBooleanHotkeyed("armorHUD", false, "", "Enables armor HUD. \nPorted from blanket", "Armor HUD");
+        //public static final ConfigBooleanHotkeyed ARMOR_HUD = new ConfigBooleanHotkeyed("armorHUD", false, "", "Enables armor HUD. \nPorted from blanket", "Armor HUD");
         public static final ConfigBoolean PORTAL_SCREENS = new ConfigBoolean("portalScreens", false, "Allow opening screens whilst in portals", "Portal Screens");
 
         public FeatureConfigs() {
@@ -78,9 +78,9 @@ public class Configs {
                     RECONNECT_BUTTON,
                     AUTO_RECONNECT_ENABLED,
                     AUTO_RECONNECT_TIME,
-                    POTION_EFFECT_HUD,
+                    //POTION_EFFECT_HUD,
                     POTION_EFFECT_HUD_NO_COLOR,
-                    ARMOR_HUD,
+                    //ARMOR_HUD,
                     PORTAL_SCREENS
             ));
         }
@@ -97,12 +97,11 @@ public class Configs {
         public static final ConfigBooleanHotkeyed PLAYER_LIST_PING = new ConfigBooleanHotkeyed("playerListPing", false, "", "Shows player list ping in milliseconds.\nPorted from blanket.", "Player list ping (unfinished)");
         public static final ConfigBooleanHotkeyed NO_BOOK_PAGE_LENGTH = new ConfigBooleanHotkeyed("noBookPageLengthLimit", false, "", "Ignore book page length when creating books", "Ignore book page length when creating books");
         public static final ConfigBoolean SKIN_SIDELOADING_ENABLED = new ConfigBoolean("skinSideloading", false, "Disable skin domain checks in authlib and skin size checks", "Skin sideloading");
-        public static final ConfigBoolean SKIN_SIDELOADING_NON_MOJANG_DOMAINS = new ConfigBoolean("skinSideloadingNonMojangDomains", false, "Allow loading of skins from non Mojang domains. This could reveal your IP to 3rd parties (like anybody actually cares)", "Side load skins from non Mojang domains");
+        //public static final ConfigBoolean SKIN_SIDELOADING_NON_MOJANG_DOMAINS = new ConfigBoolean("skinSideloadingNonMojangDomains", false, "Allow loading of skins from non Mojang domains. This could reveal your IP to 3rd parties (like anybody actually cares)", "Side load skins from non Mojang domains");
         public static final ConfigBoolean NO_SERVER_BLOCKIST = new ConfigBoolean("noMojangServerBlocklist", false, "Bypass Mojang's multiplayer server blocklist for EULA violating servers. Don't actually do this lol", "Disable Mojang's multiplayer server blocklist");
         public static final ConfigBooleanHotkeyed STEP_ASSIST_ENABLED = new ConfigBooleanHotkeyed("stepAssistEnabled", false, "", "Sets block step height to 1 block", "Step assist");
         public static final ConfigDouble STEP_ASSIST_HEIGHT = new ConfigDouble("stepAssistHeight", 1.0, 0.0, 2.0, true, "Step assist height");
         //        public static final ConfigBooleanHotkeyed HALF_STEP = new ConfigBooleanHotkeyed("halfStep", false, "", "Step up when in air", "Half step");
-        public static final ConfigBoolean BRIGADIER_STRING_ESCAPES = new ConfigBoolean("brigadierStringEscapes", false, "A backport of brigadier#90. Makes stringified NBTs support more JSON-like string escapes. by Mstrodl\nRequires a compatible server if using on multiplayer", "Brigadier better string escapes");
         public static final ConfigBoolean CUSTOM_CHAT_HISTORY_LENGTH_ENABLED = new ConfigBoolean("customChatHistoryLengthEnabled", false, "Allow for chat length to be overwritten", "Overwrite chat length");
         public static final ConfigInteger CUSTOM_CHAT_HISTORY_LENGTH = new ConfigInteger("customChatHistoryLength", 100, 1, 10000, false, "Chat length");
         public static final ConfigBoolean DONT_RESET_CHAT_HISTORY = new ConfigBoolean("dontResetChatHistory", false, "Don't reset chat history when logging out", "Don't reset chat history");
@@ -112,8 +111,6 @@ public class Configs {
         public static final ConfigBoolean TITLE_BAR_HIDE_MODDED = new ConfigBoolean("titleBarHideModded", false, "Hides asterisk in title bar", "Title bar hide modded status");
         public static final ConfigBoolean TITLE_BAR_HIDE_GAME_STATUS = new ConfigBoolean("titleBarHideGameStatus", false, "Hides game status from title bar. eg. 3rd party multiplayer", "Title bar hide game status");
         public static final ConfigBoolean MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO = new ConfigBoolean("multiplayerDetailedVersionInfo", false, "Additional version info such as protocol and server brand shown on server selection screen", "Show version info on server selection screen");
-        public static final ConfigBoolean LIVEOVERFLOW_BOT_MOVEMENT = new ConfigBoolean("liveOverflowBotMovement", false, "Move like a bot for LiveOverflow's mc server", "LiveOverflow bot movement");
-        public static final ConfigBooleanHotkeyed LIVEOVERFLOW_WORLDGUARD_BYPASS = new ConfigBooleanHotkeyed("liveOverflowWorldguardBypass", false, "", "Move very slowly and teleport before triggering onPlayerMove event on bukkit servers", "LiveOverflow onPlayerMove bypass");
 
         public TweakConfigs() {
             super(ImmutableList.of(
@@ -127,12 +124,11 @@ public class Configs {
                     PLAYER_LIST_PING,
                     NO_BOOK_PAGE_LENGTH,
                     SKIN_SIDELOADING_ENABLED,
-                    SKIN_SIDELOADING_NON_MOJANG_DOMAINS,
+                    //SKIN_SIDELOADING_NON_MOJANG_DOMAINS,
                     NO_SERVER_BLOCKIST,
                     STEP_ASSIST_ENABLED,
                     STEP_ASSIST_HEIGHT,
 //                    HALF_STEP,
-                    BRIGADIER_STRING_ESCAPES,
                     CUSTOM_CHAT_HISTORY_LENGTH_ENABLED,
                     CUSTOM_CHAT_HISTORY_LENGTH,
                     DONT_RESET_CHAT_HISTORY,
@@ -141,15 +137,12 @@ public class Configs {
                     TITLE_BAR_CUSTOMIZATION_ENABLED,
                     TITLE_BAR_HIDE_MODDED,
                     TITLE_BAR_HIDE_GAME_STATUS,
-                    MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO,
-                    LIVEOVERFLOW_BOT_MOVEMENT,
-                    LIVEOVERFLOW_WORLDGUARD_BYPASS
+                    MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO
             ));
         }
     }
 
     public static class RenderConfigs extends BaseConfigs {
-        public static final ConfigBooleanHotkeyed HIDE_SCOREBOARD_NUMBERS = new ConfigBooleanHotkeyed("noScoreboardNumbers", false, "", "Disable scoreboard numbers", "No scoreboard numbers");
         public static final ConfigBooleanHotkeyed HIDE_SCOREBOARD = new ConfigBooleanHotkeyed("noScoreboard", false, "", "Disable scoreboard", "No scoreboard");
         public static final ConfigBooleanHotkeyed HIDE_BOSSBAR = new ConfigBooleanHotkeyed("noBossBar", false, "", "Disable boss bar", "No boss bar");
         public static final ConfigBooleanHotkeyed HIDE_FIRE_OVERLAY = new ConfigBooleanHotkeyed("noFireOverlay", false, "", "Disable fire overlay", "No fire overlay");
@@ -166,12 +159,10 @@ public class Configs {
         public static final ConfigBooleanHotkeyed NO_NIGHT_VISION_FLASHING = new ConfigBooleanHotkeyed("noNightVisionFlashing", false, "", "Disable flashing when night vision potion is ending", "Disable night vision flashing");
         public static final ConfigBooleanHotkeyed NO_BLINDNESS = new ConfigBooleanHotkeyed("noBlindnessFog", false, "", "Disables blindness fog");
         public static final ConfigBooleanHotkeyed NO_TORCH_FLICKER = new ConfigBooleanHotkeyed("noTorchFlicker", false, "", "Disables the subtle flicker from artificial light sources");
-        public static final ConfigBooleanHotkeyed SCALE_DEBUG_PIE = new ConfigBooleanHotkeyed("scaleDebugPie", false, "", "Scale's the debug pie to the gui scale of the game", "Scale debug pie");
         public static final ConfigBooleanHotkeyed NO_EFFECT_HUD = new ConfigBooleanHotkeyed("noEffectHud", false, "", "Hides potion effect HUD, ported from blanket", "Hide effect HUD");
 
         RenderConfigs() {
             super(ImmutableList.of(
-                    HIDE_SCOREBOARD_NUMBERS,
                     HIDE_SCOREBOARD,
                     HIDE_BOSSBAR,
                     HIDE_FIRE_OVERLAY,
@@ -188,17 +179,14 @@ public class Configs {
                     NO_NIGHT_VISION_FLASHING,
                     NO_BLINDNESS,
                     NO_TORCH_FLICKER,
-                    SCALE_DEBUG_PIE,
                     NO_EFFECT_HUD
             ));
         }
     }
 
     public static class BugFixConfigs extends BaseConfigs {
-        public static final ConfigBoolean CHAT_LAG_FIX = new ConfigBoolean("chatLagFix", false, "Fixes lag from chat messages at the expense of not being able to block players", "Chat lag fix");
-
         BugFixConfigs() {
-            super(ImmutableList.of(CHAT_LAG_FIX));
+            super(ImmutableList.of());
         }
     }
 

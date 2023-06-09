@@ -32,7 +32,6 @@
     "MixinMultiplayerServerListWidget_ServerEntry",
     "MixinPlayerListHud_playerListLength",
     "MixinPlayerListHud_showLatencyMs",
-    "MixinPlayerMoveC2SPacket",
     "MixinPlayerSkinTexture",
     "MixinSharedConstants",
     "MixinTeam",
