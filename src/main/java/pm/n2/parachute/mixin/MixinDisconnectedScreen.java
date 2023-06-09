@@ -1,5 +1,10 @@
 package pm.n2.parachute.mixin;
 
+import net.minecraft.client.gui.widget.GridWidget;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import pm.n2.parachute.Parachute;
 import pm.n2.parachute.config.Configs;
 import pm.n2.parachute.util.GlobalDataStorage;
@@ -13,16 +18,11 @@ import net.minecraft.client.network.ServerAddress;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(DisconnectedScreen.class)
 public abstract class MixinDisconnectedScreen extends Screen {
-    @Shadow
-    private int reasonHeight;
     @Unique
     private ButtonWidget reconnectBtn;
     @Unique
@@ -32,17 +32,15 @@ public abstract class MixinDisconnectedScreen extends Screen {
         super(title);
     }
 
-    @Inject(method = "init", at = @At("TAIL"))
-    private void addReconnectButton(CallbackInfo info) {
+    @Inject(method = "init", at = @At(value = "TAIL"), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
+    private void addReconnectButton(CallbackInfo ci, GridWidget.Adder adder, ButtonWidget buttonWidget) {
         ServerInfo lastServerInfo = GlobalDataStorage.getInstance().getLastServer();
         boolean tweakEnabled = Configs.FeatureConfigs.RECONNECT_BUTTON.getBooleanValue();
-
         if (lastServerInfo != null && tweakEnabled) {
-            int x = width / 2 - 100;
-            int y = Math.min((height / 2 + reasonHeight / 2) + 32, height - 30);
-
-            reconnectBtn = addDrawableChild(new ButtonWidget(x, y, 200, 20, getText(), button -> reconnect(lastServerInfo)));
+            this.reconnectBtn = ButtonWidget.builder(getText(), button -> reconnect(lastServerInfo)).build();
+            adder.add(this.reconnectBtn);
         }
+
     }
 
     @Override
@@ -65,7 +63,7 @@ public abstract class MixinDisconnectedScreen extends Screen {
     private void reconnect(ServerInfo lastServerInfo) {
         Parachute.LOGGER.info("Reconnecting...");
         assert client != null;
-        ConnectScreen.connect(new MultiplayerScreen(new TitleScreen()), client, ServerAddress.parse(lastServerInfo.address), lastServerInfo);
+        ConnectScreen.connect(new MultiplayerScreen(new TitleScreen()), client, ServerAddress.parse(lastServerInfo.address), lastServerInfo, false);
     }
 
     private Text getText() {

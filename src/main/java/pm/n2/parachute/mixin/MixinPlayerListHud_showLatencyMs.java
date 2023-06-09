@@ -1,6 +1,7 @@
 package pm.n2.parachute.mixin;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.PlayerListHud;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.util.math.MatrixStack;
@@ -31,10 +32,10 @@ public class MixinPlayerListHud_showLatencyMs {
     }
 
     @Inject(method = "renderLatencyIcon", at = @At("HEAD"), cancellable = true)
-    private void numericPing(MatrixStack matrixStack, int x, int w, int y, PlayerListEntry playerEntry, CallbackInfo ci) {
+    private void numericPing(DrawContext context, int width, int x, int y, PlayerListEntry entry, CallbackInfo ci) {
         if (Configs.TweakConfigs.PLAYER_LIST_PING.getBooleanValue()) {
             int color;
-            int latency = playerEntry.getLatency();
+            int latency = entry.getLatency();
 
             if (latency > 500) {
                 color = 0xAA0000;
@@ -52,9 +53,9 @@ public class MixinPlayerListHud_showLatencyMs {
                 color = 0xAA0000;
             }
 
-            int xPos = w + x - this.client.textRenderer.getWidth(Math.min(playerEntry.getLatency(), 999) + "ms");
+            int xPos = width + x - this.client.textRenderer.getWidth(Math.min(entry.getLatency(), 999) + "ms");
 
-            this.client.textRenderer.drawWithShadow(matrixStack, Math.min(playerEntry.getLatency(), 999) + "ms", xPos, y, color);
+            context.drawText(this.client.textRenderer, Math.min(entry.getLatency(), 999) + "ms", xPos, y, color, true);
 
             ci.cancel();
         }
@@ -62,7 +63,6 @@ public class MixinPlayerListHud_showLatencyMs {
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;isInSingleplayer()Z"))
     public boolean alwaysDrawPlayerIcons(MinecraftClient client) {
-//        return true;
         return client.isInSingleplayer();
     }
 

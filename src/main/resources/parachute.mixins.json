@@ -28,8 +28,6 @@
     "MixinKeyboard",
     "MixinLightmapTextureManager",
     "MixinMinecraftClient",
-    "MixinMinecraftClient_chatLagFix",
-    "MixinMinecraftClient_drawProfilerResults",
     "MixinMinecraftClient_windowTitle",
     "MixinMultiplayerServerListWidget_ServerEntry",
     "MixinPlayerListHud_playerListLength",
@@ -37,10 +35,8 @@
     "MixinPlayerMoveC2SPacket",
     "MixinPlayerSkinTexture",
     "MixinSharedConstants",
-    "MixinStringReader_brigadier",
     "MixinTeam",
-    "MixinYggdrasilMinecraftSessionService_authlib",
-    "MixinYggdrasilUserApiService_authlib"
+    "MixinYggdrasilMinecraftSessionService_authlib"
   ],
   "injectors": {
     "defaultRequire": 1

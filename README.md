@@ -6,7 +6,6 @@ Parachute is a kitchen sink mod with various QoL features and tweaks.
 
 ## Features
 
-- Visual WorldEdit CUI
 - Reconnect button & Auto reconnect
 - Potion effect HUD
 
@@ -21,12 +20,10 @@ Parachute is a kitchen sink mod with various QoL features and tweaks.
 - Skin sideloading
 - Disable server blocklist
 - Step assist
-- Brigadier string escapes
 - Custom chat history length & disable resetting chat history
 - Allow disallowed characters
 - Enable/disable Christmas chests all the time
 - Various title bar customizations
-- Detailed multiplayer server version info
 
 ## Render Tweaks
 

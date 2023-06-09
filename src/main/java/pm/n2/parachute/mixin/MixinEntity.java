@@ -15,7 +15,7 @@ public class MixinEntity {
         Entity entity = (Entity) (Object) this;
         if (entity.isPlayer()) {
             // 0.6F defined in constructor of LivingEntity.java
-            entity.stepHeight = Configs.TweakConfigs.STEP_ASSIST_ENABLED.getBooleanValue() ? (float) Configs.TweakConfigs.STEP_ASSIST_HEIGHT.getDoubleValue() : 0.6F;
+            entity.setStepHeight(Configs.TweakConfigs.STEP_ASSIST_ENABLED.getBooleanValue() ? (float) Configs.TweakConfigs.STEP_ASSIST_HEIGHT.getDoubleValue() : 0.6F);
         }
     }
 

@@ -7,7 +7,6 @@ import fi.dy.masa.malilib.hotkeys.IHotkey;
 import fi.dy.masa.malilib.hotkeys.IKeybind;
 import fi.dy.masa.malilib.hotkeys.KeybindSettings;
 import net.minecraft.util.Formatting;
-import pm.n2.parachute.util.WorldDataStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +65,6 @@ public class Configs {
     }
 
     public static class FeatureConfigs extends BaseConfigs {
-        public static final ConfigBooleanHotkeyed WORLDEDIT_CUI = new ConfigBooleanHotkeyed("worldEditCUI", false, "", "Enables WorldEdit CUI", "WorldEdit CUI");
         public static final ConfigBoolean RECONNECT_BUTTON = new ConfigBoolean("reconnectButton", false, "Adds a button to reconnect when you disconnect from a server.", "Show reconnect button");
         public static final ConfigBoolean AUTO_RECONNECT_ENABLED = new ConfigBoolean("tweakAutoReconnect", false, "Automatically reconnect after you disconnect from a server.", "Auto reconnect");
         public static final ConfigInteger AUTO_RECONNECT_TIME = new ConfigInteger("autoReconnectTimeout", 5, 0, 30, "The amount of seconds until auto reconnect triggers.");
@@ -77,7 +75,6 @@ public class Configs {
 
         public FeatureConfigs() {
             super(ImmutableList.of(
-                    WORLDEDIT_CUI,
                     RECONNECT_BUTTON,
                     AUTO_RECONNECT_ENABLED,
                     AUTO_RECONNECT_TIME,
@@ -86,9 +83,6 @@ public class Configs {
                     ARMOR_HUD,
                     PORTAL_SCREENS
             ));
-
-            WorldDataStorage worldData = WorldDataStorage.getInstance();
-            WORLDEDIT_CUI.setValueChangeCallback(worldData::onWorldEditConfigChange);
         }
     }
 

@@ -2,12 +2,13 @@ package pm.n2.parachute.gui.hud;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tag.FluidTags;
+import net.minecraft.registry.tag.FluidTags;
 
 /**
  * @author Cynosphere <gamers@riseup.net>
@@ -22,7 +23,7 @@ public class ArmorHUD {
         this.itemRenderer = client.getItemRenderer();
     }
 
-    public void render(MatrixStack matrixStack) {
+    public void render(DrawContext drawContext) {
         int width = this.client.getWindow().getScaledWidth();
         int height = this.client.getWindow().getScaledHeight();
 
@@ -40,10 +41,8 @@ public class ArmorHUD {
                     EquipmentSlot.FEET
             };
 
-//            RenderSystem.enableRescaleNormal();
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
-//            DiffuseLighting.enable();
 
             for (EquipmentSlot slot : types) {
                 ItemStack stack = player.getInventory().armor.get(slot.getEntitySlotId());
@@ -51,14 +50,12 @@ public class ArmorHUD {
                 int y = height - 56;
                 if (player.isSubmergedIn(FluidTags.WATER) || breath < maxBreath) y -= 10;
 
-                this.itemRenderer.renderGuiItemIcon(stack, x, y);
-                this.itemRenderer.renderGuiItemOverlay(this.client.textRenderer, stack, x, y);
+                drawContext.drawItem(stack,x,y);
+                drawContext.drawItemTooltip(this.client.textRenderer,stack,x,y);
 
                 index++;
             }
 
-//            DiffuseLighting.disable();
-//            RenderSystem.disableRescaleNormal();
             RenderSystem.disableBlend();
         }
     }

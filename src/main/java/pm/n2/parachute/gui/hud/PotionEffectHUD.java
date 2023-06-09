@@ -2,6 +2,7 @@ package pm.n2.parachute.gui.hud;
 
 import com.google.common.collect.Ordering;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.effect.StatusEffect;
@@ -23,7 +24,7 @@ public class PotionEffectHUD {
         this.client = MinecraftClient.getInstance();
     }
 
-    public void render(MatrixStack matrixStack){
+    public void render(DrawContext drawContext){
         int width = this.client.getWindow().getScaledWidth();
         int height = this.client.getWindow().getScaledHeight();
 
@@ -48,10 +49,10 @@ public class PotionEffectHUD {
                 out.append(level + 1);
                 out.append(Formatting.GRAY);
                 out.append(" (");
-                out.append(StatusEffectUtil.durationToString(statusEffect, 1.0F));
+                out.append(StatusEffectUtil.getDurationText(statusEffect, 1.0F));
                 out.append(")");
 
-                this.client.textRenderer.drawWithShadow(matrixStack, out.toString().trim(),width - this.client.textRenderer.getWidth(out.toString().trim()) - 2, height - 2 - this.client.textRenderer.fontHeight - (this.client.textRenderer.fontHeight*index), color);
+                drawContext.drawText(this.client.textRenderer, out.toString().trim(),width - this.client.textRenderer.getWidth(out.toString().trim()) - 2, height - 2 - this.client.textRenderer.fontHeight - (this.client.textRenderer.fontHeight*index), color, true);
 
                 index++;
             }
