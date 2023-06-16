@@ -1,5 +1,6 @@
 package pm.n2.parachute.events;
 
+import com.google.common.collect.ImmutableList;
 import fi.dy.masa.malilib.hotkeys.*;
 import pm.n2.parachute.Parachute;
 import pm.n2.parachute.config.Configs;
@@ -18,15 +19,14 @@ public class InputHandler implements IKeybindProvider, IKeyboardInputHandler, IM
 
     @Override
     public void addKeysToMap(IKeybindManager manager) {
-        for (IKeybind keybind : Configs.GENERAL_CONFIGS.getKeybinds()) {
-            manager.addKeybindToMap(keybind);
-        }
-        for (IKeybind keybind : Configs.TWEAK_CONFIGS.getKeybinds()) {
-            manager.addKeybindToMap(keybind);
-        }
-        for (IKeybind keybind : Configs.RENDER_CONFIGS.getKeybinds()) {
-            manager.addKeybindToMap(keybind);
-        }
+        var keybinds = ImmutableList.<IKeybind>builder()
+                .addAll(Configs.GENERAL_CONFIGS.getKeybinds())
+                .addAll(Configs.FEATURE_CONFIGS.getKeybinds())
+                .addAll(Configs.TWEAK_CONFIGS.getKeybinds())
+                .addAll(Configs.RENDER_CONFIGS.getKeybinds())
+                .build();
+
+        for (var keybind : keybinds) manager.addKeybindToMap(keybind);
     }
 
     @Override

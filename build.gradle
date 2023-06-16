@@ -27,6 +27,7 @@ repositories {
     maven { url "https://maven.terraformersmc.com/releases/" }
     maven { url "https://maven.gegy.dev/" }
     maven { url "https://maven.svc.adryd.com/releases/" }
+    maven { url "https://notnite.github.io/blockbuild/mvn/" }
     mavenCentral()
 }
 
@@ -42,11 +43,7 @@ dependencies {
     modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
     modApi include("com.adryd:cauldron:${project.cauldron_version}")
 
-    modApi files("libs/kosmolot-unofficial-malilib-fabric-1.20-0.15.4+ksm.2.jar")
-}
-
-remapJar {
-    nestedJars.from(files("libs/kosmolot-unofficial-malilib-fabric-1.20-0.15.4+ksm.2.jar"))
+    modApi include("fi.dy.masa.malilib:kosmolot-unofficial-malilib-fabric-1.20:${project.malilib_version}")
 }
 
 loom {
