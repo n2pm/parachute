@@ -90,7 +90,7 @@ modrinth {
     projectId = "parachute"
     versionType = (System.getenv("BUILD_RELEASE") == "true") ? "release" : "beta"
     uploadFile = remapJar
-    gameVersions = ["1.20"]
+    gameVersions = ["1.20", "1.20.1"]
     loaders = ["fabric", "quilt"]
     dependencies {
         required.project "fabric-api"
