@@ -8,6 +8,7 @@ Parachute is a kitchen sink mod with various QoL features and tweaks.
 
 - Reconnect button & Auto reconnect
 - Potion effect HUD
+- Easy hotkey to swap hotbars with your inventory
 
 ## Tweaks
 
