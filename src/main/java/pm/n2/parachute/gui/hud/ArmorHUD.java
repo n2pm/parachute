@@ -9,6 +9,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.FluidTags;
+import pm.n2.parachute.config.Configs;
 
 /**
  * @author Cynosphere <gamers@riseup.net>
@@ -24,6 +25,7 @@ public class ArmorHUD {
     }
 
     public void render(DrawContext drawContext) {
+        if (!Configs.FEATURE_CONFIGS.ARMOR_HUD.getBooleanValue()) return;
         int width = this.client.getWindow().getScaledWidth();
         int height = this.client.getWindow().getScaledHeight();
 
@@ -47,7 +49,7 @@ public class ArmorHUD {
             for (EquipmentSlot slot : types) {
                 ItemStack stack = player.getInventory().armor.get(slot.getEntitySlotId());
                 int x = center + (91 / 2) - (5 * 8 - 12) + (16 * index);
-                int y = height - 56;
+                int y = height - 56 - Configs.FEATURE_CONFIGS.ARMOR_HUD_OFFSET.getIntegerValue();
                 if (player.isSubmergedIn(FluidTags.WATER) || breath < maxBreath) y -= 10;
 
                 drawContext.drawItem(stack,x,y);

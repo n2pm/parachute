@@ -25,6 +25,7 @@ public class PotionEffectHUD {
     }
 
     public void render(DrawContext drawContext){
+        if (!Configs.FEATURE_CONFIGS.POTION_EFFECT_HUD.getBooleanValue()) return;
         int width = this.client.getWindow().getScaledWidth();
         int height = this.client.getWindow().getScaledHeight();
 

@@ -71,6 +71,7 @@ public class Configs {
         public static final ConfigBooleanHotkeyed POTION_EFFECT_HUD = new ConfigBooleanHotkeyed("potionEffectHUD", false, "", "Enables minimal potion effect HUD", "Potion effect HUD");
         public static final ConfigBoolean POTION_EFFECT_HUD_NO_COLOR = new ConfigBoolean("potionEffectHUDNoColor", false, "Disables potion color on effect HUD", "Potion effect HUD disable color");
         public static final ConfigBooleanHotkeyed ARMOR_HUD = new ConfigBooleanHotkeyed("armorHUD", false, "", "Enables armor HUD. \nPorted from blanket", "Armor HUD");
+        public static final ConfigInteger ARMOR_HUD_OFFSET = new ConfigInteger("armorHudOffset", 0, "Armor hud offset");
         public static final ConfigBoolean PORTAL_SCREENS = new ConfigBoolean("portalScreens", false, "Allow opening screens whilst in portals", "Portal Screens");
         public static final ConfigHotkey SWAP_HOTBAR = new ConfigHotkey("swapHotbar", "", KeybindSettings.RELEASE, "Keybind to swap the hotbar and bottom inventory row", "Swap hotbar");
 
@@ -82,6 +83,7 @@ public class Configs {
                     POTION_EFFECT_HUD,
                     POTION_EFFECT_HUD_NO_COLOR,
                     ARMOR_HUD,
+                    ARMOR_HUD_OFFSET,
                     PORTAL_SCREENS,
                     SWAP_HOTBAR
             ));
