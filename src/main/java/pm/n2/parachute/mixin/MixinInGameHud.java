@@ -1,5 +1,6 @@
 package pm.n2.parachute.mixin;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.entity.Entity;
@@ -16,6 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import pm.n2.parachute.config.Configs;
 import pm.n2.parachute.config.FeatureOverride;
+import pm.n2.parachute.gui.hud.ArmorHUD;
+import pm.n2.parachute.gui.hud.PotionEffectHUD;
 
 @Mixin(InGameHud.class)
 public abstract class MixinInGameHud {
@@ -35,6 +38,8 @@ public abstract class MixinInGameHud {
         boolean tweakEnabled = Configs.RenderConfigs.HIDE_SCOREBOARD_NUMBERS.getBooleanValue();
         return tweakEnabled ? "" : original;
     }*/
+
+    @Shadow @Final private MinecraftClient client;
 
     @Inject(method = "renderScoreboardSidebar", at = @At("HEAD"), cancellable = true)
     private void hideScoreboard(DrawContext context, ScoreboardObjective objective, CallbackInfo ci) {
@@ -83,6 +88,14 @@ public abstract class MixinInGameHud {
     private void noStatusEffectOverlay(CallbackInfo info) {
         if (Configs.RenderConfigs.NO_EFFECT_HUD.getBooleanValue())
             info.cancel();
+    }
+
+    @Inject(method = "render", at = @At(value = "TAIL"))
+    private void onRender(DrawContext context, float tickDelta, CallbackInfo ci) {
+        if (!this.client.options.hudHidden) {
+            ArmorHUD.INSTANCE.render(context);
+            PotionEffectHUD.INSTANCE.render(context);
+        }
     }
 
 }

@@ -68,9 +68,9 @@ public class Configs {
         public static final ConfigBoolean RECONNECT_BUTTON = new ConfigBoolean("reconnectButton", false, "Adds a button to reconnect when you disconnect from a server.", "Show reconnect button");
         public static final ConfigBoolean AUTO_RECONNECT_ENABLED = new ConfigBoolean("tweakAutoReconnect", false, "Automatically reconnect after you disconnect from a server.", "Auto reconnect");
         public static final ConfigInteger AUTO_RECONNECT_TIME = new ConfigInteger("autoReconnectTimeout", 5, 0, 30, "The amount of seconds until auto reconnect triggers.");
-        //public static final ConfigBooleanHotkeyed POTION_EFFECT_HUD = new ConfigBooleanHotkeyed("potionEffectHUD", false, "", "Enables minimal potion effect HUD", "Potion effect HUD");
+        public static final ConfigBooleanHotkeyed POTION_EFFECT_HUD = new ConfigBooleanHotkeyed("potionEffectHUD", false, "", "Enables minimal potion effect HUD", "Potion effect HUD");
         public static final ConfigBoolean POTION_EFFECT_HUD_NO_COLOR = new ConfigBoolean("potionEffectHUDNoColor", false, "Disables potion color on effect HUD", "Potion effect HUD disable color");
-        //public static final ConfigBooleanHotkeyed ARMOR_HUD = new ConfigBooleanHotkeyed("armorHUD", false, "", "Enables armor HUD. \nPorted from blanket", "Armor HUD");
+        public static final ConfigBooleanHotkeyed ARMOR_HUD = new ConfigBooleanHotkeyed("armorHUD", false, "", "Enables armor HUD. \nPorted from blanket", "Armor HUD");
         public static final ConfigBoolean PORTAL_SCREENS = new ConfigBoolean("portalScreens", false, "Allow opening screens whilst in portals", "Portal Screens");
         public static final ConfigHotkey SWAP_HOTBAR = new ConfigHotkey("swapHotbar", "", KeybindSettings.RELEASE, "Keybind to swap the hotbar and bottom inventory row", "Swap hotbar");
 
@@ -79,9 +79,9 @@ public class Configs {
                     RECONNECT_BUTTON,
                     AUTO_RECONNECT_ENABLED,
                     AUTO_RECONNECT_TIME,
-                    //POTION_EFFECT_HUD,
-                    //POTION_EFFECT_HUD_NO_COLOR,
-                    //ARMOR_HUD,
+                    POTION_EFFECT_HUD,
+                    POTION_EFFECT_HUD_NO_COLOR,
+                    ARMOR_HUD,
                     PORTAL_SCREENS,
                     SWAP_HOTBAR
             ));
