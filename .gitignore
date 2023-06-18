@@ -29,3 +29,4 @@ run/
 # upload_to_modrinth.sh
 .env
 
+CHANGELOG.md
