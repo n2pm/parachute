@@ -16,7 +16,6 @@
     "MixinCamera",
     "MixinChatHud",
     "MixinChestBlockEntityRenderer",
-    "MixinClientConnection",
     "MixinClientPlayerEntity",
     "MixinClientPlayNetworkHandler",
     "MixinDebugRenderer",

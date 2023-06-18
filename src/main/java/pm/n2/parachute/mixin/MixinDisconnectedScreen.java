@@ -1,6 +1,8 @@
 package pm.n2.parachute.mixin;
 
 import net.minecraft.client.gui.widget.GridWidget;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -23,6 +25,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(DisconnectedScreen.class)
 public abstract class MixinDisconnectedScreen extends Screen {
+    @Shadow @Final private GridWidget grid;
     @Unique
     private ButtonWidget reconnectBtn;
     @Unique
@@ -32,15 +35,17 @@ public abstract class MixinDisconnectedScreen extends Screen {
         super(title);
     }
 
-    @Inject(method = "init", at = @At(value = "TAIL"), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
+    @Inject(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/widget/GridWidget;refreshPositions()V", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
     private void addReconnectButton(CallbackInfo ci, GridWidget.Adder adder, ButtonWidget buttonWidget) {
         ServerInfo lastServerInfo = GlobalDataStorage.getInstance().getLastServer();
         boolean tweakEnabled = Configs.FeatureConfigs.RECONNECT_BUTTON.getBooleanValue();
+        System.out.println(lastServerInfo);
         if (lastServerInfo != null && tweakEnabled) {
+            System.out.println("Adding to grid");
             this.reconnectBtn = ButtonWidget.builder(getText(), button -> reconnect(lastServerInfo)).build();
             adder.add(this.reconnectBtn);
         }
-
+        this.grid.refreshPositions();
     }
 
     @Override
@@ -61,7 +66,7 @@ public abstract class MixinDisconnectedScreen extends Screen {
     }
 
     private void reconnect(ServerInfo lastServerInfo) {
-        Parachute.LOGGER.info("Reconnecting...");
+//        Parachute.LOGGER.info("Reconnecting...");
         assert client != null;
         ConnectScreen.connect(new MultiplayerScreen(new TitleScreen()), client, ServerAddress.parse(lastServerInfo.address), lastServerInfo, false);
     }
