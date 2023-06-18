@@ -51,7 +51,7 @@ public class ArmorHUD {
                 if (player.isSubmergedIn(FluidTags.WATER) || breath < maxBreath) y -= 10;
 
                 drawContext.drawItem(stack,x,y);
-                drawContext.drawItemTooltip(this.client.textRenderer,stack,x,y);
+//                drawContext.drawItemTooltip(this.client.textRenderer,stack,x,y);
 
                 index++;
             }

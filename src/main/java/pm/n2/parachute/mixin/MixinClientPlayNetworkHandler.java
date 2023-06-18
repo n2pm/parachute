@@ -21,14 +21,6 @@ public class MixinClientPlayNetworkHandler {
     @Shadow
     @Final
     private ClientConnection connection;
-
-    @Shadow @Final private @Nullable ServerInfo serverInfo;
-
-    @Inject(method = "onGameJoin", at = @At("TAIL"))
-    private void onGameJoin(GameJoinS2CPacket packet, CallbackInfo ci) {
-        GlobalDataStorage.getInstance().setLastServer(this.serverInfo);
-    }
-
     @Inject(method = "onResourcePackSend", at = @At("HEAD"), cancellable = true)
     private void onResourcePackSend(ResourcePackSendS2CPacket packet, CallbackInfo ci) {
         boolean tweakEnabled = Configs.TweakConfigs.NO_SERVER_RESOURCE_PACKS.getBooleanValue();
