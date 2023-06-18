@@ -15,7 +15,7 @@ public class ParachuteClient implements ClientModInitializer {
         String version = getModVersion();
         Formatting color;
 
-        if (version.contains("+") && version.split("\\+")[1].contains(".")) {
+        if (version.contains("+SNAPSHOT")) {
             // dev build
             color = Formatting.RED;
         } else if (version.contains("+")) {

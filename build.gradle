@@ -1,26 +1,12 @@
 plugins {
     id "fabric-loom" version "1.2-SNAPSHOT"
-    id "org.ajoberstar.grgit" version "4.1.0"
+    id "org.ajoberstar.grgit" version "5.2.0"
     id "com.modrinth.minotaur" version "2.+"
     id "maven-publish"
 }
 
 version = "${project.mod_version}${getVersionMetadata()}"
-version = project.version
 group = project.maven_group
-
-def build_release = System.getenv("BUILD_RELEASE") == "true"
-def build_ci_commit = System.getenv("SHA")
-
-version = project.mod_version + ""
-
-if (!build_release) {
-    version = project.mod_version + "+" + new Date().format("yyyyMMdd.HHmmss")
-}
-
-if (build_ci_commit != null) {
-    version = project.mod_version + "+${build_ci_commit}"
-}
 
 repositories {
     maven { url "https://masa.dy.fi/maven" }
@@ -68,6 +54,11 @@ java {
 
     withSourcesJar()
 }
+
+base {
+    archivesName = "${project.archives_base_name}-mc${project.minecraft_version}"
+}
+
 
 jar {
     from("LICENSE") {
