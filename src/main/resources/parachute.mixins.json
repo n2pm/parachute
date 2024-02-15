@@ -17,7 +17,7 @@
     "MixinChatHud",
     "MixinChestBlockEntityRenderer",
     "MixinClientPlayerEntity",
-    "MixinClientPlayNetworkHandler",
+    "MixinClientCommonNetworkHandler",
     "MixinConnectScreen",
     "MixinDebugRenderer",
     "MixinDisconnectedScreen",

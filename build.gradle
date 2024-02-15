@@ -1,5 +1,5 @@
 plugins {
-    id "fabric-loom" version "1.2-SNAPSHOT"
+    id "fabric-loom" version "1.5.7"
     id "org.ajoberstar.grgit" version "5.2.0"
     id "com.modrinth.minotaur" version "2.+"
     id "maven-publish"
@@ -27,8 +27,9 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
-    modApi include("com.adryd:cauldron:${project.cauldron_version}")
-    modApi include("fi.dy.masa.malilib:malilib-fabric-1.20.1:${project.malilib_version}")
+    //modApi include("com.adryd:cauldron:${project.cauldron_version}")
+    modApi(include(files("./libs/cauldron-mc1.20.4-0.1.9+5e30141a.jar")))
+    modApi include("fi.dy.masa.malilib:malilib-fabric-1.20.4:${project.malilib_version}")
 }
 
 loom {

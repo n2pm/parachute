@@ -50,7 +50,7 @@ public class PotionEffectHUD {
                 out.append(level + 1);
                 out.append(Formatting.GRAY);
                 out.append(" (");
-                out.append(StatusEffectUtil.getDurationText(statusEffect, 1.0F));
+                out.append(StatusEffectUtil.getDurationText(statusEffect, 1.0F, 20F).getString());
                 out.append(")");
 
                 drawContext.drawText(this.client.textRenderer, out.toString().trim(),width - this.client.textRenderer.getWidth(out.toString().trim()) - 2, height - 2 - this.client.textRenderer.fontHeight - (this.client.textRenderer.fontHeight*index), color, true);
