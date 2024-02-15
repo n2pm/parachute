@@ -28,8 +28,12 @@ dependencies {
 
     modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
     //modApi include("com.adryd:cauldron:${project.cauldron_version}")
-    modApi(include(files("./libs/cauldron-mc1.20.4-0.1.9+5e30141a.jar")))
+    modApi files("./libs/cauldron-mc1.20.4-0.1.9+5e30141a.jar")
     modApi include("fi.dy.masa.malilib:malilib-fabric-1.20.4:${project.malilib_version}")
+}
+
+remapJar {
+    nestedJars.from(file("./libs/cauldron-mc1.20.4-0.1.9+5e30141a.jar"))
 }
 
 loom {
